@@ -1,0 +1,24 @@
+class DatePickerController{
+  static int _offSet = 0;
+
+  static set offSet(bool dir) => _offSet += dir ? 1 : -1;
+
+  static get date => DateTime(DateTime.now().year, DateTime.now().month + _offSet, DateTime.now().day);
+
+  static get formattedDate => _months[date.month]!.toUpperCase() + ' ' + date.year.toString();
+
+  static final _months = {
+    1: 'Январь',
+    2: 'Февраль',
+    3: 'Март',
+    4: 'Апрель',
+    5: 'Май',
+    6: 'Июнь',
+    7: 'Июль',
+    8: 'Август',
+    9: 'Сентябрь',
+    10: 'Октябрь',
+    11: 'Ноябрь',
+    12: 'Декабрь',
+  };
+}
