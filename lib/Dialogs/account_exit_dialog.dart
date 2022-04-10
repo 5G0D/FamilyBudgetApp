@@ -1,4 +1,4 @@
-import 'package:family_budget/current_user_config.dart';
+import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 
 Future<String?> accountExitDialog(BuildContext context) async {
@@ -21,7 +21,7 @@ Future<String?> accountExitDialog(BuildContext context) async {
           TextButton(
             child: const Text('Выйти из аккаунта'),
             onPressed: () {
-              CurrentUserConfig.userExit();
+              User.userExit();
               Navigator.pop(context, 'Exit');
             },
           ),

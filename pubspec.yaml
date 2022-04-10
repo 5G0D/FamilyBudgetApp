@@ -28,6 +28,7 @@ dependencies:
   image_picker: ^0.7.2+1
   flutter_hooks: ^0.18.2+1
   async: ^2.8.2
+  math_expressions: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -44,9 +45,9 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: CustomIcons
+    - family: FamilyBudgetIcons
       fonts:
-      - asset: fonts/CustomIcons.ttf
+      - asset: fonts/FamilyBudgetIcons.ttf
 
   assets:
     - assets/images/

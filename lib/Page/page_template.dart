@@ -1,4 +1,3 @@
-import 'package:family_budget/Icon/custom_icons_icons.dart';
 import 'package:family_budget/Page/home_page.dart';
 import 'package:family_budget/page_controller.dart' as pc;
 import 'package:family_budget/Theme/custom_theme.dart';
@@ -50,7 +49,7 @@ class _PageTemplateState extends State<PageTemplate> {
         ),
         backgroundColor: CustomTheme.appBarColor,
         actions: [
-          IconButton(
+          /*IconButton(
             icon: const Icon(
               Icons.edit_rounded,
               color: Colors.white,
@@ -61,7 +60,7 @@ class _PageTemplateState extends State<PageTemplate> {
             }),
             padding: const EdgeInsets.all(10),
             splashRadius: 25,
-          )
+          )*/
         ],
       ),
       drawer: Drawer(
@@ -71,30 +70,29 @@ class _PageTemplateState extends State<PageTemplate> {
         currentIndex: pc.PageController.currentBarIndex,
         onTap: (int index) => {
           pc.PageController.currentBarIndex = index,
-          setState(() => Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, _, __) =>
-                      pc.PageController
-                          .pageId[pc.PageController.currentBarIndex] ??
-                      HomePage(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero,
-                ),
-              ))
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) =>
+                  pc.PageController.pageId[pc.PageController.currentBarIndex] ??
+                  HomePage(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          )
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             tooltip: '',
             icon: Icon(
-              CustomIcons.donut_large,
+              Icons.donut_large,
             ),
             label: 'Категории',
           ),
           BottomNavigationBarItem(
             tooltip: '',
             icon: Icon(
-              CustomIcons.chat,
+              Icons.chat,
             ),
             label: 'Чат',
           ),

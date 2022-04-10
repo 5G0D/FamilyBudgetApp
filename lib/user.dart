@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:family_budget/Icon/family_budget_icons_icons.dart';
+import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/model/model.dart';
+import 'package:flutter/material.dart';
 
-class CurrentUserConfig {
+class User {
   static late int userID;
   static late String authCode;
   static late bool logged;
@@ -13,7 +16,7 @@ class CurrentUserConfig {
     logged = false;
   }
 
-  static Future<UserParam> _newUserInit() async{
+  static Future<UserParam> _newUserInit() async {
     UserParam userParam = UserParam();
     userParam.date_modify = DateTime.now().millisecondsSinceEpoch;
     userParam.name = 'Пользователь';
@@ -30,6 +33,7 @@ class CurrentUserConfig {
               .select()
               .logged
               .equals(true)
+              .and
               .orderByDesc("date_modify")
               .toList())
           .first;
@@ -38,15 +42,16 @@ class CurrentUserConfig {
       userParam = await _newUserInit();
     }
 
-    CurrentUserConfig._initProperties(userParam);
+    User._initProperties(userParam);
   }
 
-  static userExit() async{
+  static userExit() async {
     UserParam userParam = (await UserParam().getById(userID))!;
     userParam.logged = false;
     userParam.date_modify = DateTime.now().millisecondsSinceEpoch;
     userParam.save();
 
     _initProperties(await _newUserInit());
+    await CategoryController.categoriesInit();
   }
 }

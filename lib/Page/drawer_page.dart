@@ -1,6 +1,7 @@
+import 'package:family_budget/Dialogs/account_exit_dialog.dart';
+import 'package:family_budget/Icon/family_budget_icons_icons.dart';
 import 'package:family_budget/Widget/text_icon.dart';
-import 'package:family_budget/current_user_config.dart';
-import 'package:family_budget/dialogs.dart';
+import 'package:family_budget/user.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _DrawerPageState extends State<DrawerPage> {
           FutureBuilder(
             future: Future.wait(
               [
-                UserParam().getById(CurrentUserConfig.userID),
+                UserParam().getById(User.userID),
               ],
             ),
             builder:
@@ -41,7 +42,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
                 return InkWell(
                   onTap: () async {
-                    if (CurrentUserConfig.logged == true) {
+                    if (User.logged == true) {
                       await Navigator.pushNamed(
                         context,
                         '/account_edit',
@@ -80,7 +81,7 @@ class _DrawerPageState extends State<DrawerPage> {
                         Container(
                           alignment: Alignment.topCenter,
                           child: const Icon(
-                            Icons.cloud_rounded,
+                            FamilyBudgetIcons.signal,
                             size: 20,
                             color: Colors.white,
                           ),
@@ -99,7 +100,7 @@ class _DrawerPageState extends State<DrawerPage> {
               Text('Вход/регистрация'),
             ),
             onTap: () async {
-              if (CurrentUserConfig.logged != true ||
+              if (User.logged != true ||
                   (await accountExitDialog(context)) == 'Exit') {
                 await Navigator.pushNamed(context, '/login');
                 setState(() {});

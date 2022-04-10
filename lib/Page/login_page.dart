@@ -1,6 +1,6 @@
 import 'package:family_budget/Page/page_template.dart';
 import 'package:family_budget/Widget/error_block.dart';
-import 'package:family_budget/current_user_config.dart';
+import 'package:family_budget/user.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,12 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         } else {
                           UserParam _userParam = (await UserParam()
-                                  .getById(CurrentUserConfig.userID)) ??
+                                  .getById(User.userID)) ??
                               UserParam();
                           _userParam.mail = _mail;
                           _userParam.logged = true;
                           _userParam.save();
-                          CurrentUserConfig.logged = true;
+                          User.logged = true;
                           Navigator.pop(context);
                         }
                       },

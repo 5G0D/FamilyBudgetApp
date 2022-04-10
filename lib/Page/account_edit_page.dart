@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:family_budget/current_user_config.dart';
+import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:family_budget/model/model.dart';
@@ -43,7 +43,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         alignment: Alignment.topCenter,
         child: FutureBuilder(
-          future: UserParam().getById(CurrentUserConfig.userID),
+          future: UserParam().getById(User.userID),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               UserParam _userParam = snapshot.data ?? UserParam();

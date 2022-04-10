@@ -13,7 +13,7 @@ part 'model.g.dart';
 const familyBudgetModel = SqfEntityModel(
     modelName: 'FamilyBudgetModel',
     databaseName: 'FamilyBudgetORM.db',
-    databaseTables: [tableUserParams],
+    databaseTables: [tableUserParams, tableCategory],
     bundledDatabasePath: null
 );
 
@@ -29,5 +29,22 @@ const tableUserParams = SqfEntityTable(
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
     SqfEntityField('avatar', DbType.blob, isNotNull: true,)
+  ],
+);
+
+const tableCategory = SqfEntityTable(
+  tableName: 'category',
+  primaryKeyName: 'id',
+  primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+  fields: [
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('user_id', DbType.integer),
+    SqfEntityField('text', DbType.text, isNotNull: true),
+    SqfEntityField('icon_code', DbType.integer, isNotNull: true),
+    SqfEntityField('icon_color', DbType.integer, isNotNull: true),
+    SqfEntityField('block', DbType.integer, isNotNull: true),
+    SqfEntityField('position', DbType.integer, isNotNull: true),
+    SqfEntityField('type', DbType.integer, isNotNull: true),
   ],
 );
