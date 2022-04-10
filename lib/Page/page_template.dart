@@ -24,6 +24,7 @@ class _PageTemplateState extends State<PageTemplate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Семейный бюджет'),

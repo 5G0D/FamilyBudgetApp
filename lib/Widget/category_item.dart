@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'calculator.dart';
 
 class CategoryItem extends StatefulWidget {
-  const CategoryItem(this.categoryId, this.type, this.text, this.height, this.width, this.color,
-      this.iconData,
+  const CategoryItem(this.categoryId, this.type, this.text, this.height,
+      this.width, this.color, this.iconData,
       {Key? key})
       : super(key: key);
 
@@ -28,7 +28,17 @@ class _CategoryItemState extends State<CategoryItem> {
   Future<double> _getValue() async {
     double result = 0;
 
-    List<Operation> operations = await Operation().select().user_id.equals(User.userID).and.type.equals(widget.type).and.category_id.equals(widget.categoryId).toList();
+    List<Operation> operations = await Operation()
+        .select()
+        .user_id
+        .equals(User.userID)
+        .and
+        .type
+        .equals(widget.type)
+        .and
+        .category_id
+        .equals(widget.categoryId)
+        .toList();
 
     for (var o in operations) {
       result += o.value!;
@@ -60,8 +70,13 @@ class _CategoryItemState extends State<CategoryItem> {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
-                      return Calculator(widget.categoryId, widget.type);
+                      return Container(
+                        child: Calculator(widget.categoryId, widget.type),
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                      );
                     },
+                    isScrollControlled: true,
                   ).whenComplete(() => setState(() {}));
                 },
                 icon: Icon(
@@ -74,13 +89,15 @@ class _CategoryItemState extends State<CategoryItem> {
             const SizedBox(height: 5),
             FutureBuilder(
               future: _getValue(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<double> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                    snapshot.data!.toStringAsFixed(0) + ' ' + CurrencyController.currency,
+                    snapshot.data!.toStringAsFixed(0) +
+                        ' ' +
+                        CurrencyController.currency,
                     style: TextStyle(fontSize: 14, color: Colors.grey[500]),
-                    overflow: TextOverflow.ellipsis,);
+                    overflow: TextOverflow.ellipsis,
+                  );
                 }
                 return Text(
                   '0 ' + CurrencyController.currency,

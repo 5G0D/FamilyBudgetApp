@@ -24,34 +24,42 @@ class CategoriesList {
     List<Widget> rowList = [];
 
     //1 Блок
-    resultList.add(Row(children: getFilledBlock(categories, 4, 1, itemHeight, itemWidth)));
+    resultList.add(
+        Row(children: getFilledBlock(categories, 4, 1, itemHeight, itemWidth)));
 
     //2 Блок
-    rowList.add(Column(children: getFilledBlock(categories, 2, 2, itemHeight, itemWidth)));
+    rowList.add(Column(
+        children: getFilledBlock(categories, 2, 2, itemHeight, itemWidth)));
 
     //Блок (чарт)
     rowList.add(SizedBox(
-      width: itemWidth*2,
-      height: itemHeight*2,
+      width: itemWidth * 2,
+      height: itemHeight * 2,
     ));
 
     //3 Блок
-    rowList.add(Column(children: getFilledBlock(categories, 2, 3, itemHeight, itemWidth)));
+    rowList.add(Column(
+        children: getFilledBlock(categories, 2, 3, itemHeight, itemWidth)));
 
     // Добавляем 2 3 блоки и чарт в ряд
-    resultList.add(Row(children: rowList,));
+    resultList.add(Row(
+      children: rowList,
+    ));
 
     //4 Блок (бесконечный)
-    resultList.add(Wrap(children: getWrapBlock(categories, 4, itemHeight, itemWidth)));
+    resultList.add(
+        Wrap(children: getWrapBlock(categories, 4, itemHeight, itemWidth)));
 
     return resultList;
   }
 
-  static List<Widget> getFilledBlock(List<Category> categories, int itemCount, int blockNum, double itemHeight, double itemWidth){
+  static List<Widget> getFilledBlock(List<Category> categories, int itemCount,
+      int blockNum, double itemHeight, double itemWidth) {
     List<Widget> blockList = [];
-    for (int i = 1; i <= itemCount; i++){
-      Iterable<Category> categoryIter = categories.where((e) => e.block == blockNum && e.position! == i);
-      if (categoryIter.isNotEmpty){
+    for (int i = 1; i <= itemCount; i++) {
+      Iterable<Category> categoryIter =
+          categories.where((e) => e.block == blockNum && e.position! == i);
+      if (categoryIter.isNotEmpty) {
         blockList.add(CategoryItem(
             categoryIter.first.id!,
             0,
@@ -59,9 +67,9 @@ class CategoriesList {
             itemHeight,
             itemWidth,
             Color(categoryIter.first.icon_color ?? Colors.blue.value),
-            IconData(categoryIter.first.icon_code!, fontFamily: 'FamilyBudgetIcons')));
-      }
-      else{
+            IconData(categoryIter.first.icon_code!,
+                fontFamily: 'FamilyBudgetIcons')));
+      } else {
         blockList.add(SizedBox(
           width: itemWidth,
           height: itemHeight,
@@ -72,13 +80,17 @@ class CategoriesList {
     return blockList;
   }
 
-  static List<Widget> getWrapBlock(List<Category> categories, int blockNum, double itemHeight, double itemWidth){
+  static List<Widget> getWrapBlock(List<Category> categories, int blockNum,
+      double itemHeight, double itemWidth) {
     List<Widget> blockList = [];
     int blockPos = 1;
 
     categories.where((e) => e.block == blockNum).forEach((e) {
-      while (blockPos < (e.position ?? blockPos)){
-        blockList.add(SizedBox(width: itemWidth, height: itemHeight,));
+      while (blockPos < (e.position ?? blockPos)) {
+        blockList.add(SizedBox(
+          width: itemWidth,
+          height: itemHeight,
+        ));
         blockPos++;
       }
 
@@ -95,5 +107,4 @@ class CategoriesList {
 
     return blockList;
   }
-
 }
