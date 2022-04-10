@@ -1,5 +1,6 @@
 import 'package:family_budget/Dialogs/unsaved_changes_dialog.dart';
 import 'package:family_budget/currency_controller.dart';
+import 'package:family_budget/date_picker_controller.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,11 @@ class _CategoryItemState extends State<CategoryItem> {
         .toList();
 
     for (var o in operations) {
-      result += o.value!;
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(o.date!);
+      if (date.year == DatePickerController.date.year &&
+          date.month == DatePickerController.date.month) {
+        result += o.value!;
+      }
     }
 
     return result;
@@ -67,17 +72,22 @@ class _CategoryItemState extends State<CategoryItem> {
               backgroundColor: widget.color.withAlpha(225),
               child: IconButton(
                 onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        child: Calculator(widget.categoryId, widget.type),
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                      );
-                    },
-                    isScrollControlled: true,
-                  ).whenComplete(() => setState(() {}));
+                  if (DatePickerController.date ==
+                      DateTime(DateTime.now().year, DateTime.now().month,
+                          DateTime.now().day)) {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          child: Calculator(widget.categoryId, widget.type,
+                              widget.text, widget.iconData, widget.color),
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                        );
+                      },
+                      isScrollControlled: true,
+                    ).whenComplete(() => setState(() {}));
+                  }
                 },
                 icon: Icon(
                   widget.iconData,

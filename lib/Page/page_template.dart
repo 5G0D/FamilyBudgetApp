@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'drawer_page.dart';
 
 class PageTemplate extends StatefulWidget {
-  final Widget? child;
+  const PageTemplate({Key? key, this.child, required this.refreshFunc}) : super(key: key);
 
-  const PageTemplate({Key? key, this.child}) : super(key: key);
+  final Widget? child;
+  final Function() refreshFunc;
 
   @override
   State<PageTemplate> createState() => _PageTemplateState();
@@ -18,7 +19,7 @@ class PageTemplate extends StatefulWidget {
 
 class _PageTemplateState extends State<PageTemplate> {
   _refresh() {
-    setState(() {});
+    widget.refreshFunc();
   }
 
   @override

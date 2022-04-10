@@ -4,14 +4,17 @@ import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
-  const Calculator(this.categoryId, this.type, {Key? key}) : super(key: key);
+
+  const Calculator(this.categoryId, this.type, this.categoryName, this.categoryIconData, this.categoryColor, {Key? key}) : super(key: key);
 
   final int type;
   final int categoryId;
+  final IconData categoryIconData;
+  final Color categoryColor;
+  final String categoryName;
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -120,10 +123,22 @@ class _CalculatorState extends State<Calculator> {
     }
 
     return Container(
-      height: 345,
+      height: 390,
       color: const Color(0xff363645),
       child: ListView(
         children: [
+          Container(
+            color: widget.categoryColor.withAlpha(180),
+            height: 45,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(widget.categoryIconData),
+                const SizedBox(width: 10,),
+                Text(widget.categoryName, style: const TextStyle(fontSize: 20),),
+              ],
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
               border: Border.symmetric(

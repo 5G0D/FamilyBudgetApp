@@ -11,6 +11,6 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(child: Text("chat"),);
+    return Text("chat");
   }
 }

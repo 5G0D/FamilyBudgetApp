@@ -15,6 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void _refresh(){
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageTemplate(child: SizedBox.expand(
@@ -45,6 +49,8 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-    ));
+    ),
+    refreshFunc: _refresh,
+    );
   }
 }
