@@ -1,20 +1,23 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
 import 'package:family_budget/currency_controller.dart';
+import 'package:family_budget/model/model.dart';
+import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
-  const Calculator({Key? key, this.type = 0}) : super(key: key);
+  const Calculator(this.categoryId, this.type, {Key? key}) : super(key: key);
 
   final int type;
+  final int categoryId;
 
   @override
   _CalculatorState createState() => _CalculatorState();
 }
 
 class _CalculatorState extends State<Calculator> {
-  final String _curency = CurrencyController.currency;
+  final String _currency = CurrencyController.currency;
   String _calculateText = '0';
 
   String formatText(String text, {bool flag = true}) {
@@ -129,7 +132,7 @@ class _CalculatorState extends State<Calculator> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Center(
                 child: Text(
-                  _calculateText + ' ' + _curency,
+                  _calculateText + ' ' + _currency,
                   style: const TextStyle(fontSize: 25),
                   softWrap: false,
                 ),
@@ -262,7 +265,7 @@ class _CalculatorState extends State<Calculator> {
                       ),
                       CalculatorButton(
                         child: Text(
-                          _curency,
+                          _currency,
                           style: const TextStyle(fontSize: 25),
                         ),
                         border: Border(
@@ -451,7 +454,10 @@ class _CalculatorState extends State<Calculator> {
                                 )
                               }
                             else
-                              {Navigator.pop(context)}
+                              {
+                                Operation.withFields(1, DateTime.now().millisecondsSinceEpoch, widget.type, User.userID, widget.categoryId, DateTime.now().millisecondsSinceEpoch, 'test', double.parse(formatText(_calculateText))).save(),
+                                Navigator.pop(context)
+                              }
                           },
                           height: 180,
                         ),

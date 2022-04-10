@@ -53,8 +53,9 @@ class CategoriesList {
       Iterable<Category> categoryIter = categories.where((e) => e.block == blockNum && e.position! == i);
       if (categoryIter.isNotEmpty){
         blockList.add(CategoryItem(
-            categoryIter.first.text ?? '',
+            categoryIter.first.id!,
             0,
+            categoryIter.first.text ?? '',
             itemHeight,
             itemWidth,
             Color(categoryIter.first.icon_color ?? Colors.blue.value),
@@ -82,8 +83,9 @@ class CategoriesList {
       }
 
       blockList.add(CategoryItem(
-          e.text ?? '',
+          e.id!,
           0,
+          e.text ?? '',
           itemHeight,
           itemWidth,
           Color(e.icon_color ?? Colors.blue.value),
