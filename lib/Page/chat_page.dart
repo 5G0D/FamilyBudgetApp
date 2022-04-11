@@ -1,3 +1,4 @@
+import 'package:family_budget/Charts/categories_chart.dart';
 import 'package:family_budget/Page/page_template.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(child: Text("chat"), refreshFunc: _refresh, datePickerEnable: false,);
+    return PageTemplate(child: Text('chat'), refreshFunc: _refresh, datePickerEnable: false,);
   }
 }

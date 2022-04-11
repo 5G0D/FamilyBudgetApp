@@ -1,5 +1,5 @@
 import 'package:family_budget/Icon/family_budget_icons_icons.dart';
-import 'package:family_budget/Widget/category_item.dart';
+import 'package:family_budget/Widget/category_widget.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/cupertino.dart';

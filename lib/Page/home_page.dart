@@ -1,7 +1,7 @@
 import 'package:family_budget/Behavior/scroll_behavior.dart';
 import 'package:family_budget/Icon/family_budget_icons_icons.dart';
 import 'package:family_budget/Page/page_template.dart';
-import 'package:family_budget/Widget/category_item.dart';
+import 'package:family_budget/Widget/category_widget.dart';
 import 'package:family_budget/categories_list.dart';
 import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/model/model.dart';
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 future: Future.wait(
                   [
                     CategoriesList.getCategoryBlocks(
-                        1, constraints.maxWidth / 4, constraints.maxHeight / 4)
+                        1, constraints.maxWidth / 4, constraints.maxHeight / 4, _refresh)
                   ],
                 ),
                 builder: (BuildContext context,

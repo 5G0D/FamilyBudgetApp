@@ -1,5 +1,6 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
+import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
@@ -8,13 +9,10 @@ import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
 
-  const Calculator(this.categoryId, this.type, this.categoryName, this.categoryIconData, this.categoryColor, {Key? key}) : super(key: key);
+  const Calculator(this.categoryItem, this.type, {Key? key}) : super(key: key);
 
   final int type;
-  final int categoryId;
-  final IconData categoryIconData;
-  final Color categoryColor;
-  final String categoryName;
+  final CategoryItem categoryItem;
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -86,10 +84,11 @@ class _CalculatorState extends State<Calculator> {
     setState(
       () {
         String result;
-        result = Parser()
+        double res =  Parser()
             .parse(formatText(_calculateText))
-            .evaluate(EvaluationType.REAL, ContextModel())
-            .toStringAsFixed(1);
+            .evaluate(EvaluationType.REAL, ContextModel());
+
+        result = (res.isInfinite ? 0 : res).toStringAsFixed(1);
 
         if (result.endsWith('.0')) {
           result = result.substring(0, result.length - 2);
@@ -128,14 +127,14 @@ class _CalculatorState extends State<Calculator> {
       child: ListView(
         children: [
           Container(
-            color: widget.categoryColor.withAlpha(180),
+            color: widget.categoryItem.color.withAlpha(180),
             height: 45,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(widget.categoryIconData),
+                Icon(widget.categoryItem.iconData),
                 const SizedBox(width: 10,),
-                Text(widget.categoryName, style: const TextStyle(fontSize: 20),),
+                Text(widget.categoryItem.text, style: const TextStyle(fontSize: 20),),
               ],
             ),
           ),
@@ -495,7 +494,7 @@ class _CalculatorState extends State<Calculator> {
                                 DateTime.now().millisecondsSinceEpoch,
                                 widget.type,
                                 User.userID,
-                                widget.categoryId,
+                                widget.categoryItem.id,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,
                                 double.parse(
