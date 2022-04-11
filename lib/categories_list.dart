@@ -7,7 +7,8 @@ import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesList {
-  static Future<List<Widget>> getCategoryBlocks(double itemWidth, double itemHeight, Function() refresh) async {
+  static Future<List<Widget>> getCategoryBlocks(
+      double itemWidth, double itemHeight, Function() refresh) async {
     List<CategoryItem> categories = [];
     double valueSum = 0;
 
@@ -57,16 +58,25 @@ class CategoriesList {
       SizedBox(
         width: itemWidth * 2,
         height: itemHeight * 2,
-        child: valueSum > 0
-            ? CategoriesChart.withCategoryItems(categories, valueSum)
-            : CategoriesChart.withEmptySeries(),
+        child: InkWell(
+          onTap: () {
+            CategoryController.changeCurrentType();
+            refresh();
+          },
+          splashFactory: NoSplash.splashFactory,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          child: (valueSum > 0
+              ? CategoriesChart.withCategoryItems(categories, valueSum)
+              : CategoriesChart.withEmptySeries()),
+        ),
       ),
     );
 
     //3 Блок
     rowList.add(Column(
-        children: getFilledBlock(
-            categories, 2, 3, itemHeight, itemWidth, refresh)));
+        children:
+            getFilledBlock(categories, 2, 3, itemHeight, itemWidth, refresh)));
 
     // Добавляем 2 3 блоки и чарт в ряд
     resultList.add(Row(
@@ -75,8 +85,7 @@ class CategoriesList {
 
     //4 Блок (бесконечный)
     resultList.add(Wrap(
-        children:
-            getWrapBlock(categories, 4, itemHeight, itemWidth, refresh)));
+        children: getWrapBlock(categories, 4, itemHeight, itemWidth, refresh)));
 
     return resultList;
   }

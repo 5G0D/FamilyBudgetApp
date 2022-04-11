@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
-
   const Calculator(this.categoryItem, {Key? key}) : super(key: key);
 
   final CategoryItem categoryItem;
@@ -84,7 +83,7 @@ class _CalculatorState extends State<Calculator> {
     setState(
       () {
         String result;
-        double res =  Parser()
+        double res = Parser()
             .parse(formatText(_calculateText))
             .evaluate(EvaluationType.REAL, ContextModel());
 
@@ -133,8 +132,13 @@ class _CalculatorState extends State<Calculator> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(widget.categoryItem.iconData),
-                const SizedBox(width: 10,),
-                Text(widget.categoryItem.text, style: const TextStyle(fontSize: 20),),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  widget.categoryItem.text,
+                  style: const TextStyle(fontSize: 20),
+                ),
               ],
             ),
           ),
@@ -146,10 +150,24 @@ class _CalculatorState extends State<Calculator> {
             height: 60,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
-              child: Text(
-                _calculateText + ' ' + _currency,
-                style: const TextStyle(fontSize: 25),
-                softWrap: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (CategoryController.currentType == 0)
+                    const Text('Доходы',
+                        style: TextStyle(fontSize: 14, color: Colors.green)),
+                  if (CategoryController.currentType == 1)
+                    const Text('Расходы',
+                        style: TextStyle(fontSize: 14, color: Colors.red)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    _calculateText + ' ' + _currency,
+                    style: TextStyle(fontSize: 23, color: widget.categoryItem.color),
+                    softWrap: false,
+                  ),
+                ],
               ),
             ),
           ),

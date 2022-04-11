@@ -81,7 +81,7 @@ class CategoriesChart extends StatelessWidget {
                         ' ' +
                         CurrencyController.currency,
                     style: TextStyle(
-                        color: (CategoryController.currentType == 0 ? Colors.green : Colors.red))),
+                        color: (CategoryController.currentType == 0 ? Colors.green : Colors.red)), softWrap: false, overflow: TextOverflow.fade,),
               ],
             ),
           ),
