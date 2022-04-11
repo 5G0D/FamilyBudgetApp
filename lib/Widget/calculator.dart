@@ -164,7 +164,8 @@ class _CalculatorState extends State<Calculator> {
                   ),
                   Text(
                     _calculateText + ' ' + _currency,
-                    style: TextStyle(fontSize: 23, color: widget.categoryItem.color),
+                    style: TextStyle(
+                        fontSize: 23, color: widget.categoryItem.color),
                     softWrap: false,
                   ),
                 ],

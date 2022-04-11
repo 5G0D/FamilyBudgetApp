@@ -28,6 +28,14 @@ class CategoryController {
     categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Подарки', FamilyBudgetIcons.gift_1.codePoint, Colors.redAccent.value, 4, 2, 1));
     categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Хобби', FamilyBudgetIcons.grade.codePoint, Colors.lightGreenAccent.value, 4, 3, 1));
     categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Другое', FamilyBudgetIcons.inbox.codePoint, Colors.grey.value, 4, 4, 1));
+
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Зарплата', FamilyBudgetIcons.briefcase.codePoint, Colors.cyanAccent[700]!.value, 1, 1, 0));
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Вклады', FamilyBudgetIcons.university.codePoint, Colors.purple[400]!.value, 1, 2, 0));
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Инвестиции', FamilyBudgetIcons.suitcase.codePoint, Colors.greenAccent[700]!.value, 1, 3, 0));
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Стипендия', FamilyBudgetIcons.award.codePoint, Colors.lightBlueAccent.value, 1, 4, 0));
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Долги', FamilyBudgetIcons.wallet.codePoint, Colors.limeAccent[700]!.value, 2, 1, 0));
+    categories.add(Category.withFields(1, DateTime.now().millisecondsSinceEpoch, User.userID, 'Пособия', FamilyBudgetIcons.child.codePoint, Colors.teal.value, 3, 1, 0));
+
     await Category.saveAll(categories);
   }
 
@@ -43,5 +51,7 @@ class CategoryController {
       print('Категории не найдены');
       await _newCategoriesInit();
     }
+
+    List<Category> categories = [];
   }
 }
