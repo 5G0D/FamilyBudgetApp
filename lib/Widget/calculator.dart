@@ -1,5 +1,6 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
+import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
@@ -9,9 +10,8 @@ import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
 
-  const Calculator(this.categoryItem, this.type, {Key? key}) : super(key: key);
+  const Calculator(this.categoryItem, {Key? key}) : super(key: key);
 
-  final int type;
   final CategoryItem categoryItem;
 
   @override
@@ -492,7 +492,7 @@ class _CalculatorState extends State<Calculator> {
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
-                                widget.type,
+                                CategoryController.currentType,
                                 User.userID,
                                 widget.categoryItem.id,
                                 DateTime.now().millisecondsSinceEpoch,

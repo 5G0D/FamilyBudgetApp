@@ -6,7 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryController {
+  static int _categoriesType = 1;
 
+  static int get currentType => _categoriesType;
+
+  static void changeCurrentType(){
+    _categoriesType = _categoriesType == 0 ? 1 : 0;
+  }
 
   static _newCategoriesInit() async {
     List<Category> categories = [];

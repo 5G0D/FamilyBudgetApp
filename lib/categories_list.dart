@@ -1,18 +1,15 @@
 import 'package:family_budget/Charts/categories_chart.dart';
 import 'package:family_budget/Widget/category_widget.dart';
+import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesList {
-  static Future<List<Widget>> getCategoryBlocks(
-    int type,
-    double itemWidth,
-    double itemHeight,
-    Function() refresh,
-  ) async {
+  static Future<List<Widget>> getCategoryBlocks(double itemWidth, double itemHeight, Function() refresh) async {
     List<CategoryItem> categories = [];
+    double valueSum = 0;
 
     for (var c in (await Category()
         .select()
@@ -23,11 +20,12 @@ class CategoriesList {
         .equals(1)
         .and
         .type
-        .equals(type)
+        .equals(CategoryController.currentType)
         .orderBy("block")
         .orderBy("position")
         .toList())) {
-      double value = 0;
+      double value = await CategoryItem.getValue(id: c.id!);
+      valueSum += value;
 
       categories.add(
         CategoryItem(
@@ -37,7 +35,7 @@ class CategoriesList {
             iconData: IconData(c.icon_code!, fontFamily: 'FamilyBudgetIcons'),
             block: c.block!,
             position: c.position!,
-            value: await CategoryItem.getValue(id: c.id!, type: 0)),
+            value: value),
       );
     }
 
@@ -45,25 +43,30 @@ class CategoriesList {
     List<Widget> rowList = [];
 
     //1 Блок
-    resultList.add(
-        Row(children: getFilledBlock(categories, 4, 1, itemHeight, itemWidth, refresh)));
+    resultList.add(Row(
+        children:
+            getFilledBlock(categories, 4, 1, itemHeight, itemWidth, refresh)));
 
     //2 Блок
     rowList.add(Column(
-        children: getFilledBlock(categories, 2, 2, itemHeight, itemWidth, refresh)));
+        children:
+            getFilledBlock(categories, 2, 2, itemHeight, itemWidth, refresh)));
 
     //Блок (чарт)
     rowList.add(
       SizedBox(
         width: itemWidth * 2,
         height: itemHeight * 2,
-        child: CategoriesChart.withCategoryItems(categories),
+        child: valueSum > 0
+            ? CategoriesChart.withCategoryItems(categories, valueSum)
+            : CategoriesChart.withEmptySeries(),
       ),
     );
 
     //3 Блок
     rowList.add(Column(
-        children: getFilledBlock(categories, 2, 3, itemHeight, itemWidth, refresh)));
+        children: getFilledBlock(
+            categories, 2, 3, itemHeight, itemWidth, refresh)));
 
     // Добавляем 2 3 блоки и чарт в ряд
     resultList.add(Row(
@@ -71,8 +74,9 @@ class CategoriesList {
     ));
 
     //4 Блок (бесконечный)
-    resultList.add(
-        Wrap(children: getWrapBlock(categories, 4, itemHeight, itemWidth, refresh)));
+    resultList.add(Wrap(
+        children:
+            getWrapBlock(categories, 4, itemHeight, itemWidth, refresh)));
 
     return resultList;
   }
@@ -94,7 +98,6 @@ class CategoriesList {
             categoryIter.first,
             itemWidth,
             itemHeight,
-            0,
             refresh,
           ),
         );
@@ -131,7 +134,6 @@ class CategoriesList {
         e,
         itemWidth,
         itemHeight,
-        0,
         refresh,
       ));
       blockPos++;

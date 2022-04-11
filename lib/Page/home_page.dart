@@ -15,42 +15,43 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _refresh(){
+  void _refresh() {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(child: SizedBox.expand(
-      child: LayoutBuilder(
-        builder: (BuildContext ctx, BoxConstraints constraints) {
-          return ScrollConfiguration(
-            behavior: CustomScrollBehavior(),
-            child: FutureBuilder(
-                future: Future.wait(
-                  [
-                    CategoriesList.getCategoryBlocks(
-                        1, constraints.maxWidth / 4, constraints.maxHeight / 4, _refresh)
-                  ],
-                ),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<List<Widget>>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemCount: snapshot.data![0].length,
-                      itemBuilder: (context, index) {
-                        return snapshot.data![0][index];
-                      },
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                }),
-          );
-        },
+    return PageTemplate(
+      child: SizedBox.expand(
+        child: LayoutBuilder(
+          builder: (BuildContext ctx, BoxConstraints constraints) {
+            return ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: FutureBuilder(
+                  future: Future.wait(
+                    [
+                      CategoriesList.getCategoryBlocks(constraints.maxWidth / 4,
+                          constraints.maxHeight / 4, _refresh)
+                    ],
+                  ),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<List<Widget>>> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data![0].length,
+                        itemBuilder: (context, index) {
+                          return snapshot.data![0][index];
+                        },
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  }),
+            );
+          },
+        ),
       ),
-    ),
-    refreshFunc: _refresh,
+      refreshFunc: _refresh,
     );
   }
 }

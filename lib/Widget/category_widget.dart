@@ -9,14 +9,13 @@ import 'package:flutter/material.dart';
 import 'calculator.dart';
 
 class CategoryWidget extends StatefulWidget {
-  const CategoryWidget(this.categoryItem, this.width, this.height, this.type, this.refresh,
+  const CategoryWidget(this.categoryItem, this.width, this.height, this.refresh,
       {Key? key})
       : super(key: key);
 
   final CategoryItem categoryItem;
   final double height;
   final double width;
-  final int type;
   final Function() refresh;
 
   @override
@@ -53,7 +52,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         return Container(
                           child: Calculator(
                             widget.categoryItem,
-                            widget.type,
                           ),
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom),

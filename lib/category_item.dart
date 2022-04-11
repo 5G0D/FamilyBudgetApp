@@ -1,3 +1,4 @@
+import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/date_picker_controller.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/user.dart';
@@ -22,7 +23,7 @@ class CategoryItem {
     this.value = 0,
   });
 
-  static  Future<double> getValue({required int id, int type = 0}) async {
+  static  Future<double> getValue({required int id}) async {
     double result = 0;
 
     List<Operation> operations = await Operation()
@@ -31,7 +32,7 @@ class CategoryItem {
         .equals(User.userID)
         .and
         .type
-        .equals(type)
+        .equals(CategoryController.currentType)
         .and
         .category_id
         .equals(id)
