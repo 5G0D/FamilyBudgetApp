@@ -9,8 +9,12 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  void _refresh(){
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text("chat");
+    return PageTemplate(child: Text("chat"), refreshFunc: _refresh, datePickerEnable: false,);
   }
 }

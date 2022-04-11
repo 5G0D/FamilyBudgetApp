@@ -8,20 +8,17 @@ import 'package:flutter/material.dart';
 import 'drawer_page.dart';
 
 class PageTemplate extends StatefulWidget {
-  const PageTemplate({Key? key, this.child, required this.refreshFunc}) : super(key: key);
+  const PageTemplate({Key? key, this.child, this.datePickerEnable = true, required this.refreshFunc}) : super(key: key);
 
   final Widget? child;
   final Function() refreshFunc;
+  final bool datePickerEnable;
 
   @override
   State<PageTemplate> createState() => _PageTemplateState();
 }
 
 class _PageTemplateState extends State<PageTemplate> {
-  _refresh() {
-    widget.refreshFunc();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +43,8 @@ class _PageTemplateState extends State<PageTemplate> {
           },
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: DatePicker(_refresh),
+          preferredSize: widget.datePickerEnable ? const Size.fromHeight(50) : Size.zero,
+          child: widget.datePickerEnable ? DatePicker(widget.refreshFunc) : const SizedBox.shrink(),
         ),
         backgroundColor: CustomTheme.appBarColor,
         actions: [
