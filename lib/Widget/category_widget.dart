@@ -73,7 +73,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               widget.categoryItem.value.toStringAsFixed(0) +
                   ' ' +
                   CurrencyController.currency,
-              style: TextStyle(fontSize: 13, color: Colors.grey[500]),
+              style: TextStyle(fontSize: 13, color: widget.categoryItem.value > 0 ? widget.categoryItem.color : Colors.grey[500]),
               overflow: TextOverflow.ellipsis,
             ),
           ],
