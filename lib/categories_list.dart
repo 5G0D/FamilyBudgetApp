@@ -15,7 +15,7 @@ class CategoriesList {
     for (var c in (await Category()
         .select()
         .user_id
-        .equals(User.userID)
+        .equals((await User.params).id)
         .and
         .status
         .equals(1)

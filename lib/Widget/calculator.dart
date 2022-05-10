@@ -498,7 +498,7 @@ class _CalculatorState extends State<Calculator> {
                               BorderSide(width: 1.0, color: Colors.grey[700]!),
                         ),
                         color: Colors.green[600]!.withAlpha(210),
-                        onPressed: () => {
+                        onPressed: () async => {
                           if (double.parse(formatText(_calculateText)) < 0)
                             {
                               errorDialog(
@@ -508,11 +508,12 @@ class _CalculatorState extends State<Calculator> {
                             }
                           else
                             {
+                              print((await User.params).id ?? 0),
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
                                 CategoryController.currentType,
-                                User.userID,
+                                (await User.params).id ?? 0,
                                 widget.categoryItem.id,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,

@@ -11,9 +11,9 @@ part 'model.g.dart';
 
 @SqfEntityBuilder(familyBudgetModel)
 const familyBudgetModel = SqfEntityModel(
-    modelName: 'FamilyBudgetModel',
-    databaseName: 'FamilyBudgetORM.db',
-    databaseTables: [tableUserParams, tableCategory, tableOperation],
+    modelName: 'FamilyBudget',
+    databaseName: 'FamilyBudget.db',
+    databaseTables: [tableUserParams, tableCategory, tableOperation, tableSettings, tableChat, tableRoomMembers, tableRoomParams],
     bundledDatabasePath: null
 );
 
@@ -24,11 +24,10 @@ const tableUserParams = SqfEntityTable(
   fields: [
     SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
     SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('logged', DbType.bool, defaultValue: false, isNotNull: true),
     SqfEntityField('name', DbType.text, isNotNull: true),
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
-    SqfEntityField('avatar', DbType.blob, isNotNull: true,)
+    SqfEntityField('avatar', DbType.blob, isNotNull: true)
   ],
 );
 
@@ -56,12 +55,61 @@ const tableOperation = SqfEntityTable(
   fields: [
     SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
     SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('type', DbType.integer, isNotNull: true),
     SqfEntityField('user_id', DbType.integer, isNotNull: true),
+    SqfEntityField('type', DbType.integer, isNotNull: true),
     SqfEntityField('category_id', DbType.integer, isNotNull: true),
     SqfEntityField('date', DbType.integer, isNotNull: true),
     SqfEntityField('description', DbType.text),
     SqfEntityField('value', DbType.real, isNotNull: true),
+  ],
+);
+
+const tableRoomParams = SqfEntityTable(
+  tableName: 'roomParams',
+  primaryKeyName: 'id',
+  primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+  fields: [
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('name', DbType.text, isNotNull: true),
+    SqfEntityField('avatar', DbType.blob, isNotNull: true),
+  ],
+);
+
+const tableRoomMembers = SqfEntityTable(
+  tableName: 'roomMembers',
+  primaryKeyName: 'id',
+  primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+  fields: [
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('user_id', DbType.integer, isNotNull: true),
+    SqfEntityField('user_name', DbType.text, isNotNull: true),
+    SqfEntityField('user_avatar', DbType.blob, isNotNull: true),
+  ],
+);
+
+const tableChat = SqfEntityTable(
+  tableName: 'chat',
+  primaryKeyName: 'id',
+  primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+  fields: [
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('user_id', DbType.integer, isNotNull: true),
+    SqfEntityField('message', DbType.text, isNotNull: true),
+    SqfEntityField('date', DbType.integer, isNotNull: true),
+    SqfEntityField('message_status', DbType.integer, isNotNull: true, defaultValue: 2),
+  ],
+);
+
+const tableSettings = SqfEntityTable(
+  tableName: 'settings',
+  primaryKeyName: 'id',
+  primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+  fields: [
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
   ],
 );
 

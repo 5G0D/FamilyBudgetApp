@@ -90,14 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                             _errorBlockVisible = true;
                           });
                         } else {
-                          UserParam _userParam = (await UserParam()
-                                  .getById(User.userID)) ??
-                              UserParam();
-                          _userParam.mail = _mail;
-                          _userParam.logged = true;
-                          _userParam.save();
-                          User.logged = true;
-                          Navigator.pop(context);
+                          await User.newUserInit();
+                          Navigator.pushReplacementNamed(context, '/home');
                         }
                       },
                       child: const Text('Вход'),

@@ -80,7 +80,7 @@ class _ForgotPasswordPassFormState extends State<ForgotPasswordPassForm> {
             onPressed: () {
               if (_passFormKey.currentState!.validate()) {
                 print('valid');
-                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacementNamed(context, '/home');
               }
             },
             child: const Text('Войти'),

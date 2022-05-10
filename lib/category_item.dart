@@ -29,7 +29,7 @@ class CategoryItem {
     List<Operation> operations = await Operation()
         .select()
         .user_id
-        .equals(User.userID)
+        .equals((await User.params).id ?? 0)
         .and
         .type
         .equals(CategoryController.currentType)

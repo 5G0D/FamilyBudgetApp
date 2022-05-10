@@ -131,6 +131,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   onPressed: () {
                     if (_regFormKey.currentState!.validate()) {
                       print('ok');
+                      Navigator.pushReplacementNamed(context, '/home');
                     }
                   },
                   child: const Text('Зарегистрироваться'),

@@ -2,8 +2,9 @@ import 'package:family_budget/Dialogs/account_exit_dialog.dart';
 import 'package:family_budget/Icon/family_budget_icons_icons.dart';
 import 'package:family_budget/Widget/text_icon.dart';
 import 'package:family_budget/user.dart';
-import 'package:family_budget/model/model.dart';
 import 'package:flutter/material.dart';
+
+import '../model/model.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -22,12 +23,12 @@ class _DrawerPageState extends State<DrawerPage> {
           FutureBuilder(
             future: Future.wait(
               [
-                UserParam().getById(User.userID),
+                User.params
               ],
             ),
             builder:
                 (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && ((snapshot.data?[0] ?? UserParam()).id ?? 0) != 0) {
                 UserParam _userParam = snapshot.data?[0] ?? UserParam();
 
                 Widget _avatar = const SizedBox.shrink();
@@ -42,7 +43,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
                 return InkWell(
                   onTap: () async {
-                    if (User.logged == true) {
+                    if (((await User.params).id ?? 0) != 0) {
                       await Navigator.pushNamed(
                         context,
                         '/account_edit',
@@ -91,7 +92,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   ),
                 );
               }
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             },
           ),
           ListTile(
@@ -100,9 +101,9 @@ class _DrawerPageState extends State<DrawerPage> {
               Text('Вход/регистрация'),
             ),
             onTap: () async {
-              if (User.logged != true ||
+              if (((await User.params).id ?? 0) == 0 ||
                   (await accountExitDialog(context)) == 'Exit') {
-                await Navigator.pushNamed(context, '/login');
+                await Navigator.pushReplacementNamed(context, '/login');
                 setState(() {});
               }
             },

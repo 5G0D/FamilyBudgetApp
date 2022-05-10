@@ -16,10 +16,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (await FamilyBudgetModel().initializeDB()) {
-    await User.userInit();
-    await CategoryController.categoriesInit();
-
+  if (await FamilyBudget().initializeDB()) {
     runApp(const App());
   } else {
     print('Failed to initialize DB');
@@ -49,9 +46,9 @@ class _AppState extends State {
       darkTheme: CustomTheme.darkTheme,
       themeMode: currentTheme.currentTheme,
       title: 'Семейный бюджет',
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
-        '/': (context) => const HomePage(),
+        '/home': (context) => const HomePage(),
         '/chat': (context) => const ChatPage(),
         '/login': (context) => const LoginPage(),
         '/registration': (context) => const RegistrationPage(),

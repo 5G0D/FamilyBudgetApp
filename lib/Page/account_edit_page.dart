@@ -43,7 +43,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         alignment: Alignment.topCenter,
         child: FutureBuilder(
-          future: UserParam().getById(User.userID),
+          future: User.params,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               UserParam _userParam = snapshot.data ?? UserParam();
