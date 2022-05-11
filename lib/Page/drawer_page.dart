@@ -103,8 +103,7 @@ class _DrawerPageState extends State<DrawerPage> {
             onTap: () async {
               if (((await User.params).id ?? 0) == 0 ||
                   (await accountExitDialog(context)) == 'Exit') {
-                await Navigator.pushReplacementNamed(context, '/login');
-                setState(() {});
+                Navigator.pushReplacementNamed(context, '/login');
               }
             },
           ),

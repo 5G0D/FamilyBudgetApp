@@ -1,4 +1,5 @@
 import 'package:family_budget/Dialogs/unsaved_changes_dialog.dart';
+import 'package:family_budget/Widget/opertations.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/date_picker_controller.dart';
@@ -38,42 +39,70 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 5),
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: widget.categoryItem.color.withAlpha(225),
-              child: IconButton(
-                onPressed: () {
-                  if (DatePickerController.date ==
-                      DateTime(DateTime.now().year, DateTime.now().month,
-                          DateTime.now().day)) {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          child: Calculator(
-                            widget.categoryItem,
-                          ),
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom),
-                        );
-                      },
-                      isScrollControlled: true,
-                    ).whenComplete(() => widget.refresh());
-                  }
-                },
-                icon: Icon(
-                  widget.categoryItem.iconData,
-                  color: Colors.white,
-                  size: 24,
-                ),
+            ElevatedButton(
+              child: Icon(
+                widget.categoryItem.iconData,
+                color: Colors.white,
+                size: 24,
               ),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(16),
+                primary: widget.categoryItem.color.withAlpha(225),
+              ),
+              onPressed: () {
+                if (DatePickerController.date ==
+                    DateTime(
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    )) {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: Calculator(
+                          widget.categoryItem,
+                        ),
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                      );
+                    },
+                    isScrollControlled: true,
+                  ).whenComplete(() => widget.refresh());
+                }
+              },
+              onLongPress: () {
+                if (DatePickerController.date ==
+                    DateTime(
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    )) {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: Operations(widget.categoryItem),
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                      );
+                    },
+                    isScrollControlled: true,
+                  ).whenComplete(() => widget.refresh());
+                }
+              },
             ),
             const SizedBox(height: 5),
             Text(
               widget.categoryItem.value.toStringAsFixed(0) +
                   ' ' +
                   CurrencyController.currency,
-              style: TextStyle(fontSize: 13, color: widget.categoryItem.value > 0 ? widget.categoryItem.color : Colors.grey[500]),
+              style: TextStyle(
+                  fontSize: 13,
+                  color: widget.categoryItem.value > 0
+                      ? widget.categoryItem.color
+                      : Colors.grey[500]),
               overflow: TextOverflow.ellipsis,
             ),
           ],

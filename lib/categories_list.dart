@@ -25,13 +25,14 @@ class CategoriesList {
         .orderBy("block")
         .orderBy("position")
         .toList())) {
-      double value = await CategoryItem.getValue(id: c.id!);
+      double value = await CategoryItem.getValue(id: c.id!, type: c.type!);
       valueSum += value;
 
       categories.add(
         CategoryItem(
             id: c.id!,
             text: c.text!,
+            type: c.type!,
             color: Color(c.icon_color!),
             iconData: IconData(c.icon_code!, fontFamily: 'FamilyBudgetIcons'),
             block: c.block!,

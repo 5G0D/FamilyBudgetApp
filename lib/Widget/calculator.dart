@@ -508,12 +508,11 @@ class _CalculatorState extends State<Calculator> {
                             }
                           else
                             {
-                              print((await User.params).id ?? 0),
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
-                                CategoryController.currentType,
                                 (await User.params).id ?? 0,
+                                CategoryController.currentType,
                                 widget.categoryItem.id,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,

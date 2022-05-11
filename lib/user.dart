@@ -41,9 +41,12 @@ class User {
   }
 
   static userExit() async {
-    List<UserParam> users = await UserParam().select().toList();
-    for (var user in users) {
-      user.delete();
-    }
+    UserParam().select().delete();
+    Setting().select().delete();
+    Category().select().delete();
+    Operation().select().delete();
+    RoomMember().select().delete();
+    RoomParam().select().delete();
+    Chat().select().delete();
   }
 }
