@@ -153,10 +153,10 @@ class _CalculatorState extends State<Calculator> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (CategoryController.currentType == 0)
+                  if (widget.categoryItem.type == 0)
                     const Text('Доходы',
                         style: TextStyle(fontSize: 14, color: Colors.green)),
-                  if (CategoryController.currentType == 1)
+                  if (widget.categoryItem.type == 1)
                     const Text('Расходы',
                         style: TextStyle(fontSize: 14, color: Colors.red)),
                   const SizedBox(
@@ -511,8 +511,8 @@ class _CalculatorState extends State<Calculator> {
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
-                                (await User.params).id ?? 0,
-                                CategoryController.currentType,
+                                User.params.user_id ?? 0,
+                                widget.categoryItem.type,
                                 widget.categoryItem.id,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,

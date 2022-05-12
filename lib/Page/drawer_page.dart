@@ -20,21 +20,13 @@ class _DrawerPageState extends State<DrawerPage> {
       color: const Color(0xff2f2f3d),
       child: ListView(
         children: [
-          FutureBuilder(
-            future: Future.wait(
-              [
-                User.params
-              ],
-            ),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-              if (snapshot.hasData && ((snapshot.data?[0] ?? UserParam()).id ?? 0) != 0) {
-                UserParam _userParam = snapshot.data?[0] ?? UserParam();
-
+          Builder(
+            builder: (BuildContext context) {
+              if ((User.params.user_id ?? 0) != 0) {
                 Widget _avatar = const SizedBox.shrink();
-                if (_userParam.avatar?.isNotEmpty ?? false) {
+                if (User.params.avatar?.isNotEmpty ?? false) {
                   _avatar = Image.memory(
-                    _userParam.avatar!,
+                    User.params.avatar!,
                     width: 60,
                     height: 60,
                     fit: BoxFit.cover,
@@ -43,7 +35,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
                 return InkWell(
                   onTap: () async {
-                    if (((await User.params).id ?? 0) != 0) {
+                    if ((User.params.user_id ?? 0) != 0) {
                       await Navigator.pushNamed(
                         context,
                         '/account_edit',
@@ -71,7 +63,7 @@ class _DrawerPageState extends State<DrawerPage> {
                           width: 200,
                           padding: const EdgeInsets.only(left: 10),
                           child: Text(
-                            _userParam.name ?? '',
+                            User.params.name ?? '',
                             overflow: TextOverflow.fade,
                             softWrap: false,
                             style: const TextStyle(
@@ -101,7 +93,7 @@ class _DrawerPageState extends State<DrawerPage> {
               Text('Вход/регистрация'),
             ),
             onTap: () async {
-              if (((await User.params).id ?? 0) == 0 ||
+              if ((User.params.user_id ?? 0) == 0 ||
                   (await accountExitDialog(context)) == 'Exit') {
                 Navigator.pushReplacementNamed(context, '/login');
               }

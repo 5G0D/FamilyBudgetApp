@@ -36,6 +36,7 @@ class TableUserParam extends SqfEntityTableBase {
       SqfEntityFieldBase('status', DbType.integer,
           defaultValue: 1, isNotNull: true),
       SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
       SqfEntityFieldBase('name', DbType.text, isNotNull: true),
       SqfEntityFieldBase('mail', DbType.text),
       SqfEntityFieldBase('auth_code', DbType.text),
@@ -207,6 +208,7 @@ class TableRoomParam extends SqfEntityTableBase {
       SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
       SqfEntityFieldBase('name', DbType.text, isNotNull: true),
       SqfEntityFieldBase('avatar', DbType.blob, isNotNull: true),
+      SqfEntityFieldBase('invite_code', DbType.text, isNotNull: true),
     ];
     super.init();
   }
@@ -253,6 +255,7 @@ class UserParam extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
+      this.user_id,
       this.name,
       this.mail,
       this.auth_code,
@@ -260,12 +263,12 @@ class UserParam extends TableBase {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  UserParam.withFields(this.status, this.date_modify, this.name, this.mail,
-      this.auth_code, this.avatar) {
+  UserParam.withFields(this.status, this.date_modify, this.user_id, this.name,
+      this.mail, this.auth_code, this.avatar) {
     _setDefaultValues();
   }
-  UserParam.withId(this.id, this.status, this.date_modify, this.name, this.mail,
-      this.auth_code, this.avatar) {
+  UserParam.withId(this.id, this.status, this.date_modify, this.user_id,
+      this.name, this.mail, this.auth_code, this.avatar) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -279,6 +282,9 @@ class UserParam extends TableBase {
     }
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
     }
     if (o['name'] != null) {
       name = o['name'].toString();
@@ -297,6 +303,7 @@ class UserParam extends TableBase {
   int? id;
   int? status;
   int? date_modify;
+  int? user_id;
   String? name;
   String? mail;
   String? auth_code;
@@ -322,6 +329,9 @@ class UserParam extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -351,6 +361,9 @@ class UserParam extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -382,12 +395,12 @@ class UserParam extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, name, mail, auth_code, avatar];
+    return [status, date_modify, user_id, name, mail, auth_code, avatar];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, status, date_modify, name, mail, auth_code, avatar];
+    return [id, status, date_modify, user_id, name, mail, auth_code, avatar];
   }
 
   static Future<List<UserParam>?> fromWebUrl(Uri uri,
@@ -538,8 +551,8 @@ class UserParam extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnUserParam.rawInsert(
-          'INSERT OR REPLACE INTO userParams (id, status, date_modify, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?)',
-          [id, status, date_modify, name, mail, auth_code, avatar],
+          'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?,?)',
+          [id, status, date_modify, user_id, name, mail, auth_code, avatar],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -564,7 +577,7 @@ class UserParam extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<UserParam> userparams) async {
     final results = await _mnUserParam.rawInsertAll(
-        'INSERT OR REPLACE INTO userParams (id, status, date_modify, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?,?)',
         userparams);
     return results;
   }
@@ -826,6 +839,11 @@ class UserParamFilterBuilder extends ConjunctionBase {
         _setField(_date_modify, 'date_modify', DbType.integer);
   }
 
+  UserParamField? _user_id;
+  UserParamField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
+  }
+
   UserParamField? _name;
   UserParamField get name {
     return _name = _setField(_name, 'name', DbType.text);
@@ -1080,6 +1098,12 @@ class UserParamFields {
   static TableField get date_modify {
     return _fDate_modify = _fDate_modify ??
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
   }
 
   static TableField? _fName;
@@ -5548,15 +5572,22 @@ class RoomMemberManager extends SqfEntityProvider {
 //endregion RoomMemberManager
 // region RoomParam
 class RoomParam extends TableBase {
-  RoomParam({this.id, this.status, this.date_modify, this.name, this.avatar}) {
+  RoomParam(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.name,
+      this.avatar,
+      this.invite_code}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  RoomParam.withFields(this.status, this.date_modify, this.name, this.avatar) {
+  RoomParam.withFields(
+      this.status, this.date_modify, this.name, this.avatar, this.invite_code) {
     _setDefaultValues();
   }
-  RoomParam.withId(
-      this.id, this.status, this.date_modify, this.name, this.avatar) {
+  RoomParam.withId(this.id, this.status, this.date_modify, this.name,
+      this.avatar, this.invite_code) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -5577,6 +5608,9 @@ class RoomParam extends TableBase {
     if (o['avatar'] != null) {
       avatar = o['avatar'] as Uint8List;
     }
+    if (o['invite_code'] != null) {
+      invite_code = o['invite_code'].toString();
+    }
   }
   // FIELDS (RoomParam)
   int? id;
@@ -5584,6 +5618,7 @@ class RoomParam extends TableBase {
   int? date_modify;
   String? name;
   Uint8List? avatar;
+  String? invite_code;
 
   // end FIELDS (RoomParam)
 
@@ -5612,6 +5647,9 @@ class RoomParam extends TableBase {
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
     }
+    if (invite_code != null || !forView) {
+      map['invite_code'] = invite_code;
+    }
 
     return map;
   }
@@ -5635,6 +5673,9 @@ class RoomParam extends TableBase {
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
     }
+    if (invite_code != null || !forView) {
+      map['invite_code'] = invite_code;
+    }
 
     return map;
   }
@@ -5653,12 +5694,12 @@ class RoomParam extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, name, avatar];
+    return [status, date_modify, name, avatar, invite_code];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, status, date_modify, name, avatar];
+    return [id, status, date_modify, name, avatar, invite_code];
   }
 
   static Future<List<RoomParam>?> fromWebUrl(Uri uri,
@@ -5809,8 +5850,8 @@ class RoomParam extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnRoomParam.rawInsert(
-          'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar)  VALUES (?,?,?,?,?)',
-          [id, status, date_modify, name, avatar],
+          'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar, invite_code)  VALUES (?,?,?,?,?,?)',
+          [id, status, date_modify, name, avatar, invite_code],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -5835,7 +5876,7 @@ class RoomParam extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<RoomParam> roomparams) async {
     final results = await _mnRoomParam.rawInsertAll(
-        'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar)  VALUES (?,?,?,?,?)',
+        'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar, invite_code)  VALUES (?,?,?,?,?,?)',
         roomparams);
     return results;
   }
@@ -6107,6 +6148,11 @@ class RoomParamFilterBuilder extends ConjunctionBase {
     return _avatar = _setField(_avatar, 'avatar', DbType.blob);
   }
 
+  RoomParamField? _invite_code;
+  RoomParamField get invite_code {
+    return _invite_code = _setField(_invite_code, 'invite_code', DbType.text);
+  }
+
   /// Deletes List<RoomParam> bulk by query
   ///
   /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
@@ -6352,6 +6398,12 @@ class RoomParamFields {
   static TableField get avatar {
     return _fAvatar =
         _fAvatar ?? SqlSyntax.setField(_fAvatar, 'avatar', DbType.blob);
+  }
+
+  static TableField? _fInvite_code;
+  static TableField get invite_code {
+    return _fInvite_code = _fInvite_code ??
+        SqlSyntax.setField(_fInvite_code, 'invite_code', DbType.text);
   }
 }
 // endregion RoomParamFields

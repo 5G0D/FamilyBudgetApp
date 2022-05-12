@@ -8,29 +8,36 @@ import 'package:flutter/material.dart';
 
 class CategoriesList {
   static Future<List<Widget>> getCategoryBlocks(
-      double itemWidth, double itemHeight, Function() refresh) async {
+    int userId,
+    double itemWidth,
+    double itemHeight,
+    int currentType,
+    Function() refresh,
+    Function() changeCurrentType,
+  ) async {
     List<CategoryItem> categories = [];
     double valueSum = 0;
 
     for (var c in (await Category()
         .select()
         .user_id
-        .equals((await User.params).id)
+        .equals(userId)
         .and
         .status
         .equals(1)
         .and
         .type
-        .equals(CategoryController.currentType)
+        .equals(currentType)
         .orderBy("block")
         .orderBy("position")
         .toList())) {
-      double value = await CategoryItem.getValue(id: c.id!, type: c.type!);
+      double value = await CategoryItem.getValue(id: c.id!);
       valueSum += value;
 
       categories.add(
         CategoryItem(
             id: c.id!,
+            userId: userId,
             text: c.text!,
             type: c.type!,
             color: Color(c.icon_color!),
@@ -61,15 +68,15 @@ class CategoriesList {
         height: itemHeight * 2,
         child: InkWell(
           onTap: () {
-            CategoryController.changeCurrentType();
+            changeCurrentType();
             refresh();
           },
           splashFactory: NoSplash.splashFactory,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
           child: (valueSum > 0
-              ? CategoriesChart.withCategoryItems(categories, valueSum)
-              : CategoriesChart.withEmptySeries()),
+              ? CategoriesChart.withCategoryItems(categories, valueSum, currentType, itemHeight * 2, userId)
+              : CategoriesChart.withEmptySeries(currentType, itemHeight * 2, userId)),
         ),
       ),
     );

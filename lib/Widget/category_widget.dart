@@ -24,6 +24,16 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget> {
+  bool _isEnable() {
+    return (DatePickerController.date ==
+            DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+            )) &&
+        widget.categoryItem.userId == User.params.user_id;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,13 +60,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 padding: EdgeInsets.all(16),
                 primary: widget.categoryItem.color.withAlpha(225),
               ),
-              onPressed: () {
-                if (DatePickerController.date ==
-                    DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                    )) {
+              onPressed: () async {
+                if (await _isEnable()) {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
@@ -72,13 +77,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   ).whenComplete(() => widget.refresh());
                 }
               },
-              onLongPress: () {
-                if (DatePickerController.date ==
-                    DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                    )) {
+              onLongPress: () async {
+                if (await _isEnable()) {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {

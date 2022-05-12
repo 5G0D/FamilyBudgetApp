@@ -9,6 +9,7 @@ class CategoryItem {
   Color color;
   IconData iconData;
   double value;
+  int userId;
   int type;
   int id;
   int block;
@@ -16,6 +17,7 @@ class CategoryItem {
 
   CategoryItem({
     required this.id,
+    required this.userId,
     required this.text,
     required this.type,
     required this.color,
@@ -25,19 +27,17 @@ class CategoryItem {
     this.value = 0,
   });
 
-  static  Future<double> getValue({required int id, required int type}) async {
+  static  Future<double> getValue({required int id}) async {
     double result = 0;
 
     List<Operation> operations = await Operation()
         .select()
-        .user_id
-        .equals((await User.params).id ?? 0)
-        .and
-        .type
-        .equals(type)
-        .and
         .category_id
         .equals(id)
+        .and
+        .status
+        .not
+        .equals(0)
         .toList();
 
     for (var o in operations) {

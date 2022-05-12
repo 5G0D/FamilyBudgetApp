@@ -40,17 +40,13 @@ class _AccountEditPageState extends State<AccountEditPage> {
         centerTitle: true,
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        alignment: Alignment.topCenter,
-        child: FutureBuilder(
-          future: User.params,
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              UserParam _userParam = snapshot.data ?? UserParam();
-
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          alignment: Alignment.topCenter,
+          child: Builder(
+            builder: (builder) {
               Widget _avatar = const SizedBox.shrink();
               if (_avatarBlob?.isEmpty ?? true) {
-                _avatarBlob = _userParam.avatar;
+                _avatarBlob = User.params.avatar;
               }
               if (_avatarBlob?.isNotEmpty ?? false) {
                 _avatar = Image.memory(
@@ -79,7 +75,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      initialValue: _userParam.name,
+                      initialValue: User.params.name,
                       style: const TextStyle(fontSize: 18),
                       decoration: const InputDecoration(
                         labelText: "Имя пользователя",
@@ -95,7 +91,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
                         ),
                       ),
                       onChanged: (value) {
-                        _userParam.name = value;
+                        User.params.name = value;
                       },
                       validator: (value) => (value?.isEmpty ?? true)
                           ? "Имя пользователя не может быть пустым"
@@ -110,9 +106,10 @@ class _AccountEditPageState extends State<AccountEditPage> {
                       ),
                       onPressed: () {
                         if (_accountFormKey.currentState!.validate()) {
-                          _userParam.avatar = _avatarBlob;
-                          _userParam.date_modify = DateTime.now().millisecondsSinceEpoch;
-                          _userParam.save();
+                          User.params.avatar = _avatarBlob;
+                          User.params.date_modify =
+                              DateTime.now().millisecondsSinceEpoch;
+                          User.params.save();
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
@@ -128,11 +125,8 @@ class _AccountEditPageState extends State<AccountEditPage> {
                   ],
                 ),
               );
-            }
-            return const CircularProgressIndicator();
-          },
-        ),
-      ),
+            },
+          )),
     );
   }
 }

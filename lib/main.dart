@@ -17,6 +17,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (await FamilyBudget().initializeDB()) {
+    await User.update();
+
     runApp(const App());
   } else {
     print('Failed to initialize DB');

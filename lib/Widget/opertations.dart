@@ -19,10 +19,14 @@ class _OperationsState extends State<Operations> {
     return Operation()
         .select()
         .user_id
-        .equals((await User.params).id)
+        .equals(User.params.user_id)
         .and
         .category_id
         .equals(categoryId)
+        .and
+        .status
+        .not
+        .equals(0)
         .orderByDesc("date")
         .toList();
   }
@@ -55,10 +59,7 @@ class _OperationsState extends State<Operations> {
             height: 60,
             alignment: Alignment.center,
             child: FutureBuilder(
-              future: CategoryItem.getValue(
-                id: widget.categoryItem.id,
-                type: widget.categoryItem.type,
-              ),
+              future: CategoryItem.getValue(id: widget.categoryItem.id),
               builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
                 if (snapshot.hasData) {
                   return Column(
@@ -110,7 +111,8 @@ class _OperationsState extends State<Operations> {
                           return Dismissible(
                             key: Key(item.id!.toString()),
                             onDismissed: (direction) async {
-                              await item.delete();
+                              item.status = 0;
+                              await item.save();
                               setState(() {
                                 snapshot.data!.remove(item);
                               });

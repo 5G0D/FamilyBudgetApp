@@ -24,6 +24,7 @@ const tableUserParams = SqfEntityTable(
   fields: [
     SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
     SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('user_id', DbType.integer, isNotNull: true),
     SqfEntityField('name', DbType.text, isNotNull: true),
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
@@ -73,6 +74,7 @@ const tableRoomParams = SqfEntityTable(
     SqfEntityField('date_modify', DbType.integer, isNotNull: true),
     SqfEntityField('name', DbType.text, isNotNull: true),
     SqfEntityField('avatar', DbType.blob, isNotNull: true),
+    SqfEntityField('invite_code', DbType.text, isNotNull: true),
   ],
 );
 

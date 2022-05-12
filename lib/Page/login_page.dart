@@ -91,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         } else {
                           await User.newUserInit();
+                          User.update();
                           Navigator.pushReplacementNamed(context, '/home');
                         }
                       },
