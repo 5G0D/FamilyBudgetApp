@@ -50,7 +50,7 @@ extension OperationPlus on Operation {
         .toList()) {
       DateTime date = DateTime.fromMillisecondsSinceEpoch(o.date!);
 
-      if (categories.indexWhere((c) => c.id! == o.category_id!) > -1 && date.isAfter(startDate) && date.isBefore(endDate)) {
+      if (categories.indexWhere((c) => c.category_id! == o.category_id!) > -1 && date.isAfter(startDate) && date.isBefore(endDate)) {
         value += o.value ?? 0;
       }
     }

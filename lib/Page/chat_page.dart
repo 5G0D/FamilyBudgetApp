@@ -1,4 +1,3 @@
-import 'package:family_budget/Charts/categories_chart.dart';
 import 'package:family_budget/Page/page_template.dart';
 import 'package:flutter/material.dart';
 

@@ -66,7 +66,8 @@ class TableCategory extends SqfEntityTableBase {
       SqfEntityFieldBase('status', DbType.integer,
           defaultValue: 1, isNotNull: true),
       SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('category_id', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
       SqfEntityFieldBase('text', DbType.text, isNotNull: true),
       SqfEntityFieldBase('icon_code', DbType.integer, isNotNull: true),
       SqfEntityFieldBase('icon_color', DbType.integer, isNotNull: true),
@@ -1193,6 +1194,7 @@ class Category extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
+      this.category_id,
       this.user_id,
       this.text,
       this.icon_code,
@@ -1203,14 +1205,24 @@ class Category extends TableBase {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  Category.withFields(this.status, this.date_modify, this.user_id, this.text,
-      this.icon_code, this.icon_color, this.block, this.position, this.type) {
+  Category.withFields(
+      this.status,
+      this.date_modify,
+      this.category_id,
+      this.user_id,
+      this.text,
+      this.icon_code,
+      this.icon_color,
+      this.block,
+      this.position,
+      this.type) {
     _setDefaultValues();
   }
   Category.withId(
       this.id,
       this.status,
       this.date_modify,
+      this.category_id,
       this.user_id,
       this.text,
       this.icon_code,
@@ -1231,6 +1243,9 @@ class Category extends TableBase {
     }
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['category_id'] != null) {
+      category_id = int.tryParse(o['category_id'].toString());
     }
     if (o['user_id'] != null) {
       user_id = int.tryParse(o['user_id'].toString());
@@ -1258,6 +1273,7 @@ class Category extends TableBase {
   int? id;
   int? status;
   int? date_modify;
+  int? category_id;
   int? user_id;
   String? text;
   int? icon_code;
@@ -1286,6 +1302,9 @@ class Category extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -1324,6 +1343,9 @@ class Category extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -1367,6 +1389,7 @@ class Category extends TableBase {
     return [
       status,
       date_modify,
+      category_id,
       user_id,
       text,
       icon_code,
@@ -1383,6 +1406,7 @@ class Category extends TableBase {
       id,
       status,
       date_modify,
+      category_id,
       user_id,
       text,
       icon_code,
@@ -1540,11 +1564,12 @@ class Category extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnCategory.rawInsert(
-          'INSERT OR REPLACE INTO category (id, status, date_modify, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?)',
+          'INSERT OR REPLACE INTO category (id, status, date_modify, category_id, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?,?)',
           [
             id,
             status,
             date_modify,
+            category_id,
             user_id,
             text,
             icon_code,
@@ -1577,7 +1602,7 @@ class Category extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<Category> categories) async {
     final results = await _mnCategory.rawInsertAll(
-        'INSERT OR REPLACE INTO category (id, status, date_modify, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO category (id, status, date_modify, category_id, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?,?)',
         categories);
     return results;
   }
@@ -1835,6 +1860,12 @@ class CategoryFilterBuilder extends ConjunctionBase {
   CategoryField get date_modify {
     return _date_modify =
         _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  CategoryField? _category_id;
+  CategoryField get category_id {
+    return _category_id =
+        _setField(_category_id, 'category_id', DbType.integer);
   }
 
   CategoryField? _user_id;
@@ -2106,6 +2137,12 @@ class CategoryFields {
   static TableField get date_modify {
     return _fDate_modify = _fDate_modify ??
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fCategory_id;
+  static TableField get category_id {
+    return _fCategory_id = _fCategory_id ??
+        SqlSyntax.setField(_fCategory_id, 'category_id', DbType.integer);
   }
 
   static TableField? _fUser_id;

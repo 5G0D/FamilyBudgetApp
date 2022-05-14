@@ -1,9 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:family_budget/Extansions/hex_color.dart';
 import 'package:family_budget/Extansions/operation_plus.dart';
-import 'package:family_budget/Widget/date_picker.dart';
-import 'package:family_budget/category_chart_item.dart';
-import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/date_picker_controller.dart';
 import 'package:family_budget/model/model.dart';

@@ -36,7 +36,7 @@ class CategoriesChart extends StatelessWidget {
       [
         charts.Series<CategoryItem, int>(
           id: 'Sales',
-          domainFn: (CategoryItem item, _) => item.id,
+          domainFn: (CategoryItem item, _) => item.categoryId,
           measureFn: (CategoryItem item, _) => item.value,
           colorFn: (CategoryItem item, _) =>
               charts_color.Color.fromHex(code: (item.color.toHex())),
@@ -92,14 +92,13 @@ class CategoriesChart extends StatelessWidget {
             ]),
             builder: (context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data[0][0]!.user_id != User.params.user_id) {
+                List<RoomMember> members = snapshot.data[0];
+                if (members.first.user_id! != User.params.user_id) {
                   return Text(
-                    snapshot.data[0][0]!.user_name,
+                    members.first.user_name!,
                     style: TextStyle(
                         fontSize: 20,
-                        color: (type == 0
-                            ? Colors.green.withAlpha(210)
-                            : Colors.red.withAlpha(210)),
+                        color: Color(members.first.user_color!),
                         fontWeight: FontWeight.bold),
                     softWrap: false,
                     overflow: TextOverflow.fade,

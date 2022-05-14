@@ -31,12 +31,13 @@ class CategoriesList {
         .orderBy("block")
         .orderBy("position")
         .toList())) {
-      double value = await CategoryItem.getValue(id: c.id!);
+      double value = await CategoryItem.getValue(category_id: c.category_id!);
       valueSum += value;
 
       categories.add(
         CategoryItem(
             id: c.id!,
+            categoryId: c.category_id!,
             userId: userId,
             text: c.text!,
             type: c.type!,

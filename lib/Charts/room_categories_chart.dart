@@ -1,4 +1,3 @@
-import 'package:charts_flutter/flutter.dart' as f;
 import 'package:family_budget/category_chart_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
@@ -164,9 +163,9 @@ class _RoomCategoriesChartState extends State<RoomCategoriesChart> {
           .equals(0)
           .toList()) {
         CategoryChartItem item =
-            CategoryChartItem(categoryId: c.id!, categoryName: c.text!);
+            CategoryChartItem(categoryId: c.category_id!, categoryName: c.text!);
 
-        double value = await CategoryItem.getValue(id: c.id!);
+        double value = await CategoryItem.getValue(category_id: c.category_id!);
 
         item.Value = value;
 

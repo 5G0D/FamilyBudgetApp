@@ -40,7 +40,8 @@ const tableCategory = SqfEntityTable(
   fields: [
     SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
     SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer),
+    SqfEntityField('category_id', DbType.integer, isNotNull: true),
+    SqfEntityField('user_id', DbType.integer, isNotNull: true),
     SqfEntityField('text', DbType.text, isNotNull: true),
     SqfEntityField('icon_code', DbType.integer, isNotNull: true),
     SqfEntityField('icon_color', DbType.integer, isNotNull: true),

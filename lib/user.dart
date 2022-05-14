@@ -69,9 +69,10 @@ class User {
     )
         .save();
 
-    await CategoryController.newCategoriesInit(1);
-    await CategoryController.newCategoriesInit(2);
-    await CategoryController.newCategoriesInit(3);
+    await CategoryController.newCategoriesInit(1, 1);
+    await CategoryController.newCategoriesInit(2, 2);
+    await CategoryController.newCategoriesInit(3, 4);
+
     return userParam;
   }
 

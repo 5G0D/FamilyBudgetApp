@@ -6,11 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryController {
-  static newCategoriesInit(int id) async {
+  static newCategoriesInit(int id, int offset) async {
     List<Category> categories = [];
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
+        20*offset + 1,
         id,
         'Досуг',
         FamilyBudgetIcons.weekend.codePoint,
@@ -21,6 +22,7 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
+        20*offset + 2,
         id,
         'Еда',
         FamilyBudgetIcons.food.codePoint,
@@ -31,6 +33,7 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
+        20*offset + 3,
         id,
         'Жилье',
         FamilyBudgetIcons.home.codePoint,
@@ -41,7 +44,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 4,
+            id,
         'Гигиена',
         FamilyBudgetIcons.pump_soap.codePoint,
         Colors.purple.value,
@@ -51,7 +55,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 5,
+            id,
         'Питомцы',
         FamilyBudgetIcons.cat.codePoint,
         Colors.deepOrange.value,
@@ -61,7 +66,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 6,
+            id,
         'Одежда',
         FamilyBudgetIcons.t_shirt.codePoint,
         Colors.deepPurpleAccent.value,
@@ -71,7 +77,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 7,
+            id,
         'Транспорт',
         FamilyBudgetIcons.car.codePoint,
         Colors.orange.value,
@@ -81,7 +88,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 8,
+            id,
         'Здоровье',
         FamilyBudgetIcons.healing.codePoint,
         Colors.red.value,
@@ -91,7 +99,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 9,
+            id,
         'Подписки',
         FamilyBudgetIcons.subscriptions.codePoint,
         Colors.lightBlueAccent.value,
@@ -101,7 +110,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 10,
+            id,
         'Подарки',
         FamilyBudgetIcons.gift_1.codePoint,
         Colors.redAccent.value,
@@ -111,7 +121,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 11,
+            id,
         'Хобби',
         FamilyBudgetIcons.grade.codePoint,
         Colors.lightGreenAccent.value,
@@ -121,7 +132,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 12,
+            id,
         'Другое',
         FamilyBudgetIcons.inbox.codePoint,
         Colors.grey.value,
@@ -132,7 +144,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 13,
+            id,
         'Зарплата',
         FamilyBudgetIcons.briefcase.codePoint,
         Colors.cyanAccent[700]!.value,
@@ -142,7 +155,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 14,
+            id,
         'Вклады',
         FamilyBudgetIcons.university.codePoint,
         Colors.purple[400]!.value,
@@ -152,7 +166,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 15,
+            id,
         'Инвестиции',
         FamilyBudgetIcons.suitcase.codePoint,
         Colors.greenAccent[700]!.value,
@@ -162,7 +177,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 16,
+            id,
         'Стипендия',
         FamilyBudgetIcons.award.codePoint,
         Colors.lightBlueAccent.value,
@@ -172,7 +188,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        20*offset + 17,
+            id,
         'Долги',
         FamilyBudgetIcons.wallet.codePoint,
         Colors.limeAccent[700]!.value,
@@ -182,7 +199,8 @@ class CategoryController {
     categories.add(Category.withFields(
         1,
         DateTime.now().millisecondsSinceEpoch,
-        id,
+        (20*offset + 18).toInt(),
+            id,
         'Пособия',
         FamilyBudgetIcons.child.codePoint,
         Colors.teal.value,
@@ -191,5 +209,6 @@ class CategoryController {
         0));
 
     await Category.saveAll(categories);
+
   }
 }

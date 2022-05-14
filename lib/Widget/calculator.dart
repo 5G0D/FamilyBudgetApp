@@ -1,6 +1,5 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
-import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
@@ -513,7 +512,7 @@ class _CalculatorState extends State<Calculator> {
                                 DateTime.now().millisecondsSinceEpoch,
                                 User.params.user_id ?? 0,
                                 widget.categoryItem.type,
-                                widget.categoryItem.id,
+                                widget.categoryItem.categoryId,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,
                                 double.parse(

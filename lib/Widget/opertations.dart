@@ -59,7 +59,7 @@ class _OperationsState extends State<Operations> {
             height: 60,
             alignment: Alignment.center,
             child: FutureBuilder(
-              future: CategoryItem.getValue(id: widget.categoryItem.id),
+              future: CategoryItem.getValue(category_id: widget.categoryItem.categoryId),
               builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
                 if (snapshot.hasData) {
                   return Column(
@@ -99,7 +99,7 @@ class _OperationsState extends State<Operations> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: _getOperations(widget.categoryItem.id),
+              future: _getOperations(widget.categoryItem.categoryId),
               builder: (BuildContext context,
                   AsyncSnapshot<List<Operation>> snapshot) {
                 if (snapshot.hasData) {
