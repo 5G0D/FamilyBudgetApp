@@ -30,8 +30,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               DateTime.now().year,
               DateTime.now().month,
               DateTime.now().day,
-            )) &&
-        widget.categoryItem.userId == User.params.user_id;
+            )) ;//&&
+        //widget.categoryItem.userId == User.params.user_id;
   }
 
   @override

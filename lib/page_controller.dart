@@ -1,3 +1,5 @@
+import 'package:family_budget/Page/chart_page.dart';
+
 import 'Page/chat_page.dart';
 import 'Page/home_page.dart';
 
@@ -6,6 +8,7 @@ class PageController {
 
     static var pageId = const {
         0: HomePage(),
-        1: ChatPage(),
+        1: ChartPage(),
+        2: ChatPage(),
     };
 }

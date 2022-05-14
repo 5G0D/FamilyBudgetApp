@@ -28,7 +28,8 @@ const tableUserParams = SqfEntityTable(
     SqfEntityField('name', DbType.text, isNotNull: true),
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
-    SqfEntityField('avatar', DbType.blob, isNotNull: true)
+    SqfEntityField('avatar', DbType.blob, isNotNull: true),
+    SqfEntityField('color', DbType.integer, isNotNull: true),
   ],
 );
 
@@ -88,6 +89,7 @@ const tableRoomMembers = SqfEntityTable(
     SqfEntityField('user_id', DbType.integer, isNotNull: true),
     SqfEntityField('user_name', DbType.text, isNotNull: true),
     SqfEntityField('user_avatar', DbType.blob, isNotNull: true),
+    SqfEntityField('user_color', DbType.integer, isNotNull: true),
   ],
 );
 

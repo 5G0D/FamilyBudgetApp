@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'drawer_page.dart';
 
 class PageTemplate extends StatefulWidget {
-  const PageTemplate({Key? key, this.child, this.datePickerEnable = true, required this.refreshFunc}) : super(key: key);
+  const PageTemplate(
+      {Key? key,
+      this.child,
+      this.datePickerEnable = true,
+      required this.refreshFunc})
+      : super(key: key);
 
   final Widget? child;
   final Function() refreshFunc;
@@ -43,8 +48,11 @@ class _PageTemplateState extends State<PageTemplate> {
           },
         ),
         bottom: PreferredSize(
-          preferredSize: widget.datePickerEnable ? const Size.fromHeight(50) : Size.zero,
-          child: widget.datePickerEnable ? DatePicker(widget.refreshFunc) : const SizedBox.shrink(),
+          preferredSize:
+              widget.datePickerEnable ? const Size.fromHeight(50) : Size.zero,
+          child: widget.datePickerEnable
+              ? DatePicker(widget.refreshFunc)
+              : const SizedBox.shrink(),
         ),
         backgroundColor: CustomTheme.appBarColor,
         actions: [
@@ -74,7 +82,7 @@ class _PageTemplateState extends State<PageTemplate> {
             PageRouteBuilder(
               pageBuilder: (context, _, __) =>
                   pc.PageController.pageId[pc.PageController.currentBarIndex] ??
-                  HomePage(),
+                  const HomePage(),
               transitionDuration: Duration.zero,
               reverseTransitionDuration: Duration.zero,
             ),
@@ -87,6 +95,13 @@ class _PageTemplateState extends State<PageTemplate> {
               Icons.donut_large,
             ),
             label: 'Категории',
+          ),
+          BottomNavigationBarItem(
+            tooltip: '',
+            icon: Icon(
+              Icons.bar_chart,
+            ),
+            label: 'Графики',
           ),
           BottomNavigationBarItem(
             tooltip: '',
