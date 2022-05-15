@@ -33,15 +33,14 @@ class TableUserParam extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('name', DbType.text, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('name', DbType.text),
       SqfEntityFieldBase('mail', DbType.text),
       SqfEntityFieldBase('auth_code', DbType.text),
-      SqfEntityFieldBase('avatar', DbType.blob, isNotNull: true),
-      SqfEntityFieldBase('color', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('avatar', DbType.blob),
+      SqfEntityFieldBase('color', DbType.integer),
     ];
     super.init();
   }
@@ -63,17 +62,16 @@ class TableCategory extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('category_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('text', DbType.text, isNotNull: true),
-      SqfEntityFieldBase('icon_code', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('icon_color', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('block', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('position', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('type', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('category_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('text', DbType.text),
+      SqfEntityFieldBase('icon_code', DbType.integer),
+      SqfEntityFieldBase('icon_color', DbType.integer),
+      SqfEntityFieldBase('block', DbType.integer),
+      SqfEntityFieldBase('position', DbType.integer),
+      SqfEntityFieldBase('type', DbType.integer),
     ];
     super.init();
   }
@@ -95,15 +93,14 @@ class TableOperation extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('type', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('category_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('date', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('type', DbType.integer),
+      SqfEntityFieldBase('category_id', DbType.integer),
+      SqfEntityFieldBase('date', DbType.integer),
       SqfEntityFieldBase('description', DbType.text),
-      SqfEntityFieldBase('value', DbType.real, isNotNull: true),
+      SqfEntityFieldBase('value', DbType.real),
     ];
     super.init();
   }
@@ -125,9 +122,8 @@ class TableSetting extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
     ];
     super.init();
   }
@@ -149,14 +145,13 @@ class TableChat extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('message', DbType.text, isNotNull: true),
-      SqfEntityFieldBase('date', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('message_status', DbType.integer,
-          defaultValue: 2, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('message', DbType.text),
+      SqfEntityFieldBase('date', DbType.integer),
+      SqfEntityFieldBase('message_status', DbType.integer, defaultValue: 2),
     ];
     super.init();
   }
@@ -178,13 +173,13 @@ class TableRoomMember extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_id', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('user_name', DbType.text, isNotNull: true),
-      SqfEntityFieldBase('user_avatar', DbType.blob, isNotNull: true),
-      SqfEntityFieldBase('user_color', DbType.integer, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('user_name', DbType.text),
+      SqfEntityFieldBase('user_avatar', DbType.blob),
+      SqfEntityFieldBase('user_color', DbType.integer),
     ];
     super.init();
   }
@@ -206,12 +201,12 @@ class TableRoomParam extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('name', DbType.text, isNotNull: true),
-      SqfEntityFieldBase('avatar', DbType.blob, isNotNull: true),
-      SqfEntityFieldBase('invite_code', DbType.text, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('name', DbType.text),
+      SqfEntityFieldBase('avatar', DbType.blob),
+      SqfEntityFieldBase('invite_code', DbType.text),
     ];
     super.init();
   }
@@ -3933,6 +3928,7 @@ class Chat extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
+      this.room_id,
       this.user_id,
       this.message,
       this.date,
@@ -3940,12 +3936,12 @@ class Chat extends TableBase {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  Chat.withFields(this.status, this.date_modify, this.user_id, this.message,
-      this.date, this.message_status) {
+  Chat.withFields(this.status, this.date_modify, this.room_id, this.user_id,
+      this.message, this.date, this.message_status) {
     _setDefaultValues();
   }
-  Chat.withId(this.id, this.status, this.date_modify, this.user_id,
-      this.message, this.date, this.message_status) {
+  Chat.withId(this.id, this.status, this.date_modify, this.room_id,
+      this.user_id, this.message, this.date, this.message_status) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -3959,6 +3955,9 @@ class Chat extends TableBase {
     }
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
     }
     if (o['user_id'] != null) {
       user_id = int.tryParse(o['user_id'].toString());
@@ -3977,6 +3976,7 @@ class Chat extends TableBase {
   int? id;
   int? status;
   int? date_modify;
+  int? room_id;
   int? user_id;
   String? message;
   int? date;
@@ -4002,6 +4002,9 @@ class Chat extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -4031,6 +4034,9 @@ class Chat extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -4062,12 +4068,29 @@ class Chat extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, user_id, message, date, message_status];
+    return [
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      message,
+      date,
+      message_status
+    ];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, status, date_modify, user_id, message, date, message_status];
+    return [
+      id,
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      message,
+      date,
+      message_status
+    ];
   }
 
   static Future<List<Chat>?> fromWebUrl(Uri uri,
@@ -4217,8 +4240,17 @@ class Chat extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnChat.rawInsert(
-          'INSERT OR REPLACE INTO chat (id, status, date_modify, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?)',
-          [id, status, date_modify, user_id, message, date, message_status],
+          'INSERT OR REPLACE INTO chat (id, status, date_modify, room_id, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            room_id,
+            user_id,
+            message,
+            date,
+            message_status
+          ],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -4242,7 +4274,7 @@ class Chat extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<Chat> chats) async {
     final results = await _mnChat.rawInsertAll(
-        'INSERT OR REPLACE INTO chat (id, status, date_modify, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO chat (id, status, date_modify, room_id, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?,?)',
         chats);
     return results;
   }
@@ -4502,6 +4534,11 @@ class ChatFilterBuilder extends ConjunctionBase {
         _setField(_date_modify, 'date_modify', DbType.integer);
   }
 
+  ChatField? _room_id;
+  ChatField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
   ChatField? _user_id;
   ChatField get user_id {
     return _user_id = _setField(_user_id, 'user_id', DbType.integer);
@@ -4759,6 +4796,12 @@ class ChatFields {
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
   }
 
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
+  }
+
   static TableField? _fUser_id;
   static TableField get user_id {
     return _fUser_id =
@@ -4804,6 +4847,7 @@ class RoomMember extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
+      this.room_id,
       this.user_id,
       this.user_name,
       this.user_avatar,
@@ -4811,12 +4855,12 @@ class RoomMember extends TableBase {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  RoomMember.withFields(this.status, this.date_modify, this.user_id,
-      this.user_name, this.user_avatar, this.user_color) {
+  RoomMember.withFields(this.status, this.date_modify, this.room_id,
+      this.user_id, this.user_name, this.user_avatar, this.user_color) {
     _setDefaultValues();
   }
-  RoomMember.withId(this.id, this.status, this.date_modify, this.user_id,
-      this.user_name, this.user_avatar, this.user_color) {
+  RoomMember.withId(this.id, this.status, this.date_modify, this.room_id,
+      this.user_id, this.user_name, this.user_avatar, this.user_color) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -4830,6 +4874,9 @@ class RoomMember extends TableBase {
     }
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
     }
     if (o['user_id'] != null) {
       user_id = int.tryParse(o['user_id'].toString());
@@ -4848,6 +4895,7 @@ class RoomMember extends TableBase {
   int? id;
   int? status;
   int? date_modify;
+  int? room_id;
   int? user_id;
   String? user_name;
   Uint8List? user_avatar;
@@ -4873,6 +4921,9 @@ class RoomMember extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -4902,6 +4953,9 @@ class RoomMember extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (user_id != null || !forView) {
       map['user_id'] = user_id;
@@ -4933,7 +4987,15 @@ class RoomMember extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, user_id, user_name, user_avatar, user_color];
+    return [
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      user_name,
+      user_avatar,
+      user_color
+    ];
   }
 
   @override
@@ -4942,6 +5004,7 @@ class RoomMember extends TableBase {
       id,
       status,
       date_modify,
+      room_id,
       user_id,
       user_name,
       user_avatar,
@@ -5097,11 +5160,12 @@ class RoomMember extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnRoomMember.rawInsert(
-          'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?)',
+          'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?,?)',
           [
             id,
             status,
             date_modify,
+            room_id,
             user_id,
             user_name,
             user_avatar,
@@ -5131,7 +5195,7 @@ class RoomMember extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<RoomMember> roommembers) async {
     final results = await _mnRoomMember.rawInsertAll(
-        'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?,?)',
         roommembers);
     return results;
   }
@@ -5393,6 +5457,11 @@ class RoomMemberFilterBuilder extends ConjunctionBase {
         _setField(_date_modify, 'date_modify', DbType.integer);
   }
 
+  RoomMemberField? _room_id;
+  RoomMemberField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
   RoomMemberField? _user_id;
   RoomMemberField get user_id {
     return _user_id = _setField(_user_id, 'user_id', DbType.integer);
@@ -5650,6 +5719,12 @@ class RoomMemberFields {
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
   }
 
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
+  }
+
   static TableField? _fUser_id;
   static TableField get user_id {
     return _fUser_id =
@@ -5695,18 +5770,19 @@ class RoomParam extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
+      this.room_id,
       this.name,
       this.avatar,
       this.invite_code}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  RoomParam.withFields(
-      this.status, this.date_modify, this.name, this.avatar, this.invite_code) {
+  RoomParam.withFields(this.status, this.date_modify, this.room_id, this.name,
+      this.avatar, this.invite_code) {
     _setDefaultValues();
   }
-  RoomParam.withId(this.id, this.status, this.date_modify, this.name,
-      this.avatar, this.invite_code) {
+  RoomParam.withId(this.id, this.status, this.date_modify, this.room_id,
+      this.name, this.avatar, this.invite_code) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -5720,6 +5796,9 @@ class RoomParam extends TableBase {
     }
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
     }
     if (o['name'] != null) {
       name = o['name'].toString();
@@ -5735,6 +5814,7 @@ class RoomParam extends TableBase {
   int? id;
   int? status;
   int? date_modify;
+  int? room_id;
   String? name;
   Uint8List? avatar;
   String? invite_code;
@@ -5759,6 +5839,9 @@ class RoomParam extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -5785,6 +5868,9 @@ class RoomParam extends TableBase {
     }
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -5813,12 +5899,12 @@ class RoomParam extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, name, avatar, invite_code];
+    return [status, date_modify, room_id, name, avatar, invite_code];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, status, date_modify, name, avatar, invite_code];
+    return [id, status, date_modify, room_id, name, avatar, invite_code];
   }
 
   static Future<List<RoomParam>?> fromWebUrl(Uri uri,
@@ -5969,8 +6055,8 @@ class RoomParam extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnRoomParam.rawInsert(
-          'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar, invite_code)  VALUES (?,?,?,?,?,?)',
-          [id, status, date_modify, name, avatar, invite_code],
+          'INSERT OR REPLACE INTO roomParams (id, status, date_modify, room_id, name, avatar, invite_code)  VALUES (?,?,?,?,?,?,?)',
+          [id, status, date_modify, room_id, name, avatar, invite_code],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -5995,7 +6081,7 @@ class RoomParam extends TableBase {
   @override
   Future<BoolCommitResult> upsertAll(List<RoomParam> roomparams) async {
     final results = await _mnRoomParam.rawInsertAll(
-        'INSERT OR REPLACE INTO roomParams (id, status, date_modify, name, avatar, invite_code)  VALUES (?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO roomParams (id, status, date_modify, room_id, name, avatar, invite_code)  VALUES (?,?,?,?,?,?,?)',
         roomparams);
     return results;
   }
@@ -6257,6 +6343,11 @@ class RoomParamFilterBuilder extends ConjunctionBase {
         _setField(_date_modify, 'date_modify', DbType.integer);
   }
 
+  RoomParamField? _room_id;
+  RoomParamField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
   RoomParamField? _name;
   RoomParamField get name {
     return _name = _setField(_name, 'name', DbType.text);
@@ -6506,6 +6597,12 @@ class RoomParamFields {
   static TableField get date_modify {
     return _fDate_modify = _fDate_modify ??
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
   }
 
   static TableField? _fName;

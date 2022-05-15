@@ -1,5 +1,6 @@
 import 'package:family_budget/Page/account_edit_page.dart';
 import 'package:family_budget/category_controller.dart';
+import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/Page/chat_page.dart';
@@ -16,6 +17,18 @@ void main() async {
 
   if (await FamilyBudget().initializeDB()) {
     await User.update();
+    await Room.newRoomInit();
+
+    //Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня последняя tochno", DateTime.now().add(Duration(hours: 3)).millisecondsSinceEpoch, 1).save();
+    /*Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 1, "проверка сегодня 2", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня 3", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 4", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 5", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 1, "проверка сегодня 6", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня 7 ", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 8", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 9", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
+    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 10", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();*/
 
     runApp(const App());
   } else {

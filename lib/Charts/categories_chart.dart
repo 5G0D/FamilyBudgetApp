@@ -93,16 +93,18 @@ class CategoriesChart extends StatelessWidget {
             builder: (context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.hasData) {
                 List<RoomMember> members = snapshot.data[0];
-                if (members.first.user_id! != User.params.user_id) {
-                  return Text(
-                    members.first.user_name!,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Color(members.first.user_color!),
-                        fontWeight: FontWeight.bold),
-                    softWrap: false,
-                    overflow: TextOverflow.fade,
-                  );
+                if (members.isNotEmpty){
+                  if (members.first.user_id! != User.params.user_id) {
+                    return Text(
+                      members.first.user_name!,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(members.first.user_color!),
+                          fontWeight: FontWeight.bold),
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    );
+                  }
                 }
               }
               return const SizedBox();

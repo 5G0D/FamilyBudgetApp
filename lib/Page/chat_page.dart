@@ -1,4 +1,6 @@
+import 'package:family_budget/Page/conversation_page.dart';
 import 'package:family_budget/Page/page_template.dart';
+import 'package:family_budget/room.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
@@ -15,6 +17,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(child: Text('chat'), refreshFunc: _refresh, datePickerEnable: false,);
+    return PageTemplate(child: ConversationPage(roomId: Room.params.room_id ?? 0,), refreshFunc: _refresh, datePickerEnable: false,);
   }
 }

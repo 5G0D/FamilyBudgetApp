@@ -22,14 +22,14 @@ const tableUserParams = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer, isNotNull: true),
-    SqfEntityField('name', DbType.text, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('user_id', DbType.integer, isNotNull: false),
+    SqfEntityField('name', DbType.text, isNotNull: false),
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
-    SqfEntityField('avatar', DbType.blob, isNotNull: true),
-    SqfEntityField('color', DbType.integer, isNotNull: true),
+    SqfEntityField('avatar', DbType.blob, isNotNull: false),
+    SqfEntityField('color', DbType.integer, isNotNull: false),
   ],
 );
 
@@ -38,16 +38,16 @@ const tableCategory = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('category_id', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer, isNotNull: true),
-    SqfEntityField('text', DbType.text, isNotNull: true),
-    SqfEntityField('icon_code', DbType.integer, isNotNull: true),
-    SqfEntityField('icon_color', DbType.integer, isNotNull: true),
-    SqfEntityField('block', DbType.integer, isNotNull: true),
-    SqfEntityField('position', DbType.integer, isNotNull: true),
-    SqfEntityField('type', DbType.integer, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('category_id', DbType.integer, isNotNull: false),
+    SqfEntityField('user_id', DbType.integer, isNotNull: false),
+    SqfEntityField('text', DbType.text, isNotNull: false),
+    SqfEntityField('icon_code', DbType.integer, isNotNull: false),
+    SqfEntityField('icon_color', DbType.integer, isNotNull: false),
+    SqfEntityField('block', DbType.integer, isNotNull: false),
+    SqfEntityField('position', DbType.integer, isNotNull: false),
+    SqfEntityField('type', DbType.integer, isNotNull: false),
   ],
 );
 
@@ -56,14 +56,14 @@ const tableOperation = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer, isNotNull: true),
-    SqfEntityField('type', DbType.integer, isNotNull: true),
-    SqfEntityField('category_id', DbType.integer, isNotNull: true),
-    SqfEntityField('date', DbType.integer, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('user_id', DbType.integer, isNotNull: false),
+    SqfEntityField('type', DbType.integer, isNotNull: false),
+    SqfEntityField('category_id', DbType.integer, isNotNull: false),
+    SqfEntityField('date', DbType.integer, isNotNull: false),
     SqfEntityField('description', DbType.text),
-    SqfEntityField('value', DbType.real, isNotNull: true),
+    SqfEntityField('value', DbType.real, isNotNull: false),
   ],
 );
 
@@ -72,11 +72,12 @@ const tableRoomParams = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('name', DbType.text, isNotNull: true),
-    SqfEntityField('avatar', DbType.blob, isNotNull: true),
-    SqfEntityField('invite_code', DbType.text, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('room_id', DbType.integer, isNotNull: false),
+    SqfEntityField('name', DbType.text, isNotNull: false),
+    SqfEntityField('avatar', DbType.blob, isNotNull: false),
+    SqfEntityField('invite_code', DbType.text, isNotNull: false),
   ],
 );
 
@@ -85,12 +86,13 @@ const tableRoomMembers = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer, isNotNull: true),
-    SqfEntityField('user_name', DbType.text, isNotNull: true),
-    SqfEntityField('user_avatar', DbType.blob, isNotNull: true),
-    SqfEntityField('user_color', DbType.integer, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('room_id', DbType.integer, isNotNull: false),
+    SqfEntityField('user_id', DbType.integer, isNotNull: false),
+    SqfEntityField('user_name', DbType.text, isNotNull: false),
+    SqfEntityField('user_avatar', DbType.blob, isNotNull: false),
+    SqfEntityField('user_color', DbType.integer, isNotNull: false),
   ],
 );
 
@@ -99,12 +101,13 @@ const tableChat = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
-    SqfEntityField('user_id', DbType.integer, isNotNull: true),
-    SqfEntityField('message', DbType.text, isNotNull: true),
-    SqfEntityField('date', DbType.integer, isNotNull: true),
-    SqfEntityField('message_status', DbType.integer, isNotNull: true, defaultValue: 2),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
+    SqfEntityField('room_id', DbType.integer, isNotNull: false),
+    SqfEntityField('user_id', DbType.integer, isNotNull: false),
+    SqfEntityField('message', DbType.text, isNotNull: false),
+    SqfEntityField('date', DbType.integer, isNotNull: false),
+    SqfEntityField('message_status', DbType.integer, isNotNull: false, defaultValue: 2),
   ],
 );
 
@@ -113,8 +116,8 @@ const tableSettings = SqfEntityTable(
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
   fields: [
-    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: true),
-    SqfEntityField('date_modify', DbType.integer, isNotNull: true),
+    SqfEntityField('status', DbType.integer, defaultValue: 1, isNotNull: false),
+    SqfEntityField('date_modify', DbType.integer, isNotNull: false),
   ],
 );
 

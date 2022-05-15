@@ -73,45 +73,49 @@ class _PageTemplateState extends State<PageTemplate> {
       drawer: Drawer(
         child: DrawerPage(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: pc.PageController.currentBarIndex,
-        onTap: (int index) => {
-          pc.PageController.currentBarIndex = index,
-          Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) =>
-                  pc.PageController.pageId[pc.PageController.currentBarIndex] ??
-                  const HomePage(),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
+      bottomNavigationBar: SizedBox(
+        height: 56,
+        child: BottomNavigationBar(
+          currentIndex: pc.PageController.currentBarIndex,
+          onTap: (int index) => {
+            pc.PageController.currentBarIndex = index,
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, _, __) =>
+                    pc.PageController
+                        .pageId[pc.PageController.currentBarIndex] ??
+                    const HomePage(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            )
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              tooltip: '',
+              icon: Icon(
+                Icons.donut_large,
+              ),
+              label: 'Категории',
             ),
-          )
-        },
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            tooltip: '',
-            icon: Icon(
-              Icons.donut_large,
+            BottomNavigationBarItem(
+              tooltip: '',
+              icon: Icon(
+                Icons.bar_chart,
+              ),
+              label: 'Графики',
             ),
-            label: 'Категории',
-          ),
-          BottomNavigationBarItem(
-            tooltip: '',
-            icon: Icon(
-              Icons.bar_chart,
+            BottomNavigationBarItem(
+              tooltip: '',
+              icon: Icon(
+                Icons.chat,
+              ),
+              label: 'Чат',
             ),
-            label: 'Графики',
-          ),
-          BottomNavigationBarItem(
-            tooltip: '',
-            icon: Icon(
-              Icons.chat,
-            ),
-            label: 'Чат',
-          ),
-        ],
-        selectedItemColor: Colors.white,
+          ],
+          selectedItemColor: Colors.white,
+        ),
       ),
       body: widget.child,
     );
