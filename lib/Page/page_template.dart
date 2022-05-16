@@ -71,7 +71,7 @@ class _PageTemplateState extends State<PageTemplate> {
         ],
       ),
       drawer: Drawer(
-        child: DrawerPage(),
+        child: const DrawerPage(),
       ),
       bottomNavigationBar: SizedBox(
         height: 56,

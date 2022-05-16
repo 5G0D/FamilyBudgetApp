@@ -21,7 +21,6 @@ Future<String?> accountExitDialog(BuildContext context) async {
           TextButton(
             child: const Text('Выйти из аккаунта'),
             onPressed: () {
-              User.userExit();
               Navigator.pop(context, 'Exit');
             },
           ),

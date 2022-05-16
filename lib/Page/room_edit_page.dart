@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:family_budget/model/model.dart';
 
-class AccountEditPage extends StatefulWidget {
-  const AccountEditPage({Key? key}) : super(key: key);
+class RoomEditPage extends StatefulWidget {
+  const RoomEditPage({Key? key}) : super(key: key);
 
   @override
-  _AccountEditPageState createState() => _AccountEditPageState();
+  _RoomEditPageState createState() => _RoomEditPageState();
 }
 
-class _AccountEditPageState extends State<AccountEditPage> {
+class _RoomEditPageState extends State<RoomEditPage> {
   Uint8List _avatarBlob = Uint8List(0);
   final _accountFormKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -38,7 +38,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff5537a1),
-        title: const Text('Редактирование профиля'),
+        title: const Text('Редактирование комнаты'),
         centerTitle: true,
       ),
       body: Container(
@@ -70,7 +70,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
                 controller: _nameController,
                 style: const TextStyle(fontSize: 18),
                 decoration: const InputDecoration(
-                  labelText: "Имя пользователя",
+                  labelText: "Название комнаты",
                   labelStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -83,7 +83,7 @@ class _AccountEditPageState extends State<AccountEditPage> {
                   ),
                 ),
                 validator: (value) => (value?.isEmpty ?? true)
-                    ? "Имя пользователя не может быть пустым"
+                    ? "Название комнаты не может быть пустым"
                     : null,
               ),
               const SizedBox(height: 20),
@@ -95,15 +95,15 @@ class _AccountEditPageState extends State<AccountEditPage> {
                 ),
                 onPressed: () async {
                   if (_accountFormKey.currentState!.validate()) {
-                    User.params.name = _nameController.text;
-                    User.params.avatar = _avatarBlob;
-                    User.params.date_modify =
+                    Room.params.name = _nameController.text;
+                    Room.params.avatar = _avatarBlob;
+                    Room.params.date_modify =
                         DateTime.now().millisecondsSinceEpoch;
-                    await User.params.save();
+                    await Room.params.save();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
-                          'Изменения профиля сохранены',
+                          'Изменения комнаты сохранены',
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -122,8 +122,8 @@ class _AccountEditPageState extends State<AccountEditPage> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = User.params.name!;
-    _avatarBlob = User.params.avatar!;
+    _nameController.text = Room.params.name!;
+    _avatarBlob = Room.params.avatar!;
   }
 
   @override

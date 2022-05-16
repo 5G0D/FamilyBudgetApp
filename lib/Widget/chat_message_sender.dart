@@ -32,12 +32,13 @@ class _ChatMessageSenderState extends State<ChatMessageSender> {
                 decoration: BoxDecoration(
                   color: const Color(0xff363645),
                   borderRadius: BorderRadius.circular(25),
-                  boxShadow: [BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  )
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    )
+                  ],
                 ),
                 child: TextField(
                   keyboardType: TextInputType.multiline,
@@ -47,7 +48,9 @@ class _ChatMessageSenderState extends State<ChatMessageSender> {
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.all(12),
                     hintText: ('Введите сообщение'),
-                    hintStyle: TextStyle(color: Colors.grey[600]!,),
+                    hintStyle: TextStyle(
+                      color: Colors.grey[600]!,
+                    ),
                   ),
                   controller: _messageController,
                 ),

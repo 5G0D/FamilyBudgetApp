@@ -141,7 +141,7 @@ class _OperationsState extends State<Operations> {
                                             overflow: TextOverflow.fade,
                                           ),
                                           Text(
-                                            DateFormat('yyyy.MM.dd hh:mm')
+                                            DateFormat('yyyy.MM.dd HH:mm')
                                                 .format(
                                               DateTime
                                                   .fromMillisecondsSinceEpoch(
