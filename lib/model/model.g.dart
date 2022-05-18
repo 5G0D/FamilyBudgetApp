@@ -237,6 +237,7 @@ class FamilyBudget extends SqfEntityModelProvider {
 
     bundledDatabasePath = familyBudgetModel
         .bundledDatabasePath; //'assets/sample.db'; // This value is optional. When bundledDatabasePath is empty then EntityBase creats a new database when initializing the database
+    databasePath = familyBudgetModel.databasePath;
   }
   Map<String, dynamic> getControllers() {
     final controllers = <String, dynamic>{};
@@ -538,15 +539,10 @@ class UserParam extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<UserParam> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<UserParam> userparams) async {
+  static Future<List<dynamic>> saveAll(List<UserParam> userparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -554,7 +550,10 @@ class UserParam extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < userparams.length; i++) {
         if (userparams[i].id == null) {
           userparams[i].id = result![i] as int;
@@ -604,10 +603,14 @@ class UserParam extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<UserParam> userparams) async {
+  Future<BoolCommitResult> upsertAll(List<UserParam> userparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnUserParam.rawInsertAll(
         'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, color)  VALUES (?,?,?,?,?,?,?,?,?)',
-        userparams);
+        userparams,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -653,6 +656,14 @@ class UserParam extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -1527,15 +1538,10 @@ class Category extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<Category> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<Category> categories) async {
+  static Future<List<dynamic>> saveAll(List<Category> categories,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -1543,7 +1549,10 @@ class Category extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < categories.length; i++) {
         if (categories[i].id == null) {
           categories[i].id = result![i] as int;
@@ -1595,10 +1604,14 @@ class Category extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<Category> categories) async {
+  Future<BoolCommitResult> upsertAll(List<Category> categories,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnCategory.rawInsertAll(
         'INSERT OR REPLACE INTO category (id, status, date_modify, category_id, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-        categories);
+        categories,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -1644,6 +1657,14 @@ class Category extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -2496,15 +2517,10 @@ class Operation extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<Operation> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<Operation> operations) async {
+  static Future<List<dynamic>> saveAll(List<Operation> operations,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -2512,7 +2528,10 @@ class Operation extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < operations.length; i++) {
         if (operations[i].id == null) {
           operations[i].id = result![i] as int;
@@ -2562,10 +2581,14 @@ class Operation extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<Operation> operations) async {
+  Future<BoolCommitResult> upsertAll(List<Operation> operations,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnOperation.rawInsertAll(
         'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?)',
-        operations);
+        operations,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -2611,6 +2634,14 @@ class Operation extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -3353,15 +3384,10 @@ class Setting extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<Setting> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<Setting> settings) async {
+  static Future<List<dynamic>> saveAll(List<Setting> settings,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -3369,7 +3395,10 @@ class Setting extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < settings.length; i++) {
         if (settings[i].id == null) {
           settings[i].id = result![i] as int;
@@ -3409,10 +3438,14 @@ class Setting extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<Setting> settings) async {
+  Future<BoolCommitResult> upsertAll(List<Setting> settings,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnSetting.rawInsertAll(
         'INSERT OR REPLACE INTO settings (id, status, date_modify)  VALUES (?,?,?)',
-        settings);
+        settings,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -3458,6 +3491,14 @@ class Setting extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -4208,15 +4249,10 @@ class Chat extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<Chat> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<Chat> chats) async {
+  static Future<List<dynamic>> saveAll(List<Chat> chats,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -4224,7 +4260,10 @@ class Chat extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < chats.length; i++) {
         if (chats[i].id == null) {
           chats[i].id = result![i] as int;
@@ -4272,10 +4311,14 @@ class Chat extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<Chat> chats) async {
+  Future<BoolCommitResult> upsertAll(List<Chat> chats,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnChat.rawInsertAll(
         'INSERT OR REPLACE INTO chat (id, status, date_modify, room_id, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?,?)',
-        chats);
+        chats,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -4322,6 +4365,14 @@ class Chat extends TableBase {
     status = status ?? 1;
     message_status = message_status ?? 2;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -5128,15 +5179,10 @@ class RoomMember extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<RoomMember> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<RoomMember> roommembers) async {
+  static Future<List<dynamic>> saveAll(List<RoomMember> roommembers,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -5144,7 +5190,10 @@ class RoomMember extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < roommembers.length; i++) {
         if (roommembers[i].id == null) {
           roommembers[i].id = result![i] as int;
@@ -5193,10 +5242,14 @@ class RoomMember extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<RoomMember> roommembers) async {
+  Future<BoolCommitResult> upsertAll(List<RoomMember> roommembers,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnRoomMember.rawInsertAll(
         'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?,?)',
-        roommembers);
+        roommembers,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -5242,6 +5295,14 @@ class RoomMember extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -6023,15 +6084,10 @@ class RoomParam extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<RoomParam> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<RoomParam> roomparams) async {
+  static Future<List<dynamic>> saveAll(List<RoomParam> roomparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
     final isStartedBatch = await FamilyBudget().batchStart();
@@ -6039,7 +6095,10 @@ class RoomParam extends TableBase {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudget().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < roomparams.length; i++) {
         if (roomparams[i].id == null) {
           roomparams[i].id = result![i] as int;
@@ -6079,10 +6138,14 @@ class RoomParam extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<RoomParam> roomparams) async {
+  Future<BoolCommitResult> upsertAll(List<RoomParam> roomparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnRoomParam.rawInsertAll(
         'INSERT OR REPLACE INTO roomParams (id, status, date_modify, room_id, name, avatar, invite_code)  VALUES (?,?,?,?,?,?,?)',
-        roomparams);
+        roomparams,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -6128,6 +6191,14 @@ class RoomParam extends TableBase {
   void _setDefaultValues() {
     status = status ?? 1;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*

@@ -147,7 +147,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           ListTile(
             title: const TextIcon(
-              Icon(Icons.search),
+              Icon(Icons.search, color: Colors.white,),
               Text('Поиск комнаты'),
               spaceBetween: 20,
             ),
@@ -161,7 +161,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           ListTile(
             title: const TextIcon(
-              Icon(Icons.login),
+              Icon(Icons.login, color: Colors.white,),
               Text('Выход из аккаунта'),
               spaceBetween: 20,
             ),

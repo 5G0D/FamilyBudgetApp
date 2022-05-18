@@ -17,9 +17,14 @@ import 'package:family_budget/Theme/custom_theme.dart';
 import 'package:family_budget/Theme/config.dart';
 import 'package:family_budget/Page/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   if (await FamilyBudget().initializeDB()) {
     await User.update();
@@ -35,7 +40,7 @@ void main() async {
     Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 8", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
     Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 9", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
     Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 10", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();*/
-
+    //setPre
     runApp(const App());
   } else {
     print('Failed to initialize DB');
