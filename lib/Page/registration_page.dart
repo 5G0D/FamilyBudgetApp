@@ -1,4 +1,7 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:family_budget/Page/Arguments/confirmation_code_arguments.dart';
+import 'package:family_budget/Server/Controller/user_controller.dart';
+import 'package:family_budget/Server/Response/user_id_response.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -11,6 +14,8 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   final _regFormKey = GlobalKey<FormState>();
 
+  final TextEditingController _mail = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _passRepeat = TextEditingController();
 
@@ -28,6 +33,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                controller: _mail,
                 autofocus: true,
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(fontSize: 18),
@@ -49,6 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     : "Некорректный адрес электронной почты",
               ),
               TextFormField(
+                controller: _userName,
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(fontSize: 18),
                 decoration: const InputDecoration(
@@ -128,10 +135,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 padding: const EdgeInsets.only(top: 20),
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_regFormKey.currentState!.validate()) {
-                      print('ok');
-                      Navigator.pushReplacementNamed(context, '/home');
+                      UserIdResponse? userIdResp = await UserController.register(context, _userName.text, _mail.text, _pass.text);
+                      if (userIdResp != null){
+                        Navigator.pushNamed(context, '/registration/confirmation_code', arguments: ConfirmationCodeArguments(id: userIdResp.id, email: _mail.text, password: _pass.text));
+                      }
                     }
                   },
                   child: const Text('Зарегистрироваться'),
@@ -153,6 +162,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void dispose() {
     _pass.dispose();
     _passRepeat.dispose();
+    _mail.dispose();
+    _userName.dispose();
     super.dispose();
   }
 }

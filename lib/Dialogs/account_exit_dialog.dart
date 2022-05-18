@@ -12,22 +12,21 @@ Future<String?> accountExitDialog(BuildContext context) async {
         content: SingleChildScrollView(
           child: ListBody(
             children: const <Widget>[
-              Text('Вы уже вошли в аккаунт.\n'),
-              Text('Чтобы продолжить, необходимо выйти из аккаунта.'),
+              Text('Вы уверены что хотите выйти из аккаунта?'),
             ],
           ),
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Выйти из аккаунта'),
+            child: const Text('Да'),
             onPressed: () {
-              Navigator.pop(context, 'Exit');
+              Navigator.pop(context, 'YES');
             },
           ),
           TextButton(
-            child: const Text('Отменить'),
+            child: const Text('Нет'),
             onPressed: () {
-              Navigator.pop(context, 'Cancel');
+              Navigator.pop(context, 'NO');
             },
           ),
         ],

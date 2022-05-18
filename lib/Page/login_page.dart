@@ -1,4 +1,6 @@
 import 'package:family_budget/Page/page_template.dart';
+import 'package:family_budget/Server/Controller/user_controller.dart';
+import 'package:family_budget/Server/Response/user_response.dart';
 import 'package:family_budget/Widget/error_block.dart';
 import 'package:family_budget/user.dart';
 import 'package:family_budget/model/model.dart';
@@ -84,15 +86,15 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       onPressed: () async {
-                        //Проверка на сервере
-                        if (false) {
-                          setState(() {
-                            _errorBlockVisible = true;
-                          });
-                        } else {
+                        UserResponse? userResponse = await UserController.login(context, _mail, _pass);
+                        if (userResponse != null) {
                           await User.newUserInit();
                           await User.update();
                           Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          setState(() {
+                            _errorBlockVisible = true;
+                          });
                         }
                       },
                       child: const Text('Вход'),

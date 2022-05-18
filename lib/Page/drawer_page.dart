@@ -1,9 +1,11 @@
 import 'package:family_budget/Dialogs/account_exit_dialog.dart';
 import 'package:family_budget/Icon/family_budget_icons_icons.dart';
+import 'package:family_budget/Server/http_utils.dart';
 import 'package:family_budget/Widget/text_icon.dart';
 import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../model/model.dart';
 
@@ -145,12 +147,27 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           ListTile(
             title: const TextIcon(
-              Icon(Icons.login),
-              Text('Вход/регистрация'),
+              Icon(Icons.search),
+              Text('Поиск комнаты'),
+              spaceBetween: 20,
             ),
             onTap: () async {
-              if ((User.params.user_id ?? 0) == 0 ||
-                  (await accountExitDialog(context)) == 'Exit') {
+                await Navigator.pushReplacementNamed(context, '/room_search');
+                setState(() {});
+            },
+          ),
+          const Divider(
+            thickness: 1,
+          ),
+          ListTile(
+            title: const TextIcon(
+              Icon(Icons.login),
+              Text('Выход из аккаунта'),
+              spaceBetween: 20,
+            ),
+            onTap: () async {
+              if ( //(User.params.user_id ?? 0) == 0 ||
+                  (await accountExitDialog(context)) == 'YES') {
                 await User.userExit();
                 Navigator.pushReplacementNamed(context, '/login');
               }

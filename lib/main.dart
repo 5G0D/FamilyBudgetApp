@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:family_budget/Page/account_edit_page.dart';
+import 'package:family_budget/Page/cofirmation_code_page.dart';
 import 'package:family_budget/Page/room_edit_page.dart';
 import 'package:family_budget/Page/room_page.dart';
+import 'package:family_budget/Page/room_search_page.dart';
 import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
@@ -67,10 +71,12 @@ class _AppState extends State {
         '/chat': (context) => const ChatPage(),
         '/login': (context) => const LoginPage(),
         '/registration': (context) => const RegistrationPage(),
+        '/registration/confirmation_code': (context) => const ConfirmationCodePage(),
         '/forgot_password': (context) => const ForgotPasswordPage(),
         '/account_edit': (context) => const AccountEditPage(),
         '/room': (context) => const RoomPage(),
         '/room/edit': (context) => const RoomEditPage(),
+        '/room_search': (context) => const RoomSearchPage(),
       },
     );
   }
