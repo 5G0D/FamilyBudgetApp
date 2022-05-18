@@ -69,7 +69,7 @@ class _ConfirmationCodePageState extends State<ConfirmationCodePage> {
                   checkCodeAttempt++;
                   UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(context, args.id.toString(), _codeController.text);
                   if (userConfirmEmailResponse?.isEmailConfirm == true){
-                      UserResponse? userResponse = await UserController.login(context, args.email, args.password);
+                      UserResponse? userResponse = await UserController.login(context, args.email ?? '', args.password ?? '');
                       if (userResponse != null){
                         Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                       }

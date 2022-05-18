@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () => Navigator.pushNamed(
                         context,
-                        '/forgot_password',
+                        '/recovery_password',
                       ),
                       child: const Text('Забыли пароль?'),
                       style: ButtonStyle(

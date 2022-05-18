@@ -123,7 +123,7 @@ class UserController {
     try {
       http.Response response =
           await HttpUtils.post('/api/user/passwordRecovery', params: params);
-      return UserIdResponse.fromJson(jsonDecode(response.body));
+      return UserIdResponse(id: jsonDecode(response.body)["userId"]);
     } on RequestException catch (_) {
       SnackBarUtils.Show(context, HttpUtils.httpError);
     } on SocketException catch (_) {

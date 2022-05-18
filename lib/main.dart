@@ -1,16 +1,14 @@
-import 'dart:convert';
-
 import 'package:family_budget/Page/account_edit_page.dart';
 import 'package:family_budget/Page/cofirmation_code_page.dart';
+import 'package:family_budget/Page/recovery_password_code_page.dart';
+import 'package:family_budget/Page/recovery_password_mail_page.dart';
 import 'package:family_budget/Page/room_edit_page.dart';
 import 'package:family_budget/Page/room_page.dart';
 import 'package:family_budget/Page/room_search_page.dart';
-import 'package:family_budget/category_controller.dart';
 import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
 import 'package:family_budget/model/model.dart';
 import 'package:family_budget/Page/chat_page.dart';
-import 'package:family_budget/Page/forgot_password_page.dart';
 import 'package:family_budget/Page/login_page.dart';
 import 'package:family_budget/Page/registration_page.dart';
 import 'package:family_budget/Theme/custom_theme.dart';
@@ -18,6 +16,8 @@ import 'package:family_budget/Theme/config.dart';
 import 'package:family_budget/Page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'Page/recovery_password_pass_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,7 +77,9 @@ class _AppState extends State {
         '/login': (context) => const LoginPage(),
         '/registration': (context) => const RegistrationPage(),
         '/registration/confirmation_code': (context) => const ConfirmationCodePage(),
-        '/forgot_password': (context) => const ForgotPasswordPage(),
+        '/recovery_password': (context) => const RecoveryPasswordMailPage(),
+        '/recovery_password/code': (context) => const RecoveryPasswordCodePage(),
+        '/recovery_password/code/pass': (context) => const RecoveryPasswordPassPage(),
         '/account_edit': (context) => const AccountEditPage(),
         '/room': (context) => const RoomPage(),
         '/room/edit': (context) => const RoomEditPage(),
