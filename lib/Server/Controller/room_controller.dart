@@ -27,6 +27,22 @@ class RoomController {
     return null;
   }
 
+  static Future<bool> update(int id, String name, String photo, {BuildContext? context}) async {
+    Map<String, dynamic> params = {
+      'id': id,
+      'name': name,
+      'photo': photo,
+    };
+
+    http.Response? response =
+    await HttpUtils.post('/api/room/update', params: params, context: context);
+    if (response != null) {
+      return true;
+    }
+
+    return false;
+  }
+
   static Future<bool> deleteUserFromRoom(int userId, int roomId,
       {BuildContext? context}) async {
     Map<String, dynamic> params = {

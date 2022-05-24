@@ -97,6 +97,7 @@ class TableOperation extends SqfEntityTableBase {
       SqfEntityFieldBase('date_modify', DbType.integer),
       SqfEntityFieldBase('user_id', DbType.integer),
       SqfEntityFieldBase('type', DbType.integer),
+      SqfEntityFieldBase('operation_id', DbType.integer),
       SqfEntityFieldBase('category_id', DbType.integer),
       SqfEntityFieldBase('date', DbType.integer),
       SqfEntityFieldBase('description', DbType.text),
@@ -2235,6 +2236,7 @@ class Operation extends TableBase {
       this.date_modify,
       this.user_id,
       this.type,
+      this.operation_id,
       this.category_id,
       this.date,
       this.description,
@@ -2242,12 +2244,29 @@ class Operation extends TableBase {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  Operation.withFields(this.status, this.date_modify, this.user_id, this.type,
-      this.category_id, this.date, this.description, this.value) {
+  Operation.withFields(
+      this.status,
+      this.date_modify,
+      this.user_id,
+      this.type,
+      this.operation_id,
+      this.category_id,
+      this.date,
+      this.description,
+      this.value) {
     _setDefaultValues();
   }
-  Operation.withId(this.id, this.status, this.date_modify, this.user_id,
-      this.type, this.category_id, this.date, this.description, this.value) {
+  Operation.withId(
+      this.id,
+      this.status,
+      this.date_modify,
+      this.user_id,
+      this.type,
+      this.operation_id,
+      this.category_id,
+      this.date,
+      this.description,
+      this.value) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -2268,6 +2287,9 @@ class Operation extends TableBase {
     if (o['type'] != null) {
       type = int.tryParse(o['type'].toString());
     }
+    if (o['operation_id'] != null) {
+      operation_id = int.tryParse(o['operation_id'].toString());
+    }
     if (o['category_id'] != null) {
       category_id = int.tryParse(o['category_id'].toString());
     }
@@ -2287,6 +2309,7 @@ class Operation extends TableBase {
   int? date_modify;
   int? user_id;
   int? type;
+  int? operation_id;
   int? category_id;
   int? date;
   String? description;
@@ -2318,6 +2341,9 @@ class Operation extends TableBase {
     }
     if (type != null || !forView) {
       map['type'] = type;
+    }
+    if (operation_id != null || !forView) {
+      map['operation_id'] = operation_id;
     }
     if (category_id != null || !forView) {
       map['category_id'] = category_id;
@@ -2354,6 +2380,9 @@ class Operation extends TableBase {
     if (type != null || !forView) {
       map['type'] = type;
     }
+    if (operation_id != null || !forView) {
+      map['operation_id'] = operation_id;
+    }
     if (category_id != null || !forView) {
       map['category_id'] = category_id;
     }
@@ -2389,6 +2418,7 @@ class Operation extends TableBase {
       date_modify,
       user_id,
       type,
+      operation_id,
       category_id,
       date,
       description,
@@ -2404,6 +2434,7 @@ class Operation extends TableBase {
       date_modify,
       user_id,
       type,
+      operation_id,
       category_id,
       date,
       description,
@@ -2557,13 +2588,14 @@ class Operation extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnOperation.rawInsert(
-          'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?)',
+          'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, operation_id, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?,?)',
           [
             id,
             status,
             date_modify,
             user_id,
             type,
+            operation_id,
             category_id,
             date,
             description,
@@ -2594,7 +2626,7 @@ class Operation extends TableBase {
   Future<BoolCommitResult> upsertAll(List<Operation> operations,
       {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnOperation.rawInsertAll(
-        'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, operation_id, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?,?)',
         operations,
         exclusive: exclusive,
         noResult: noResult,
@@ -2877,6 +2909,12 @@ class OperationFilterBuilder extends ConjunctionBase {
     return _type = _setField(_type, 'type', DbType.integer);
   }
 
+  OperationField? _operation_id;
+  OperationField get operation_id {
+    return _operation_id =
+        _setField(_operation_id, 'operation_id', DbType.integer);
+  }
+
   OperationField? _category_id;
   OperationField get category_id {
     return _category_id =
@@ -3144,6 +3182,12 @@ class OperationFields {
   static TableField get type {
     return _fType =
         _fType ?? SqlSyntax.setField(_fType, 'type', DbType.integer);
+  }
+
+  static TableField? _fOperation_id;
+  static TableField get operation_id {
+    return _fOperation_id = _fOperation_id ??
+        SqlSyntax.setField(_fOperation_id, 'operation_id', DbType.integer);
   }
 
   static TableField? _fCategory_id;

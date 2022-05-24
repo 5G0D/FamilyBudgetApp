@@ -11,25 +11,28 @@ class ChartPage extends StatefulWidget {
 }
 
 class _ChartPageState extends State<ChartPage> {
-  final PageController pageController = PageController(initialPage: 999);
+  final PageController pageController = PageController(initialPage: 0);
 
-  void _refresh(){
-    setState((){});
+  void _refresh() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages= [
-      RoomCategoriesChart(),
-      MonthlyChart(),
+    List<Widget> pages = [
+      const RoomCategoriesChart(),
+      const MonthlyChart(),
     ];
 
-    return PageTemplate(refreshFunc: _refresh, child: PageView.builder(
+    return PageTemplate(
+      refreshFunc: _refresh,
+      child: PageView.builder(
+        itemCount: 2,
         itemBuilder: (context, index) {
-      return pages[index % pages.length];
-    },
-    controller: pageController,
-    ),
+          return pages[index];
+        },
+        controller: pageController,
+      ),
     );
   }
 }

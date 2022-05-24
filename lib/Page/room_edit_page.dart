@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:family_budget/Extansions/snack_bar_utils.dart';
+import 'package:family_budget/Server/Controller/room_controller.dart';
 import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
@@ -95,20 +98,21 @@ class _RoomEditPageState extends State<RoomEditPage> {
                 ),
                 onPressed: () async {
                   if (_roomFormKey.currentState!.validate()) {
-                    Room.params.name = _nameController.text;
-                    Room.params.avatar = _roomImageBlob;
-                    Room.params.date_modify =
-                        DateTime.now().millisecondsSinceEpoch;
-                    await Room.params.save();
+                    if (await RoomController.update(
+                      Room.params.room_id!,
+                      _nameController.text,
+                      base64Encode(_roomImageBlob),
+                      context: context,
+                    )) {
+                      Room.params.name = _nameController.text;
+                      Room.params.avatar = _roomImageBlob;
+                      Room.params.date_modify =
+                          DateTime.now().millisecondsSinceEpoch;
+                      await Room.params.save();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Изменения комнаты сохранены',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
+                      SnackBarUtils.Show(
+                          context, 'Изменения комнаты сохранены');
+                    }
                   }
                 },
                 child: const Text('Сохранить'),
@@ -128,7 +132,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _nameController.dispose();
     super.dispose();
   }

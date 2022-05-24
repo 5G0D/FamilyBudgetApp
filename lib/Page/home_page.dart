@@ -17,14 +17,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final PageController pageController = PageController(initialPage: 999);
+  final PageController pageController = PageController(initialPage: 0);
+  static bool _updating  = false;
 
   void _refresh() {
     setState(() {});
   }
 
   Future<void> _update() async {
+    _updating = true;
     await c.Category.serverUpdateAll();
+    _updating = false;
   }
 
   @override
@@ -51,9 +54,10 @@ class _HomePageState extends State<HomePage> {
 
               if (members.isNotEmpty) {
                 return PageView.builder(
+                  itemCount: members.length,
                   itemBuilder: (context, index) {
                     return CategoryPage(
-                      userId: members[index % members.length].user_id!,
+                      userId: members[index].user_id!,
                       refresh: _refresh,
                     );
                   },
@@ -70,7 +74,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _update();
     super.initState();
+    if (!_updating){
+      _update();
+    }
   }
 }

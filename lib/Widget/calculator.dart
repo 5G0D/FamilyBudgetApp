@@ -1,5 +1,6 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
 import 'package:family_budget/Server/Controller/operation_controller.dart';
+import 'package:family_budget/Server/Response/operation_response.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
@@ -116,7 +117,6 @@ class _CalculatorState extends State<Calculator> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_calculateText.isEmpty) {
       _calculateText = '0';
     }
@@ -499,32 +499,37 @@ class _CalculatorState extends State<Calculator> {
                               BorderSide(width: 1.0, color: Colors.grey[700]!),
                         ),
                         color: Colors.green[600]!.withAlpha(210),
-                        onPressed: () async => {
-                          if (double.parse(formatText(_calculateText)) < 0)
-                            {
-                              errorDialog(
-                                context,
-                                'Результат не может быть меньше нуля',
-                              )
-                            }
-                          else
-                            {
-                              print(DateTime.now().millisecondsSinceEpoch),
+                        onPressed: () async {
+                          if (double.parse(formatText(_calculateText)) < 0) {
+                            errorDialog(
+                              context,
+                              'Результат не может быть меньше нуля',
+                            );
+                          } else {
+                            OperationResponse? operationResponse =
+                                await OperationController.create(
+                                    widget.categoryItem.categoryId,
+                                    DateTime.now().millisecondsSinceEpoch,
+                                    descController.text,
+                                    double.parse(formatText(_calculateText)),
+                                    context: context);
+                            if (operationResponse != null) {
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
                                 User.params.user_id ?? 0,
                                 widget.categoryItem.type,
+                                operationResponse.categoryId,
                                 widget.categoryItem.categoryId,
                                 DateTime.now().millisecondsSinceEpoch,
                                 descController.text,
                                 double.parse(
                                   formatText(_calculateText),
                                 ),
-                              ).save(),
-                              await OperationController.create(widget.categoryItem.categoryId, DateTime.now().millisecondsSinceEpoch, descController.text, double.parse(formatText(_calculateText)), context: context),
-                              Navigator.pop(context)
+                              ).save();
+                              Navigator.pop(context);
                             }
+                          }
                         },
                         height: 180,
                       ),

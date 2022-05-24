@@ -1,6 +1,7 @@
 import 'package:family_budget/Model/model.dart';
 import 'package:family_budget/Server/Response/category_response.dart';
 import 'package:family_budget/model/model.dart' as m;
+import 'package:family_budget/operation.dart' as o;
 
 import 'Server/Controller/category_controller.dart';
 
@@ -11,6 +12,7 @@ class Category{
       await m.Category().select().user_id.equals(roomMemberId).delete();
       for (var c in categories){
         m.Category.withFields(1, DateTime.now().millisecondsSinceEpoch, c.id, roomMemberId, c.name, int.parse(c.iconCode), int.parse(c.iconColor), c.blockLocation, c.positionLocation, c.moneyFlowType).save();
+        o.Operation.serverUpdate(roomMemberId, c.id, c.moneyFlowType);
       }
     }
   }

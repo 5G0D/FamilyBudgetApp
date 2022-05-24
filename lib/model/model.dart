@@ -68,6 +68,7 @@ const tableOperation = SqfEntityTable(
     SqfEntityField('date_modify', DbType.integer, isNotNull: false),
     SqfEntityField('user_id', DbType.integer, isNotNull: false),
     SqfEntityField('type', DbType.integer, isNotNull: false),
+    SqfEntityField('operation_id', DbType.integer, isNotNull: false),
     SqfEntityField('category_id', DbType.integer, isNotNull: false),
     SqfEntityField('date', DbType.integer, isNotNull: false),
     SqfEntityField('description', DbType.text),

@@ -3,7 +3,7 @@ class OperationResponse {
   final int? categoryId;
   final int date;
   final String description;
-  final double value;
+  final num value;
 
   const OperationResponse({
     required this.id,
@@ -18,7 +18,7 @@ class OperationResponse {
       id: json['id'],
       date: json['date'],
       description: json['description'],
-      value: json['value'],
+      value: json['value'].toDouble(),
       categoryId: json['categoryId'],
     );
   }

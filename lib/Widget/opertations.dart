@@ -1,4 +1,5 @@
-import 'package:family_budget/Model/model.dart';
+import 'package:family_budget/model/model.dart';
+import 'package:family_budget/Server/Controller/operation_controller.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/user.dart';
@@ -103,19 +104,21 @@ class _OperationsState extends State<Operations> {
               builder: (BuildContext context,
                   AsyncSnapshot<List<Operation>> snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.data!.isNotEmpty) {
+                  List<Operation> operations = snapshot.data!;
+                  if (operations.isNotEmpty) {
                     return ListView.builder(
-                        itemCount: snapshot.data!.length,
+                        itemCount: operations.length,
                         itemBuilder: (context, index) {
-                          final item = snapshot.data![index];
+                          final operation = operations[index];
                           return Dismissible(
-                            key: Key(item.id!.toString()),
+                            key: Key(operation.id!.toString()),
                             onDismissed: (direction) async {
-                              item.status = 0;
-                              await item.save();
-                              setState(() {
-                                snapshot.data!.remove(item);
-                              });
+                              if (await OperationController.delete(operation.operation_id ?? -1, context: context)){
+                                operation.status = 0;
+                                await operation.save();
+                                operations.remove(operation);
+                              }
+                              setState(() {});
                             },
                             background:
                                 Container(color: Colors.red.withAlpha(10)),
@@ -134,9 +137,9 @@ class _OperationsState extends State<Operations> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            item.description!.isEmpty
+                                            operation.description!.isEmpty
                                                 ? 'Без описания'
-                                                : item.description!,
+                                                : operation.description!,
                                             softWrap: false,
                                             overflow: TextOverflow.fade,
                                           ),
@@ -145,7 +148,7 @@ class _OperationsState extends State<Operations> {
                                                 .format(
                                               DateTime
                                                   .fromMillisecondsSinceEpoch(
-                                                      item.date!),
+                                                  operation.date!),
                                             ),
                                             style: TextStyle(
                                               color: Colors.grey[500]!,
@@ -163,7 +166,7 @@ class _OperationsState extends State<Operations> {
                                           (widget.categoryItem.type == 0
                                                   ? "+"
                                                   : "-") +
-                                              item.value!.toStringAsFixed(0),
+                                              operation.value!.toStringAsFixed(0),
                                           softWrap: false,
                                           overflow: TextOverflow.fade,
                                           style: TextStyle(
