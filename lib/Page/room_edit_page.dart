@@ -15,8 +15,8 @@ class RoomEditPage extends StatefulWidget {
 }
 
 class _RoomEditPageState extends State<RoomEditPage> {
-  Uint8List _avatarBlob = Uint8List(0);
-  final _accountFormKey = GlobalKey<FormState>();
+  Uint8List _roomImageBlob = Uint8List(0);
+  final _roomFormKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
 
   _getFromGallery() async {
@@ -28,7 +28,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
 
     if (pickedFile?.path.isNotEmpty ?? false) {
       setState(() {
-        _avatarBlob = File(pickedFile!.path).readAsBytesSync();
+        _roomImageBlob = File(pickedFile!.path).readAsBytesSync();
       });
     }
   }
@@ -45,7 +45,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         alignment: Alignment.topCenter,
         child: Form(
-          key: _accountFormKey,
+          key: _roomFormKey,
           child: Column(
             children: [
               SizedBox(
@@ -53,7 +53,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
                 height: 250,
                 child: ClipOval(
                   child: Image.memory(
-                    _avatarBlob,
+                    _roomImageBlob,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -94,12 +94,13 @@ class _RoomEditPageState extends State<RoomEditPage> {
                   ),
                 ),
                 onPressed: () async {
-                  if (_accountFormKey.currentState!.validate()) {
+                  if (_roomFormKey.currentState!.validate()) {
                     Room.params.name = _nameController.text;
-                    Room.params.avatar = _avatarBlob;
+                    Room.params.avatar = _roomImageBlob;
                     Room.params.date_modify =
                         DateTime.now().millisecondsSinceEpoch;
                     await Room.params.save();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
@@ -123,7 +124,7 @@ class _RoomEditPageState extends State<RoomEditPage> {
   void initState() {
     super.initState();
     _nameController.text = Room.params.name!;
-    _avatarBlob = Room.params.avatar!;
+    _roomImageBlob = Room.params.avatar!;
   }
 
   @override

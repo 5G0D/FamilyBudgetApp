@@ -67,7 +67,7 @@ class _RecoveryPasswordCodePageState extends State<RecoveryPasswordCodePage> {
                   onPressed: () async {
                     _checkCodeAttempt++;
 
-                    UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(context, args.id.toString(), _codeController.text);
+                    UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(args.id.toString(), _codeController.text, context: context);
 
                     if (userConfirmEmailResponse?.isEmailConfirm == true){
                       Navigator.pushNamed(

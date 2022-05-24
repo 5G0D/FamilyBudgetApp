@@ -1,15 +1,25 @@
 import 'dart:convert';
 
-import 'package:family_budget/model/model.dart';
+import 'package:family_budget/Page/room_search_page.dart';
+import 'package:family_budget/Server/Controller/room_controller.dart';
+import 'package:family_budget/Server/Response/room_member_response.dart';
+import 'package:family_budget/Server/Response/room_response.dart';
+import 'package:family_budget/category.dart' as c;
+import 'package:family_budget/main.dart';
+import 'package:family_budget/model/model.dart' as m;
+import 'package:family_budget/user.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 class Room {
-  static late RoomParam _roomParams;
-  static RoomParam get params => _roomParams;
+  static late m.RoomParam _roomParams;
+  static m.RoomParam get params => _roomParams;
 
-  static update() async {
-    _roomParams = RoomParam();
+  static update({bool waitUpdate = false}) async {
+    _roomParams = m.RoomParam();
     try {
-      List rooms = (await RoomParam()
+      List rooms = (await m.RoomParam()
           .select()
           .status
           .not
@@ -20,24 +30,73 @@ class Room {
         _roomParams = rooms.first;
       }
     } catch (e) {}
+
+    serverUpdate();
   }
 
-  //Убрать!!
-  static newRoomInit() async {
-    await RoomParam().select().delete();
-    _roomParams = RoomParam.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, "test",  base64Decode(
-        'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAQ5SURBVGiB7dhbiFVVGAfwnzM6RioJqRVmJZjaPbJMJUrsohVUUBZ080oPXainIsT3svIpSgr0QYuQIDCzQpRA1HookhC0i44wmhUVmWPlZaaHtXez9p6z9+xzDvS0/7Bg7bP+33996+xvfWt9mxo1atSoUaOGYU3yL8MCXIIO9GArvmrTjxm4HRPRh258jH1t6g7C5fgU/QXtC8xqQXd2Yluk+wmmt+n7f1iAYyWTpe0fLG5CdwlOVtA9hvntLuJaHM8Jf47VeBXbhVBIx07jjgq68xNuancG2xLN1Qa/peO4utVFDMPuSOxXjf+ZmTgU8Q5iZInuWcIeSPnduL4B765kzpS3s/klBNwcifQlz0WYjhMR/9ES7uMR7wSmlXDnyr7xm6q5nsWqSGBzBf4bEf+9Et7GiPd6Bd0tEf+lIlJHicCUqL+9woTbov6l/7du2UJGRf0TFSaMOaMKWYxoQ3d0EalsIUei/pUVJrwq6h8u4R1oQ7enAn8QHjEQm7/h3BLuSHwf8V8s4a6IeN+iq4Q7Dr9H/Icr+p5Bl/BWUpGtGr/aEXhHNhONK9GdgL8i/nrZcEsxRtgfKe+w8kWX4rFIqB8/4EnhcLpCOMn35DgrchpjkxZjZc7mayxKNK/BU0IIxpyylF4Jr+QEy9pG4SCdgNdwNBo7Kpzc4xPO+03ormp3ESmWo7dkotPCv9yBG/FjCfcIbki4K2WvKvnWi2VVHOysMH4/FgoncBG/Q9jwo4WD8bwSzTG4R7gw3ouLK/hwSkgM/UNwG+I2g+O/mdaLZ3FB0p5T/laHantwazMLGC7si/iOk7Ye4cqwDmuFTHaoAa8fSxtoLyvgHkq01ibaW4Qslef14WVDR5IufJQzPok1wg21qKKchQ2Rzd8ap8ouoW5JeRsUF2TDhL20Rgit2KdNGqdshDh/N2ewE1OLDHKYGdn9ofGtoUO2SJtZUXsaduV821Awh2dyxPXK64o8xgkFUmp/SwPO3Gj8jPLbQh4jE59iH5/OkybLVoJbVIjDBtgeaRzAddHYDKHoSse3DbIeGp3CR4lU40+5rPdWNNiDc1qYhPAxIY7nPuxPWpw8TgnnTSsYK5sI3kwHxstWd5UOoAKMwg7Z19+o7cDZbcyzPNLqlYTokujHw1oLKUJS2F/geKO2T3kBVoZO2QvtouGYFxE2CZuwWUzGZ8LBl6IHH+C75Hkq7sOFyfO0xGaOcI40gzP4EE8kz/Ngr4GVLWxSkPDvxJ9vTuF5xefIC7L7aLfWouChSOMb+Dn6YXYLgksj+z48UMHmQdnNv7iFeedE9j91Cllgl3D4bVatjo6xDucn/bdVu3LvxSQD6fkiIXM2g7Q424kvm7QdhEmyG3hKOT2DqTnbie060w7ujhw52IJ9d2R/ZzuODG/HGL8YCIlWFrJGyHiEz6M1atSoUaNGjXbwLy8V2V9tscpUAAAAAElFTkSuQmCC'),
-        "ENTER");
-    await _roomParams.save();
+  static serverUpdate() async{
+    if (_roomParams.room_id != null){
+      RoomResponse? roomResponse = await RoomController.getRoom(_roomParams.room_id!);
+      if (roomResponse != null) {
+        //Выход из комнаты
+        if (roomResponse.users.indexWhere((u) => u.id == User.params.user_id) == -1){
+          User.params.roomId = null;
+          await User.params.save();
+          roomExit();
+          navigatorKey.currentState?.pushReplacementNamed('/room_search');
+        }
+        //Обновление данных комнаты
+        else {
+          await m.RoomParam().select().delete();
+          m.RoomParam room = m.RoomParam.withFields(1, DateTime.now().millisecondsSinceEpoch, roomResponse.id, roomResponse.name, base64Decode(roomResponse.photo), roomResponse.inviteCode);
+          await room.save();
+          Room._roomParams = room;
+
+          await m.RoomMember().select().delete();
+
+          for (var u in roomResponse.users){
+            await m.RoomMember.withFields(1, DateTime.now().millisecondsSinceEpoch, roomResponse.id, u.id, u.name, base64Decode(u.photo), int.parse(u.userColor), u.role).save();
+            await c.Category.serverUpdate(u.id);
+          }
+        }
+      }
+    }
   }
 
-  static roomExit() async {
-    _roomParams = RoomParam();
+  static Future<bool> roomExit({BuildContext? context}) async {
+    if (User.params.roomId == null || await RoomController.deleteUserFromRoom(User.params.user_id!, User.params.roomId!, context: context)){
+      _roomParams = m.RoomParam();
 
-    await Category().select().delete();
-    await Operation().select().delete();
-    await RoomMember().select().delete();
-    await RoomParam().select().delete();
-    await Chat().select().delete();
+      await m.Category().select().delete();
+      await m.Operation().select().delete();
+      await m.RoomMember().select().delete();
+      await m.RoomParam().select().delete();
+      await m.Chat().select().delete();
+
+      return true;
+    }
+
+    return false;
+  }
+
+  static roomEnter(RoomResponse roomResponse) async {
+    m.RoomParam room = m.RoomParam.withFields(1, DateTime.now().millisecondsSinceEpoch, roomResponse.id, roomResponse.name, base64Decode(roomResponse.photo), roomResponse.inviteCode);
+    await room.save();
+    _roomParams = room;
+
+    User.params.roomId = _roomParams.room_id;
+    User.params.save();
+
+    await serverUpdate();
+  }
+
+  static Future<m.RoomMember?> getUserMemberRecord() async {
+    List<m.RoomMember> members = await m.RoomMember().select().user_id.equals(User.params.user_id).and.status.not.equals(0).toList();
+
+    if (members.isNotEmpty){
+      return members.first;
+    }
+
+    return null;
   }
 }

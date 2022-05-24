@@ -1,4 +1,5 @@
 import 'package:family_budget/Dialogs/error_dialog.dart';
+import 'package:family_budget/Server/Controller/operation_controller.dart';
 import 'package:family_budget/Widget/calculator_button.dart';
 import 'package:family_budget/category_item.dart';
 import 'package:family_budget/currency_controller.dart';
@@ -115,6 +116,7 @@ class _CalculatorState extends State<Calculator> {
 
   @override
   Widget build(BuildContext context) {
+
     if (_calculateText.isEmpty) {
       _calculateText = '0';
     }
@@ -507,6 +509,7 @@ class _CalculatorState extends State<Calculator> {
                             }
                           else
                             {
+                              print(DateTime.now().millisecondsSinceEpoch),
                               Operation.withFields(
                                 1,
                                 DateTime.now().millisecondsSinceEpoch,
@@ -519,6 +522,7 @@ class _CalculatorState extends State<Calculator> {
                                   formatText(_calculateText),
                                 ),
                               ).save(),
+                              await OperationController.create(widget.categoryItem.categoryId, DateTime.now().millisecondsSinceEpoch, descController.text, double.parse(formatText(_calculateText)), context: context),
                               Navigator.pop(context)
                             }
                         },

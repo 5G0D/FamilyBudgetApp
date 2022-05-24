@@ -40,7 +40,7 @@ class TableUserParam extends SqfEntityTableBase {
       SqfEntityFieldBase('mail', DbType.text),
       SqfEntityFieldBase('auth_code', DbType.text),
       SqfEntityFieldBase('avatar', DbType.blob),
-      SqfEntityFieldBase('color', DbType.integer),
+      SqfEntityFieldBase('roomId', DbType.integer),
     ];
     super.init();
   }
@@ -180,6 +180,7 @@ class TableRoomMember extends SqfEntityTableBase {
       SqfEntityFieldBase('user_name', DbType.text),
       SqfEntityFieldBase('user_avatar', DbType.blob),
       SqfEntityFieldBase('user_color', DbType.integer),
+      SqfEntityFieldBase('user_role', DbType.integer),
     ];
     super.init();
   }
@@ -259,16 +260,16 @@ class UserParam extends TableBase {
       this.mail,
       this.auth_code,
       this.avatar,
-      this.color}) {
+      this.roomId}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
   UserParam.withFields(this.status, this.date_modify, this.user_id, this.name,
-      this.mail, this.auth_code, this.avatar, this.color) {
+      this.mail, this.auth_code, this.avatar, this.roomId) {
     _setDefaultValues();
   }
   UserParam.withId(this.id, this.status, this.date_modify, this.user_id,
-      this.name, this.mail, this.auth_code, this.avatar, this.color) {
+      this.name, this.mail, this.auth_code, this.avatar, this.roomId) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -298,8 +299,8 @@ class UserParam extends TableBase {
     if (o['avatar'] != null) {
       avatar = o['avatar'] as Uint8List;
     }
-    if (o['color'] != null) {
-      color = int.tryParse(o['color'].toString());
+    if (o['roomId'] != null) {
+      roomId = int.tryParse(o['roomId'].toString());
     }
   }
   // FIELDS (UserParam)
@@ -311,7 +312,7 @@ class UserParam extends TableBase {
   String? mail;
   String? auth_code;
   Uint8List? avatar;
-  int? color;
+  int? roomId;
 
   // end FIELDS (UserParam)
 
@@ -349,8 +350,8 @@ class UserParam extends TableBase {
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
     }
-    if (color != null || !forView) {
-      map['color'] = color;
+    if (roomId != null || !forView) {
+      map['roomId'] = roomId;
     }
 
     return map;
@@ -384,8 +385,8 @@ class UserParam extends TableBase {
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
     }
-    if (color != null || !forView) {
-      map['color'] = color;
+    if (roomId != null || !forView) {
+      map['roomId'] = roomId;
     }
 
     return map;
@@ -405,7 +406,16 @@ class UserParam extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, user_id, name, mail, auth_code, avatar, color];
+    return [
+      status,
+      date_modify,
+      user_id,
+      name,
+      mail,
+      auth_code,
+      avatar,
+      roomId
+    ];
   }
 
   @override
@@ -419,7 +429,7 @@ class UserParam extends TableBase {
       mail,
       auth_code,
       avatar,
-      color
+      roomId
     ];
   }
 
@@ -569,7 +579,7 @@ class UserParam extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnUserParam.rawInsert(
-          'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, color)  VALUES (?,?,?,?,?,?,?,?,?)',
+          'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, roomId)  VALUES (?,?,?,?,?,?,?,?,?)',
           [
             id,
             status,
@@ -579,7 +589,7 @@ class UserParam extends TableBase {
             mail,
             auth_code,
             avatar,
-            color
+            roomId
           ],
           ignoreBatch);
       if (result! > 0) {
@@ -606,7 +616,7 @@ class UserParam extends TableBase {
   Future<BoolCommitResult> upsertAll(List<UserParam> userparams,
       {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnUserParam.rawInsertAll(
-        'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, color)  VALUES (?,?,?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, roomId)  VALUES (?,?,?,?,?,?,?,?,?)',
         userparams,
         exclusive: exclusive,
         noResult: noResult,
@@ -904,9 +914,9 @@ class UserParamFilterBuilder extends ConjunctionBase {
     return _avatar = _setField(_avatar, 'avatar', DbType.blob);
   }
 
-  UserParamField? _color;
-  UserParamField get color {
-    return _color = _setField(_color, 'color', DbType.integer);
+  UserParamField? _roomId;
+  UserParamField get roomId {
+    return _roomId = _setField(_roomId, 'roomId', DbType.integer);
   }
 
   /// Deletes List<UserParam> bulk by query
@@ -1173,10 +1183,10 @@ class UserParamFields {
         _fAvatar ?? SqlSyntax.setField(_fAvatar, 'avatar', DbType.blob);
   }
 
-  static TableField? _fColor;
-  static TableField get color {
-    return _fColor =
-        _fColor ?? SqlSyntax.setField(_fColor, 'color', DbType.integer);
+  static TableField? _fRoomId;
+  static TableField get roomId {
+    return _fRoomId =
+        _fRoomId ?? SqlSyntax.setField(_fRoomId, 'roomId', DbType.integer);
   }
 }
 // endregion UserParamFields
@@ -4902,16 +4912,32 @@ class RoomMember extends TableBase {
       this.user_id,
       this.user_name,
       this.user_avatar,
-      this.user_color}) {
+      this.user_color,
+      this.user_role}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  RoomMember.withFields(this.status, this.date_modify, this.room_id,
-      this.user_id, this.user_name, this.user_avatar, this.user_color) {
+  RoomMember.withFields(
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.user_name,
+      this.user_avatar,
+      this.user_color,
+      this.user_role) {
     _setDefaultValues();
   }
-  RoomMember.withId(this.id, this.status, this.date_modify, this.room_id,
-      this.user_id, this.user_name, this.user_avatar, this.user_color) {
+  RoomMember.withId(
+      this.id,
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.user_name,
+      this.user_avatar,
+      this.user_color,
+      this.user_role) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -4941,6 +4967,9 @@ class RoomMember extends TableBase {
     if (o['user_color'] != null) {
       user_color = int.tryParse(o['user_color'].toString());
     }
+    if (o['user_role'] != null) {
+      user_role = int.tryParse(o['user_role'].toString());
+    }
   }
   // FIELDS (RoomMember)
   int? id;
@@ -4951,6 +4980,7 @@ class RoomMember extends TableBase {
   String? user_name;
   Uint8List? user_avatar;
   int? user_color;
+  int? user_role;
 
   // end FIELDS (RoomMember)
 
@@ -4988,6 +5018,9 @@ class RoomMember extends TableBase {
     if (user_color != null || !forView) {
       map['user_color'] = user_color;
     }
+    if (user_role != null || !forView) {
+      map['user_role'] = user_role;
+    }
 
     return map;
   }
@@ -5020,6 +5053,9 @@ class RoomMember extends TableBase {
     if (user_color != null || !forView) {
       map['user_color'] = user_color;
     }
+    if (user_role != null || !forView) {
+      map['user_role'] = user_role;
+    }
 
     return map;
   }
@@ -5045,7 +5081,8 @@ class RoomMember extends TableBase {
       user_id,
       user_name,
       user_avatar,
-      user_color
+      user_color,
+      user_role
     ];
   }
 
@@ -5059,7 +5096,8 @@ class RoomMember extends TableBase {
       user_id,
       user_name,
       user_avatar,
-      user_color
+      user_color,
+      user_role
     ];
   }
 
@@ -5209,7 +5247,7 @@ class RoomMember extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnRoomMember.rawInsert(
-          'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?,?)',
+          'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color, user_role)  VALUES (?,?,?,?,?,?,?,?,?)',
           [
             id,
             status,
@@ -5218,7 +5256,8 @@ class RoomMember extends TableBase {
             user_id,
             user_name,
             user_avatar,
-            user_color
+            user_color,
+            user_role
           ],
           ignoreBatch);
       if (result! > 0) {
@@ -5245,7 +5284,7 @@ class RoomMember extends TableBase {
   Future<BoolCommitResult> upsertAll(List<RoomMember> roommembers,
       {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnRoomMember.rawInsertAll(
-        'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color)  VALUES (?,?,?,?,?,?,?,?)',
+        'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color, user_role)  VALUES (?,?,?,?,?,?,?,?,?)',
         roommembers,
         exclusive: exclusive,
         noResult: noResult,
@@ -5543,6 +5582,11 @@ class RoomMemberFilterBuilder extends ConjunctionBase {
     return _user_color = _setField(_user_color, 'user_color', DbType.integer);
   }
 
+  RoomMemberField? _user_role;
+  RoomMemberField get user_role {
+    return _user_role = _setField(_user_role, 'user_role', DbType.integer);
+  }
+
   /// Deletes List<RoomMember> bulk by query
   ///
   /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
@@ -5808,6 +5852,12 @@ class RoomMemberFields {
   static TableField get user_color {
     return _fUser_color = _fUser_color ??
         SqlSyntax.setField(_fUser_color, 'user_color', DbType.integer);
+  }
+
+  static TableField? _fUser_role;
+  static TableField get user_role {
+    return _fUser_role = _fUser_role ??
+        SqlSyntax.setField(_fUser_role, 'user_role', DbType.integer);
   }
 }
 // endregion RoomMemberFields

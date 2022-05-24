@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:family_budget/Extansions/snack_bar_utils.dart';
+import 'package:family_budget/Server/Controller/user_controller.dart';
+import 'package:family_budget/Server/Response/user_id_response.dart';
 import 'package:family_budget/room.dart';
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
@@ -95,19 +99,14 @@ class _AccountEditPageState extends State<AccountEditPage> {
                 ),
                 onPressed: () async {
                   if (_accountFormKey.currentState!.validate()) {
-                    User.params.name = _nameController.text;
-                    User.params.avatar = _avatarBlob;
-                    User.params.date_modify =
-                        DateTime.now().millisecondsSinceEpoch;
-                    await User.params.save();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Изменения профиля сохранены',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
+                    UserIdResponse? response = await UserController.update(User.params.user_id!, name: _nameController.text, photo: base64Encode(_avatarBlob), context: context);
+                    if (response != null){
+                      User.params.name = _nameController.text;
+                      User.params.avatar = _avatarBlob;
+                      User.params.date_modify = DateTime.now().millisecondsSinceEpoch;
+                      await User.params.save();
+                      SnackBarUtils.Show(context, 'Изменения профиля сохранены');
+                    }
                   }
                 },
                 child: const Text('Сохранить'),

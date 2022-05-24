@@ -23,6 +23,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Регистрация'),
+        centerTitle: true,
         backgroundColor: const Color(0xff5537a1),
       ),
       body: Container(
@@ -137,7 +139,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_regFormKey.currentState!.validate()) {
-                      UserIdResponse? userIdResp = await UserController.register(context, _userName.text, _mail.text, _pass.text);
+                      UserIdResponse? userIdResp = await UserController.register(_userName.text, _mail.text, _pass.text, context: context);
                       if (userIdResp != null){
                         Navigator.pushNamed(context, '/registration/confirmation_code', arguments: ConfirmationCodeArguments(id: userIdResp.id, email: _mail.text, password: _pass.text));
                       }

@@ -2,22 +2,24 @@ import 'package:family_budget/Behavior/scroll_behavior.dart';
 import 'package:family_budget/Page/login_page.dart';
 import 'package:family_budget/Page/page_template.dart';
 import 'package:family_budget/categories_list.dart';
+import 'package:family_budget/category.dart' as c;
 import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 
 import '../model/model.dart';
 
 class CategoryPage extends StatefulWidget {
-  const CategoryPage({required this.userId, Key? key}) : super(key: key);
+  const CategoryPage({required this.userId, required this.refresh, Key? key}) : super(key: key);
 
   final int userId;
+  final Function refresh;
 
   @override
   _CategoryPageState createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  int _categoriesType = 1;
+  static int _categoriesType = 1;
 
   int get currentType => _categoriesType;
 
@@ -27,6 +29,11 @@ class _CategoryPageState extends State<CategoryPage> {
 
   void _refresh() {
     setState(() {});
+  }
+
+  Future<void> _update() async {
+    await c.Category.serverUpdateAll();
+    widget.refresh();
   }
 
   @override
@@ -54,11 +61,14 @@ class _CategoryPageState extends State<CategoryPage> {
                 AsyncSnapshot<List<List<dynamic>>> snapshot,
               ) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data![0].length,
-                    itemBuilder: (context, index) {
-                      return snapshot.data![0][index];
-                    },
+                  return RefreshIndicator(
+                    onRefresh: _update,
+                    child: ListView.builder(
+                      itemCount: snapshot.data![0].length,
+                      itemBuilder: (context, index) {
+                        return snapshot.data![0][index];
+                      },
+                    ),
                   );
                 } else {
                   return const Center(child: CircularProgressIndicator());

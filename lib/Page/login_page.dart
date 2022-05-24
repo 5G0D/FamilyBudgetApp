@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:family_budget/Page/page_template.dart';
 import 'package:family_budget/Server/Controller/user_controller.dart';
 import 'package:family_budget/Server/Response/user_response.dart';
@@ -24,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Center(child: Text('Вход')),
         backgroundColor: const Color(0xff5537a1),
       ),
       body: Container(
@@ -74,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             ErrorBlock(
-              'Логин или пароль неправильный',
+              'Неверная почта или пароль',
               visible: _errorBlockVisible,
             ),
             Container(
@@ -86,14 +89,19 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       onPressed: () async {
-                        UserResponse? userResponse = await UserController.login(context, _mail, _pass);
+                        UserResponse? userResponse = await UserController.login(_mail, _pass, context: context);
                         if (userResponse != null) {
-                          await User.newUserInit();
-                          await User.update();
-                          Navigator.pushReplacementNamed(context, '/home');
+                          await User.userLogin(userResponse);
+                          if (userResponse.roomId == null){
+                            Navigator.pushReplacementNamed(context, '/room_search');
+                          }
+                          else {
+                           // Room
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
                         } else {
                           setState(() {
-                            _errorBlockVisible = true;
+                            _errorBlockVisible = false;
                           });
                         }
                       },

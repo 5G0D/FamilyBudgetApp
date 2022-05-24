@@ -20,6 +20,7 @@ class _RecoveryPasswordMailPageState extends State<RecoveryPasswordMailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Center(child: Text('Восстановление пароля')),
         backgroundColor: const Color(0xff5537a1),
       ),
       body: Container(
@@ -54,7 +55,7 @@ class _RecoveryPasswordMailPageState extends State<RecoveryPasswordMailPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_mailFormKey.currentState!.validate()) {
-                    UserIdResponse? userIdResponse = await UserController.passwordRecovery(context, _mailController.text);
+                    UserIdResponse? userIdResponse = await UserController.passwordRecovery(_mailController.text, context: context);
                     if (userIdResponse != null){
                       SnackBarUtils.Show(context, 'Код подтверждения отправлен на почту');
                       Navigator.pushNamed(context, '/recovery_password/code', arguments: ConfirmationCodeArguments(id: userIdResponse.id, email: _mailController.text));

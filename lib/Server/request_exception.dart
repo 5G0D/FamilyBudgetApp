@@ -1,5 +1,5 @@
 class RequestException implements Exception {
-  String body;
+  String? body;
   int code;
-  RequestException(this.code, this.body);
+  RequestException(this.code, {this.body});
 }

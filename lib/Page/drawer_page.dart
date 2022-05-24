@@ -52,14 +52,15 @@ class _DrawerPageState extends State<DrawerPage> {
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Row(
                       children: [
-                        ClipOval(
-                          child: Image.memory(
-                            Room.params.avatar!,
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.cover,
+                        if (Room.params.avatar != null)
+                          ClipOval(
+                            child: Image.memory(
+                              Room.params.avatar!,
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.only(left: 10),
@@ -121,14 +122,14 @@ class _DrawerPageState extends State<DrawerPage> {
                           ),
                         ),
                       ),
-                      Container(
+                      /*Container(
                         alignment: Alignment.topCenter,
                         child: const Icon(
-                          FamilyBudgetIcons.signal,
-                          size: 20,
+                          Icons.signal_cellular_alt_rounded,
+                          size: 25,
                           color: Colors.white,
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -147,13 +148,23 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           ListTile(
             title: const TextIcon(
-              Icon(Icons.search, color: Colors.white,),
+              Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
               Text('Поиск комнаты'),
               spaceBetween: 20,
             ),
             onTap: () async {
-                await Navigator.pushReplacementNamed(context, '/room_search');
-                setState(() {});
+              await Navigator.pushNamed(context, '/room_search');
+              if ((Room.params.room_id ?? 0) == 0) {
+                await Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/room_search',
+                  (route) => false,
+                );
+              }
+              setState(() {});
             },
           ),
           const Divider(
@@ -161,13 +172,15 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           ListTile(
             title: const TextIcon(
-              Icon(Icons.login, color: Colors.white,),
+              Icon(
+                Icons.login,
+                color: Colors.white,
+              ),
               Text('Выход из аккаунта'),
               spaceBetween: 20,
             ),
             onTap: () async {
-              if ( //(User.params.user_id ?? 0) == 0 ||
-                  (await accountExitDialog(context)) == 'YES') {
+              if ((await accountExitDialog(context)) == 'YES') {
                 await User.userExit();
                 Navigator.pushReplacementNamed(context, '/login');
               }

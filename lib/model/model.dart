@@ -8,14 +8,22 @@ import 'package:http/http.dart' as http;
 part 'model.g.dart';
 
 //flutter pub run build_runner build --delete-conflicting-outputs
+//flutter build apk --release --no-tree-shake-icons
 
 @SqfEntityBuilder(familyBudgetModel)
 const familyBudgetModel = SqfEntityModel(
     modelName: 'FamilyBudget',
     databaseName: 'FamilyBudget.db',
-    databaseTables: [tableUserParams, tableCategory, tableOperation, tableSettings, tableChat, tableRoomMembers, tableRoomParams],
-    bundledDatabasePath: null
-);
+    databaseTables: [
+      tableUserParams,
+      tableCategory,
+      tableOperation,
+      tableSettings,
+      tableChat,
+      tableRoomMembers,
+      tableRoomParams
+    ],
+    bundledDatabasePath: null);
 
 const tableUserParams = SqfEntityTable(
   tableName: 'userParams',
@@ -29,7 +37,7 @@ const tableUserParams = SqfEntityTable(
     SqfEntityField('mail', DbType.text),
     SqfEntityField('auth_code', DbType.text),
     SqfEntityField('avatar', DbType.blob, isNotNull: false),
-    SqfEntityField('color', DbType.integer, isNotNull: false),
+    SqfEntityField('roomId', DbType.integer, isNotNull: false),
   ],
 );
 
@@ -93,6 +101,7 @@ const tableRoomMembers = SqfEntityTable(
     SqfEntityField('user_name', DbType.text, isNotNull: false),
     SqfEntityField('user_avatar', DbType.blob, isNotNull: false),
     SqfEntityField('user_color', DbType.integer, isNotNull: false),
+    SqfEntityField('user_role', DbType.integer, isNotNull: false),
   ],
 );
 
@@ -120,4 +129,3 @@ const tableSettings = SqfEntityTable(
     SqfEntityField('date_modify', DbType.integer, isNotNull: false),
   ],
 );
-

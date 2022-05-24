@@ -67,11 +67,11 @@ class _ConfirmationCodePageState extends State<ConfirmationCodePage> {
               child: ElevatedButton(
                 onPressed: () async {
                   checkCodeAttempt++;
-                  UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(context, args.id.toString(), _codeController.text);
+                  UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(args.id.toString(), _codeController.text, context: context);
                   if (userConfirmEmailResponse?.isEmailConfirm == true){
-                      UserResponse? userResponse = await UserController.login(context, args.email ?? '', args.password ?? '');
+                      UserResponse? userResponse = await UserController.login(args.email ?? '', args.password ?? '', context: context);
                       if (userResponse != null){
-                        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                       }
                       else {
                         Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);

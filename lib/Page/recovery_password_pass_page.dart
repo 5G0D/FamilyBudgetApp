@@ -96,8 +96,8 @@ class _RecoveryPasswordPassPageState extends State<RecoveryPasswordPassPage> {
                   onPressed: () async {
                     if (_passFormKey.currentState!.validate()) {
                       UserIdResponse? userIdResponse =
-                          await UserController.update(context, args.id,
-                              password: _passController.text);
+                          await UserController.update(args.id,
+                              password: _passController.text, context: context);
 
                       if (userIdResponse != null) {
                         SnackBarUtils.Show(context, 'Пароль успешно изменён');

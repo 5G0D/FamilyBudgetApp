@@ -2,6 +2,7 @@ import 'package:family_budget/Page/account_edit_page.dart';
 import 'package:family_budget/Page/cofirmation_code_page.dart';
 import 'package:family_budget/Page/recovery_password_code_page.dart';
 import 'package:family_budget/Page/recovery_password_mail_page.dart';
+import 'package:family_budget/Page/room_create_page.dart';
 import 'package:family_budget/Page/room_edit_page.dart';
 import 'package:family_budget/Page/room_page.dart';
 import 'package:family_budget/Page/room_search_page.dart';
@@ -19,6 +20,8 @@ import 'package:flutter/services.dart';
 
 import 'Page/recovery_password_pass_page.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -28,19 +31,8 @@ void main() async {
 
   if (await FamilyBudget().initializeDB()) {
     await User.update();
-    await Room.newRoomInit();
+    await Room.update();
 
-    /*Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня последняя tochno", DateTime.now().add(Duration(hours: 3)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 1, "проверка сегодня 2", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня 3", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 4", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 5", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 1, "проверка сегодня 6", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 2, "проверка сегодня 7 ", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 8", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 9", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();
-    Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, 1, 3, "проверка сегодня 10", DateTime.now().subtract(Duration(days: 0)).millisecondsSinceEpoch, 1).save();*/
-    //setPre
     runApp(const App());
   } else {
     print('Failed to initialize DB');
@@ -71,6 +63,7 @@ class _AppState extends State {
       themeMode: currentTheme.currentTheme,
       title: 'Семейный бюджет',
       initialRoute: '/home',
+      navigatorKey: navigatorKey,
       routes: {
         '/home': (context) => const HomePage(),
         '/chat': (context) => const ChatPage(),
@@ -84,6 +77,7 @@ class _AppState extends State {
         '/room': (context) => const RoomPage(),
         '/room/edit': (context) => const RoomEditPage(),
         '/room_search': (context) => const RoomSearchPage(),
+        '/room_search/create': (context) => const RoomCreatePage(),
       },
     );
   }
