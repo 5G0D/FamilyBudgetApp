@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:family_budget/Extansions/snack_bar_utils.dart';
 import 'package:family_budget/Page/Arguments/confirmation_code_arguments.dart';
 import 'package:family_budget/Server/Controller/user_controller.dart';
 import 'package:family_budget/Server/Response/user_id_response.dart';
@@ -141,6 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     if (_regFormKey.currentState!.validate()) {
                       UserIdResponse? userIdResp = await UserController.register(_userName.text, _mail.text, _pass.text, context: context);
                       if (userIdResp != null){
+                        SnackBarUtils.Show(context, 'Код подтверждения отправлен на почту');
                         Navigator.pushNamed(context, '/registration/confirmation_code', arguments: ConfirmationCodeArguments(id: userIdResp.id, email: _mail.text, password: _pass.text));
                       }
                     }

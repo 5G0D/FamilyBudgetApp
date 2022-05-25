@@ -2,6 +2,8 @@ import 'package:family_budget/Extansions/snack_bar_utils.dart';
 import 'package:family_budget/Page/Arguments/confirmation_code_arguments.dart';
 import 'package:family_budget/Server/Controller/user_controller.dart';
 import 'package:family_budget/Server/Response/user_id_response.dart';
+import 'package:family_budget/Server/Response/user_response.dart';
+import 'package:family_budget/user.dart';
 import 'package:flutter/material.dart';
 
 class RecoveryPasswordPassPage extends StatefulWidget {
@@ -101,8 +103,25 @@ class _RecoveryPasswordPassPageState extends State<RecoveryPasswordPassPage> {
 
                       if (userIdResponse != null) {
                         SnackBarUtils.Show(context, 'Пароль успешно изменён');
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/login', (route) => false);
+
+                        UserResponse? userResponse = await UserController.login(
+                            args.email!, _passController.text,
+                            context: context);
+
+                        if (userResponse != null) {
+                          await User.userLogin(userResponse);
+
+                          if (userResponse.roomId == null) {
+                            Navigator.pushReplacementNamed(
+                                context, '/room_search');
+                          } else {
+                            // Room
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
+                        } else {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/login', (route) => false);
+                        }
                       }
                     }
                   },

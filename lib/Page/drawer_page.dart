@@ -193,4 +193,10 @@ class _DrawerPageState extends State<DrawerPage> {
       ),
     );
   }
+
+  @override
+  void initState(){
+    super.initState();
+    Room.serverUpdate(sample: true);
+  }
 }

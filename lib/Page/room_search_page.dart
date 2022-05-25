@@ -33,17 +33,17 @@ class _RoomSearchPageState extends State<RoomSearchPage> {
           Container(
             height: 80,
             padding:
-                const EdgeInsets.only(left: 6, right: 6, bottom: 20, top: 10),
+                const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
             child: Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xff363645),
-                      borderRadius: BorderRadius.circular(25),
+                      color: const Color(0xff303040),
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withOpacity(0.3),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         )
@@ -87,7 +87,7 @@ class _RoomSearchPageState extends State<RoomSearchPage> {
                       width: 48,
                       height: 48,
                       padding: const EdgeInsets.only(left: 2),
-                      color: const Color(0xff5537a1).withOpacity(0.8),
+                      //color: const Color(0xff5537a1).withOpacity(0),
                       child: const Icon(
                         Icons.search,
                         size: 25,
@@ -98,11 +98,12 @@ class _RoomSearchPageState extends State<RoomSearchPage> {
               ],
             ),
           ),
-          Expanded(
-            child: (_roomResponse == null)
-                ? const Center(
+          Expanded( child:
+            ListView(
+            children: [(_roomResponse == null)
+                ? Container(padding: const EdgeInsets.symmetric(vertical: 40), child: const Center(
                     child: Text('Необходимо создать или вступить в комнату'),
-                  )
+                  ),)
                 : ListTile(
                     title: Card(
                       elevation: 4,
@@ -175,15 +176,20 @@ class _RoomSearchPageState extends State<RoomSearchPage> {
                       ),
                     ),
                   ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            height: 60,
-            child: ElevatedButton(
-              child: const Text('Создать комнату'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/room_search/create');
-              },
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                height: 60,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff5537a1)),
+                  ),
+                  child: const Text('Создать комнату',style: TextStyle(fontSize: 16),),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/room_search/create');
+                  },
+                ),
+              ),
+            ],
             ),
           ),
         ],

@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _update() async {
     _updating = true;
+    await Room.serverUpdate(sample: true);
     await c.Category.serverUpdateAll();
     _updating = false;
   }

@@ -70,63 +70,68 @@ class ChatMessage extends StatelessWidget {
       builder: (builder, AsyncSnapshot<RoomMember> snapshot) {
         if (snapshot.hasData) {
           RoomMember member = snapshot.data!;
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: ClipOval(
-                  child: Image.memory(
-                    member.user_avatar!,
-                    width: 35,
-                    height: 35,
-                    fit: BoxFit.cover,
+          if (member.id == null) {
+            return SizedBox.shrink();
+          }
+          else {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: ClipOval(
+                    child: Image.memory(
+                      member.user_avatar!,
+                      width: 35,
+                      height: 35,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Card(
-                elevation: 8,
-                color: const Color(0xff303040),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(maxWidth: maxWidth),
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            member.user_name!,
-                            style: TextStyle(
-                                fontSize: 12, color: Color(member.user_color!)),
-                          ),
-                          Text(
-                            message.message ?? '',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 4, right: 4),
-                      child: Text(
-                        DateFormat('HH:mm').format(
-                          DateTime.fromMillisecondsSinceEpoch(message.date!),
-                        ),
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey.shade600,
+                Card(
+                  elevation: 8,
+                  color: const Color(0xff303040),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              member.user_name!,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(member.user_color!)),
+                            ),
+                            Text(
+                              message.message ?? '',
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 4, right: 4),
+                        child: Text(
+                          DateFormat('HH:mm').format(
+                            DateTime.fromMillisecondsSinceEpoch(message.date!),
+                          ),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
         }
-
         return const SizedBox.shrink();
       },
     );

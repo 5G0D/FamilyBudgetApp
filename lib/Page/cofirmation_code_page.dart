@@ -69,13 +69,16 @@ class _ConfirmationCodePageState extends State<ConfirmationCodePage> {
                   checkCodeAttempt++;
                   UserConfirmEmailResponse? userConfirmEmailResponse = await UserController.confirmEmail(args.id.toString(), _codeController.text, context: context);
                   if (userConfirmEmailResponse?.isEmailConfirm == true){
-                      UserResponse? userResponse = await UserController.login(args.email ?? '', args.password ?? '', context: context);
-                      if (userResponse != null){
-                        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+                    UserResponse? userResponse = await UserController.login(args.email!, args.password!, context: context);
+                    if (userResponse != null) {
+                      await User.userLogin(userResponse);
+                      if (userResponse.roomId == null){
+                        Navigator.pushReplacementNamed(context, '/room_search');
                       }
                       else {
-                        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                        Navigator.pushReplacementNamed(context, '/home');
                       }
+                    }
                   } else if (checkCodeAttempt > 2) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

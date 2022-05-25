@@ -1,3 +1,4 @@
+import 'package:family_budget/Server/chat_socket.dart';
 import 'package:family_budget/Widget/chat_message.dart';
 import 'package:family_budget/Widget/chat_message_sender.dart';
 import 'package:family_budget/room.dart';
@@ -6,6 +7,7 @@ import 'package:family_budget/extansions/chat_utils.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:family_budget/extansions/date_format_utils.dart';
+import 'package:signalr_netcore/hub_connection.dart';
 
 import '../model/model.dart';
 import '../user.dart';
@@ -20,7 +22,9 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  void refresh(){
+  ChatSocket? chatSocket;
+
+  void refresh() {
     setState(() {});
   }
 
@@ -93,8 +97,58 @@ class _ConversationPageState extends State<ConversationPage> {
             },
           ),
         ),
-        ChatMessageSender(roomId: widget.roomId, refresh: refresh,),
+        ChatMessageSender(
+          roomId: widget.roomId,
+          sendMessage: sendMessage,
+          refresh: refresh,
+        ),
       ],
     );
+  }
+
+  Future<void> onJoinChat(dynamic data) async {
+    await Chat().select().delete();
+    List<dynamic> messages = data.first;
+    for (var m in messages) {
+      await Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, widget.roomId,
+              m['userId'], m['text'], m['date'], 1)
+          .save();
+    }
+    setState(() {});
+  }
+
+  void sendMessage(String text) {
+    chatSocket?.send(text);
+  }
+
+  Future<void> onReceiveMessage(dynamic data) async {
+    Room.serverUpdate(sample: true);
+    List<dynamic> messages = data;
+    for (var m in messages) {
+      if ((await Chat().select().user_id.equals(m['userId']).and.message.equals(m['text']).and.date.equals(m['date']).toList()).isEmpty){
+        await Chat.withFields(1, DateTime.now().millisecondsSinceEpoch, widget.roomId,
+            m['userId'], m['text'], m['date'], 1)
+            .save();
+        setState(() {});
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    Room.serverUpdate(sample: true);
+    chatSocket = ChatSocket(
+        userId: User.params.user_id!,
+        roomId: widget.roomId,
+        handleJoin: onJoinChat,
+        handleSend: onReceiveMessage);
+    chatSocket?.openConnection();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    chatSocket?.closeConnection();
+    super.dispose();
   }
 }

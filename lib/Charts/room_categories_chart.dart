@@ -1,3 +1,4 @@
+import 'package:family_budget/Charts/custom_legend_builder.dart';
 import 'package:family_budget/category_chart_item.dart';
 import 'package:family_budget/currency_controller.dart';
 import 'package:family_budget/model/model.dart';
@@ -110,14 +111,11 @@ class _RoomCategoriesChartState extends State<RoomCategoriesChart> {
                           ),
                         ),
                         behaviors: [
-                          charts.SeriesLegend(
-                            position: charts.BehaviorPosition.bottom,
+                          charts.SeriesLegend.customLayout(
+                            CustomLegendBuilder(),
                             outsideJustification:
-                                charts.OutsideJustification.startDrawArea,
-                            horizontalFirst: true,
-                            desiredMaxRows: 3,
-                            cellPadding: const EdgeInsets.only(
-                                right: 8, bottom: 8, top: 8),
+                            charts.OutsideJustification.startDrawArea,
+                            position: charts.BehaviorPosition.bottom,
                             entryTextStyle: const charts.TextStyleSpec(
                                 color: charts.Color.white, fontSize: 15),
                           ),
@@ -179,7 +177,7 @@ class _RoomCategoriesChartState extends State<RoomCategoriesChart> {
       list.add(
         charts.Series<CategoryChartItem, String>(
           id: m.user_id!.toString(),
-          displayName: m.user_name,
+          displayName: (m.user_name! + "asdasdasd"),
           colorFn: (_, __) =>
               charts.Color.fromHex(code: (Color(m.user_color!).toHex())),
           domainFn: (CategoryChartItem item, _) => item.categoryName,

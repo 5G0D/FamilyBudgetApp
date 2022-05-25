@@ -34,7 +34,7 @@ class Room {
     serverUpdate();
   }
 
-  static serverUpdate() async{
+  static serverUpdate({bool sample = false}) async{
     if (_roomParams.room_id != null){
       RoomResponse? roomResponse = await RoomController.getRoom(_roomParams.room_id!);
       if (roomResponse != null) {
@@ -56,7 +56,9 @@ class Room {
 
           for (var u in roomResponse.users){
             await m.RoomMember.withFields(1, DateTime.now().millisecondsSinceEpoch, roomResponse.id, u.id, u.name, base64Decode(u.photo), int.parse(u.userColor), u.role).save();
-            await c.Category.serverUpdate(u.id);
+            if (!sample){
+              await c.Category.serverUpdate(u.id);
+            }
           }
         }
       }

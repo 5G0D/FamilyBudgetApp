@@ -5,11 +5,12 @@ import '../user.dart';
 
 class ChatMessageSender extends StatefulWidget {
   const ChatMessageSender(
-      {required this.roomId, required this.refresh, Key? key})
+      {required this.roomId, required this.sendMessage, required this.refresh, Key? key})
       : super(key: key);
 
   final int roomId;
   final Function refresh;
+  final Function(String) sendMessage;
 
   @override
   _ChatMessageSenderState createState() => _ChatMessageSenderState();
@@ -62,6 +63,7 @@ class _ChatMessageSenderState extends State<ChatMessageSender> {
             child: InkWell(
               onTap: () async {
                 if (_messageController.text.isNotEmpty) {
+                  widget.sendMessage(_messageController.text);
                   await Chat.withFields(
                           1,
                           DateTime.now().millisecondsSinceEpoch,
@@ -69,7 +71,7 @@ class _ChatMessageSenderState extends State<ChatMessageSender> {
                           User.params.user_id,
                           _messageController.text,
                           DateTime.now().millisecondsSinceEpoch,
-                          2)
+                          1)
                       .save();
                 }
 

@@ -1,4 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:family_budget/Charts/custom_legend_builder.dart';
 import 'package:family_budget/Extansions/hex_color.dart';
 import 'package:family_budget/Extansions/operation_plus.dart';
 import 'package:family_budget/currency_controller.dart';
@@ -83,14 +84,11 @@ class _MonthlyChartState extends State<MonthlyChart> {
                         animationDuration: const Duration(milliseconds: 300),
                         defaultInteractions: false,
                         behaviors: [
-                          charts.SeriesLegend(
+                          charts.SeriesLegend.customLayout(
+                            CustomLegendBuilder(),
                             position: charts.BehaviorPosition.bottom,
                             outsideJustification:
                                 charts.OutsideJustification.startDrawArea,
-                            horizontalFirst: true,
-                            desiredMaxRows: 3,
-                            cellPadding: const EdgeInsets.only(
-                                right: 8, bottom: 8, top: 8),
                             entryTextStyle: const charts.TextStyleSpec(
                                 color: charts.Color.white, fontSize: 15),
                           ),
