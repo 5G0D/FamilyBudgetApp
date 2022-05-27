@@ -97,14 +97,17 @@ class CategoriesChart extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        members.first.user_name!,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color(members.first.user_color!),
-                            fontWeight: FontWeight.bold),
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
+                      SizedBox(
+                        child: Text(
+                          members.first.user_name!,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Color(members.first.user_color!),
+                              fontWeight: FontWeight.bold),
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.4,
                       ),
                       if (members.first.user_id! == User.params.user_id!)
                         const Padding(

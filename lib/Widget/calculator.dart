@@ -500,10 +500,10 @@ class _CalculatorState extends State<Calculator> {
                         ),
                         color: Colors.green[600]!.withAlpha(210),
                         onPressed: () async {
-                          if (double.parse(formatText(_calculateText)) < 0) {
+                          if (double.parse(formatText(_calculateText)) <= 0) {
                             errorDialog(
                               context,
-                              'Результат не может быть меньше нуля',
+                              'Результат должен быть больше 0',
                             );
                           } else {
                             OperationResponse? operationResponse =

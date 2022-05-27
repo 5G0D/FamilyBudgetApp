@@ -20,7 +20,7 @@ class _OperationsState extends State<Operations> {
     return Operation()
         .select()
         .user_id
-        .equals(User.params.user_id)
+        .equals(widget.categoryItem.userId)
         .and
         .category_id
         .equals(categoryId)
@@ -111,6 +111,7 @@ class _OperationsState extends State<Operations> {
                         itemBuilder: (context, index) {
                           final operation = operations[index];
                           return Dismissible(
+                            direction: widget.categoryItem.userId == User.params.user_id ? DismissDirection.horizontal : DismissDirection.none,
                             key: Key(operation.id!.toString()),
                             onDismissed: (direction) async {
                               if (await OperationController.delete(operation.operation_id ?? -1, context: context)){

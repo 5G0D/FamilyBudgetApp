@@ -61,7 +61,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 primary: widget.categoryItem.color.withAlpha(225),
               ),
               onPressed: () async {
-                if (await _isEnable()) {
+                if (_isEnable()) {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
@@ -78,7 +78,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 }
               },
               onLongPress: () async {
-                if (await _isEnable()) {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
@@ -90,7 +89,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     },
                     isScrollControlled: true,
                   ).whenComplete(() => widget.refresh());
-                }
               },
             ),
             const SizedBox(height: 5),

@@ -75,7 +75,7 @@ class _RoomCategoriesChartState extends State<RoomCategoriesChart> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(10),
                       child: charts.BarChart(
                         snapshot.data!,
                         defaultInteractions: false,
@@ -177,7 +177,7 @@ class _RoomCategoriesChartState extends State<RoomCategoriesChart> {
       list.add(
         charts.Series<CategoryChartItem, String>(
           id: m.user_id!.toString(),
-          displayName: (m.user_name! + "asdasdasd"),
+          displayName: (m.user_name!),
           colorFn: (_, __) =>
               charts.Color.fromHex(code: (Color(m.user_color!).toHex())),
           domainFn: (CategoryChartItem item, _) => item.categoryName,

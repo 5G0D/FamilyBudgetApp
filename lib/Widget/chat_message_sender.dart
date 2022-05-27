@@ -64,18 +64,8 @@ class _ChatMessageSenderState extends State<ChatMessageSender> {
               onTap: () async {
                 if (_messageController.text.isNotEmpty) {
                   widget.sendMessage(_messageController.text);
-                  await Chat.withFields(
-                          1,
-                          DateTime.now().millisecondsSinceEpoch,
-                          widget.roomId,
-                          User.params.user_id,
-                          _messageController.text,
-                          DateTime.now().millisecondsSinceEpoch,
-                          1)
-                      .save();
                 }
 
-                widget.refresh();
                 _messageController.text = '';
                 FocusManager.instance.primaryFocus?.unfocus();
               },
