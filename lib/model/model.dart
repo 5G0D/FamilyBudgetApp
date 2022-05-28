@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:sqfentity/sqfentity.dart';
 import 'package:sqfentity_gen/sqfentity_gen.dart';
-import 'package:http/http.dart' as http;
+
 part 'model.g.dart';
 
 //flutter pub run build_runner build --delete-conflicting-outputs
