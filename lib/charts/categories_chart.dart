@@ -96,7 +96,7 @@ class CategoriesChart extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      Container(
                         child: Text(
                           members.first.user_name!,
                           style: TextStyle(
@@ -104,9 +104,10 @@ class CategoriesChart extends StatelessWidget {
                               color: Color(members.first.user_color!),
                               fontWeight: FontWeight.bold),
                           softWrap: false,
+                          textAlign: TextAlign.center,
                           overflow: TextOverflow.fade,
                         ),
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.375),
                       ),
                       if (members.first.user_id! == User.params.user_id!)
                         const Padding(
