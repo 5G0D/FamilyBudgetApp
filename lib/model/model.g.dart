@@ -33,15 +33,14 @@ class TableUserParam extends SqfEntityTableBase {
 
     // declare fields
     fields = [
-      SqfEntityFieldBase('status', DbType.integer,
-          defaultValue: 1, isNotNull: true),
-      SqfEntityFieldBase('date_modify', DbType.integer, isNotNull: true),
-      SqfEntityFieldBase('logged', DbType.bool,
-          defaultValue: false, isNotNull: true),
-      SqfEntityFieldBase('name', DbType.text, isNotNull: true),
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('name', DbType.text),
       SqfEntityFieldBase('mail', DbType.text),
       SqfEntityFieldBase('auth_code', DbType.text),
-      SqfEntityFieldBase('avatar', DbType.blob, isNotNull: true),
+      SqfEntityFieldBase('avatar', DbType.blob),
+      SqfEntityFieldBase('roomId', DbType.integer),
     ];
     super.init();
   }
@@ -50,11 +49,179 @@ class TableUserParam extends SqfEntityTableBase {
     return _instance = _instance ?? TableUserParam();
   }
 }
+
+// Category TABLE
+class TableCategory extends SqfEntityTableBase {
+  TableCategory() {
+    // declare properties of EntityTable
+    tableName = 'category';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('category_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('text', DbType.text),
+      SqfEntityFieldBase('icon_code', DbType.integer),
+      SqfEntityFieldBase('icon_color', DbType.integer),
+      SqfEntityFieldBase('block', DbType.integer),
+      SqfEntityFieldBase('position', DbType.integer),
+      SqfEntityFieldBase('type', DbType.integer),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableCategory();
+  }
+}
+
+// Operation TABLE
+class TableOperation extends SqfEntityTableBase {
+  TableOperation() {
+    // declare properties of EntityTable
+    tableName = 'operation';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('type', DbType.integer),
+      SqfEntityFieldBase('operation_id', DbType.integer),
+      SqfEntityFieldBase('category_id', DbType.integer),
+      SqfEntityFieldBase('date', DbType.integer),
+      SqfEntityFieldBase('description', DbType.text),
+      SqfEntityFieldBase('value', DbType.real),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableOperation();
+  }
+}
+
+// Setting TABLE
+class TableSetting extends SqfEntityTableBase {
+  TableSetting() {
+    // declare properties of EntityTable
+    tableName = 'settings';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableSetting();
+  }
+}
+
+// Chat TABLE
+class TableChat extends SqfEntityTableBase {
+  TableChat() {
+    // declare properties of EntityTable
+    tableName = 'chat';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('message', DbType.text),
+      SqfEntityFieldBase('date', DbType.integer),
+      SqfEntityFieldBase('message_status', DbType.integer, defaultValue: 2),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableChat();
+  }
+}
+
+// RoomMember TABLE
+class TableRoomMember extends SqfEntityTableBase {
+  TableRoomMember() {
+    // declare properties of EntityTable
+    tableName = 'roomMembers';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('user_id', DbType.integer),
+      SqfEntityFieldBase('user_name', DbType.text),
+      SqfEntityFieldBase('user_avatar', DbType.blob),
+      SqfEntityFieldBase('user_color', DbType.integer),
+      SqfEntityFieldBase('user_role', DbType.integer),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableRoomMember();
+  }
+}
+
+// RoomParam TABLE
+class TableRoomParam extends SqfEntityTableBase {
+  TableRoomParam() {
+    // declare properties of EntityTable
+    tableName = 'roomParams';
+    primaryKeyName = 'id';
+    primaryKeyType = PrimaryKeyType.integer_auto_incremental;
+    useSoftDeleting = false;
+    // when useSoftDeleting is true, creates a field named 'isDeleted' on the table, and set to '1' this field when item deleted (does not hard delete)
+
+    // declare fields
+    fields = [
+      SqfEntityFieldBase('status', DbType.integer, defaultValue: 1),
+      SqfEntityFieldBase('date_modify', DbType.integer),
+      SqfEntityFieldBase('room_id', DbType.integer),
+      SqfEntityFieldBase('name', DbType.text),
+      SqfEntityFieldBase('avatar', DbType.blob),
+      SqfEntityFieldBase('invite_code', DbType.text),
+    ];
+    super.init();
+  }
+  static SqfEntityTableBase? _instance;
+  static SqfEntityTableBase get getInstance {
+    return _instance = _instance ?? TableRoomParam();
+  }
+}
 // END TABLES
 
 // BEGIN DATABASE MODEL
-class FamilyBudgetModel extends SqfEntityModelProvider {
-  FamilyBudgetModel() {
+class FamilyBudget extends SqfEntityModelProvider {
+  FamilyBudget() {
     databaseName = familyBudgetModel.databaseName;
     password = familyBudgetModel.password;
     dbVersion = familyBudgetModel.dbVersion;
@@ -62,10 +229,17 @@ class FamilyBudgetModel extends SqfEntityModelProvider {
     logFunction = familyBudgetModel.logFunction;
     databaseTables = [
       TableUserParam.getInstance,
+      TableCategory.getInstance,
+      TableOperation.getInstance,
+      TableSetting.getInstance,
+      TableChat.getInstance,
+      TableRoomMember.getInstance,
+      TableRoomParam.getInstance,
     ];
 
     bundledDatabasePath = familyBudgetModel
         .bundledDatabasePath; //'assets/sample.db'; // This value is optional. When bundledDatabasePath is empty then EntityBase creats a new database when initializing the database
+    databasePath = familyBudgetModel.databasePath;
   }
   Map<String, dynamic> getControllers() {
     final controllers = <String, dynamic>{};
@@ -82,20 +256,21 @@ class UserParam extends TableBase {
       {this.id,
       this.status,
       this.date_modify,
-      this.logged,
+      this.user_id,
       this.name,
       this.mail,
       this.auth_code,
-      this.avatar}) {
+      this.avatar,
+      this.roomId}) {
     _setDefaultValues();
     softDeleteActivated = false;
   }
-  UserParam.withFields(this.status, this.date_modify, this.logged, this.name,
-      this.mail, this.auth_code, this.avatar) {
+  UserParam.withFields(this.status, this.date_modify, this.user_id, this.name,
+      this.mail, this.auth_code, this.avatar, this.roomId) {
     _setDefaultValues();
   }
-  UserParam.withId(this.id, this.status, this.date_modify, this.logged,
-      this.name, this.mail, this.auth_code, this.avatar) {
+  UserParam.withId(this.id, this.status, this.date_modify, this.user_id,
+      this.name, this.mail, this.auth_code, this.avatar, this.roomId) {
     _setDefaultValues();
   }
   // fromMap v2.0
@@ -110,9 +285,8 @@ class UserParam extends TableBase {
     if (o['date_modify'] != null) {
       date_modify = int.tryParse(o['date_modify'].toString());
     }
-    if (o['logged'] != null) {
-      logged =
-          o['logged'].toString() == '1' || o['logged'].toString() == 'true';
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
     }
     if (o['name'] != null) {
       name = o['name'].toString();
@@ -126,16 +300,20 @@ class UserParam extends TableBase {
     if (o['avatar'] != null) {
       avatar = o['avatar'] as Uint8List;
     }
+    if (o['roomId'] != null) {
+      roomId = int.tryParse(o['roomId'].toString());
+    }
   }
   // FIELDS (UserParam)
   int? id;
   int? status;
   int? date_modify;
-  bool? logged;
+  int? user_id;
   String? name;
   String? mail;
   String? auth_code;
   Uint8List? avatar;
+  int? roomId;
 
   // end FIELDS (UserParam)
 
@@ -158,10 +336,8 @@ class UserParam extends TableBase {
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
     }
-    if (logged != null) {
-      map['logged'] = forQuery ? (logged! ? 1 : 0) : logged;
-    } else if (logged != null || !forView) {
-      map['logged'] = null;
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -174,6 +350,9 @@ class UserParam extends TableBase {
     }
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
+    }
+    if (roomId != null || !forView) {
+      map['roomId'] = roomId;
     }
 
     return map;
@@ -192,10 +371,8 @@ class UserParam extends TableBase {
     if (date_modify != null || !forView) {
       map['date_modify'] = date_modify;
     }
-    if (logged != null) {
-      map['logged'] = forQuery ? (logged! ? 1 : 0) : logged;
-    } else if (logged != null || !forView) {
-      map['logged'] = null;
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
     }
     if (name != null || !forView) {
       map['name'] = name;
@@ -208,6 +385,9 @@ class UserParam extends TableBase {
     }
     if (avatar != null || !forView) {
       map['avatar'] = avatar;
+    }
+    if (roomId != null || !forView) {
+      map['roomId'] = roomId;
     }
 
     return map;
@@ -227,12 +407,31 @@ class UserParam extends TableBase {
 
   @override
   List<dynamic> toArgs() {
-    return [status, date_modify, logged, name, mail, auth_code, avatar];
+    return [
+      status,
+      date_modify,
+      user_id,
+      name,
+      mail,
+      auth_code,
+      avatar,
+      roomId
+    ];
   }
 
   @override
   List<dynamic> toArgsWithIds() {
-    return [id, status, date_modify, logged, name, mail, auth_code, avatar];
+    return [
+      id,
+      status,
+      date_modify,
+      user_id,
+      name,
+      mail,
+      auth_code,
+      avatar,
+      roomId
+    ];
   }
 
   static Future<List<UserParam>?> fromWebUrl(Uri uri,
@@ -351,23 +550,21 @@ class UserParam extends TableBase {
     return save(ignoreBatch: ignoreBatch);
   }
 
-  void rollbackId() {
-    if (isInsert == true) {
-      id = null;
-    }
-  }
-
   /// saveAll method saves the sent List<UserParam> as a bulk in one transaction
   /// Returns a <List<BoolResult>>
-  static Future<List<dynamic>> saveAll(List<UserParam> userparams) async {
+  static Future<List<dynamic>> saveAll(List<UserParam> userparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     List<dynamic>? result = [];
     // If there is no open transaction, start one
-    final isStartedBatch = await FamilyBudgetModel().batchStart();
+    final isStartedBatch = await FamilyBudget().batchStart();
     for (final obj in userparams) {
       await obj.save(ignoreBatch: false);
     }
     if (!isStartedBatch) {
-      result = await FamilyBudgetModel().batchCommit();
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
       for (int i = 0; i < userparams.length; i++) {
         if (userparams[i].id == null) {
           userparams[i].id = result![i] as int;
@@ -383,8 +580,18 @@ class UserParam extends TableBase {
   Future<int?> upsert({bool ignoreBatch = true}) async {
     try {
       final result = await _mnUserParam.rawInsert(
-          'INSERT OR REPLACE INTO userParams (id, status, date_modify, logged, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?,?)',
-          [id, status, date_modify, logged, name, mail, auth_code, avatar],
+          'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, roomId)  VALUES (?,?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            user_id,
+            name,
+            mail,
+            auth_code,
+            avatar,
+            roomId
+          ],
           ignoreBatch);
       if (result! > 0) {
         saveResult = BoolResult(
@@ -407,10 +614,14 @@ class UserParam extends TableBase {
   /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
   /// Returns a BoolCommitResult
   @override
-  Future<BoolCommitResult> upsertAll(List<UserParam> userparams) async {
+  Future<BoolCommitResult> upsertAll(List<UserParam> userparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
     final results = await _mnUserParam.rawInsertAll(
-        'INSERT OR REPLACE INTO userParams (id, status, date_modify, logged, name, mail, auth_code, avatar)  VALUES (?,?,?,?,?,?,?,?)',
-        userparams);
+        'INSERT OR REPLACE INTO userParams (id, status, date_modify, user_id, name, mail, auth_code, avatar, roomId)  VALUES (?,?,?,?,?,?,?,?,?)',
+        userparams,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
     return results;
   }
 
@@ -455,8 +666,15 @@ class UserParam extends TableBase {
 
   void _setDefaultValues() {
     status = status ?? 1;
-    logged = logged ?? false;
   }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
   // END METHODS
   // BEGIN CUSTOM CODE
   /*
@@ -672,9 +890,9 @@ class UserParamFilterBuilder extends ConjunctionBase {
         _setField(_date_modify, 'date_modify', DbType.integer);
   }
 
-  UserParamField? _logged;
-  UserParamField get logged {
-    return _logged = _setField(_logged, 'logged', DbType.bool);
+  UserParamField? _user_id;
+  UserParamField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
   }
 
   UserParamField? _name;
@@ -695,6 +913,11 @@ class UserParamFilterBuilder extends ConjunctionBase {
   UserParamField? _avatar;
   UserParamField get avatar {
     return _avatar = _setField(_avatar, 'avatar', DbType.blob);
+  }
+
+  UserParamField? _roomId;
+  UserParamField get roomId {
+    return _roomId = _setField(_roomId, 'roomId', DbType.integer);
   }
 
   /// Deletes List<UserParam> bulk by query
@@ -933,10 +1156,10 @@ class UserParamFields {
         SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
   }
 
-  static TableField? _fLogged;
-  static TableField get logged {
-    return _fLogged =
-        _fLogged ?? SqlSyntax.setField(_fLogged, 'logged', DbType.bool);
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
   }
 
   static TableField? _fName;
@@ -960,13 +1183,19 @@ class UserParamFields {
     return _fAvatar =
         _fAvatar ?? SqlSyntax.setField(_fAvatar, 'avatar', DbType.blob);
   }
+
+  static TableField? _fRoomId;
+  static TableField get roomId {
+    return _fRoomId =
+        _fRoomId ?? SqlSyntax.setField(_fRoomId, 'roomId', DbType.integer);
+  }
 }
 // endregion UserParamFields
 
 //region UserParamManager
 class UserParamManager extends SqfEntityProvider {
   UserParamManager()
-      : super(FamilyBudgetModel(),
+      : super(FamilyBudget(),
             tableName: _tableName,
             primaryKeyList: _primaryKeyList,
             whereStr: _whereStr);
@@ -976,7 +1205,5604 @@ class UserParamManager extends SqfEntityProvider {
 }
 
 //endregion UserParamManager
-class FamilyBudgetModelSequenceManager extends SqfEntityProvider {
-  FamilyBudgetModelSequenceManager() : super(FamilyBudgetModel());
+// region Category
+class Category extends TableBase {
+  Category(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.category_id,
+      this.user_id,
+      this.text,
+      this.icon_code,
+      this.icon_color,
+      this.block,
+      this.position,
+      this.type}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  Category.withFields(
+      this.status,
+      this.date_modify,
+      this.category_id,
+      this.user_id,
+      this.text,
+      this.icon_code,
+      this.icon_color,
+      this.block,
+      this.position,
+      this.type) {
+    _setDefaultValues();
+  }
+  Category.withId(
+      this.id,
+      this.status,
+      this.date_modify,
+      this.category_id,
+      this.user_id,
+      this.text,
+      this.icon_code,
+      this.icon_color,
+      this.block,
+      this.position,
+      this.type) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  Category.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['category_id'] != null) {
+      category_id = int.tryParse(o['category_id'].toString());
+    }
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
+    }
+    if (o['text'] != null) {
+      text = o['text'].toString();
+    }
+    if (o['icon_code'] != null) {
+      icon_code = int.tryParse(o['icon_code'].toString());
+    }
+    if (o['icon_color'] != null) {
+      icon_color = int.tryParse(o['icon_color'].toString());
+    }
+    if (o['block'] != null) {
+      block = int.tryParse(o['block'].toString());
+    }
+    if (o['position'] != null) {
+      position = int.tryParse(o['position'].toString());
+    }
+    if (o['type'] != null) {
+      type = int.tryParse(o['type'].toString());
+    }
+  }
+  // FIELDS (Category)
+  int? id;
+  int? status;
+  int? date_modify;
+  int? category_id;
+  int? user_id;
+  String? text;
+  int? icon_code;
+  int? icon_color;
+  int? block;
+  int? position;
+  int? type;
+
+  // end FIELDS (Category)
+
+  static const bool _softDeleteActivated = false;
+  CategoryManager? __mnCategory;
+
+  CategoryManager get _mnCategory {
+    return __mnCategory = __mnCategory ?? CategoryManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (text != null || !forView) {
+      map['text'] = text;
+    }
+    if (icon_code != null || !forView) {
+      map['icon_code'] = icon_code;
+    }
+    if (icon_color != null || !forView) {
+      map['icon_color'] = icon_color;
+    }
+    if (block != null || !forView) {
+      map['block'] = block;
+    }
+    if (position != null || !forView) {
+      map['position'] = position;
+    }
+    if (type != null || !forView) {
+      map['type'] = type;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (text != null || !forView) {
+      map['text'] = text;
+    }
+    if (icon_code != null || !forView) {
+      map['icon_code'] = icon_code;
+    }
+    if (icon_color != null || !forView) {
+      map['icon_color'] = icon_color;
+    }
+    if (block != null || !forView) {
+      map['block'] = block;
+    }
+    if (position != null || !forView) {
+      map['position'] = position;
+    }
+    if (type != null || !forView) {
+      map['type'] = type;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [Category]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [Category]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [
+      status,
+      date_modify,
+      category_id,
+      user_id,
+      text,
+      icon_code,
+      icon_color,
+      block,
+      position,
+      type
+    ];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [
+      id,
+      status,
+      date_modify,
+      category_id,
+      user_id,
+      text,
+      icon_code,
+      icon_color,
+      block,
+      position,
+      type
+    ];
+  }
+
+  static Future<List<Category>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Category.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<Category>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <Category>[];
+    try {
+      objList = list
+          .map((category) => Category.fromMap(category as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Category.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<Category>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<Category> objList = <Category>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = Category.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns Category by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [Category] if exist, otherwise returns null
+  Future<Category?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    Category? obj;
+    final data = await _mnCategory.getById([id]);
+    if (data.length != 0) {
+      obj = Category.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (Category) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnCategory.insert(this, ignoreBatch);
+    } else {
+      await _mnCategory.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (Category) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnCategory.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnCategory.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs Category. Returns a new Primary Key value of Category
+
+  /// <returns>Returns a new Primary Key value of Category
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<Category> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<Category> categories,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in categories) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < categories.length; i++) {
+        if (categories[i].id == null) {
+          categories[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnCategory.rawInsert(
+          'INSERT OR REPLACE INTO category (id, status, date_modify, category_id, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            category_id,
+            user_id,
+            text,
+            icon_code,
+            icon_color,
+            block,
+            position,
+            type
+          ],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true,
+            successMessage: 'Category id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'Category id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'Category Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<Category>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<Category> categories,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnCategory.rawInsertAll(
+        'INSERT OR REPLACE INTO category (id, status, date_modify, category_id, user_id, text, icon_code, icon_color, block, position, type)  VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+        categories,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes Category
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete Category invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnCategory
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnCategory.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [Category] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  CategoryFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return CategoryFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  CategoryFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return CategoryFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion category
+
+// region CategoryField
+class CategoryField extends FilterBase {
+  CategoryField(CategoryFilterBuilder categoryFB) : super(categoryFB);
+
+  @override
+  CategoryFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder isNull() {
+    return super.isNull() as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as CategoryFilterBuilder;
+  }
+
+  @override
+  CategoryField get not {
+    return super.not as CategoryField;
+  }
+}
+// endregion CategoryField
+
+// region CategoryFilterBuilder
+class CategoryFilterBuilder extends ConjunctionBase {
+  CategoryFilterBuilder(Category obj, bool? getIsDeleted)
+      : super(obj, getIsDeleted) {
+    _mnCategory = obj._mnCategory;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  CategoryManager? _mnCategory;
+
+  /// put the sql keyword 'AND'
+  @override
+  CategoryFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  CategoryFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  CategoryFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  CategoryFilterBuilder where(String? whereCriteria, {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  CategoryFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  CategoryFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  CategoryFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  CategoryFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  CategoryFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  CategoryFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  CategoryFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  CategoryField _setField(CategoryField? field, String colName, DbType dbtype) {
+    return CategoryField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  CategoryField? _id;
+  CategoryField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  CategoryField? _status;
+  CategoryField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  CategoryField? _date_modify;
+  CategoryField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  CategoryField? _category_id;
+  CategoryField get category_id {
+    return _category_id =
+        _setField(_category_id, 'category_id', DbType.integer);
+  }
+
+  CategoryField? _user_id;
+  CategoryField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
+  }
+
+  CategoryField? _text;
+  CategoryField get text {
+    return _text = _setField(_text, 'text', DbType.text);
+  }
+
+  CategoryField? _icon_code;
+  CategoryField get icon_code {
+    return _icon_code = _setField(_icon_code, 'icon_code', DbType.integer);
+  }
+
+  CategoryField? _icon_color;
+  CategoryField get icon_color {
+    return _icon_color = _setField(_icon_color, 'icon_color', DbType.integer);
+  }
+
+  CategoryField? _block;
+  CategoryField get block {
+    return _block = _setField(_block, 'block', DbType.integer);
+  }
+
+  CategoryField? _position;
+  CategoryField get position {
+    return _position = _setField(_position, 'position', DbType.integer);
+  }
+
+  CategoryField? _type;
+  CategoryField get type {
+    return _type = _setField(_type, 'type', DbType.integer);
+  }
+
+  /// Deletes List<Category> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnCategory!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnCategory!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from category ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnCategory!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [Category] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Category?
+  @override
+  Future<Category?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnCategory!.toList(qparams);
+    final data = await objFuture;
+    Category? obj;
+    if (data.isNotEmpty) {
+      obj = Category.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [Category]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Category?
+  @override
+  Future<Category> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        Category();
+  }
+
+  /// This method returns int. [Category]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? categoryCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final categoriesFuture = await _mnCategory!.toList(qparams);
+    final int count = categoriesFuture[0]['CNT'] as int;
+    if (categoryCount != null) {
+      categoryCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<Category> [Category]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<Category>
+  @override
+  Future<List<Category>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<Category> categoriesData = await Category.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return categoriesData;
+  }
+
+  /// This method returns Json String [Category]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [Category]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [Category]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnCategory!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [Category]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] = 'SELECT `id` FROM category WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnCategory!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [Category]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnCategory!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await Category.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnCategory!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion CategoryFilterBuilder
+
+// region CategoryFields
+class CategoryFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fCategory_id;
+  static TableField get category_id {
+    return _fCategory_id = _fCategory_id ??
+        SqlSyntax.setField(_fCategory_id, 'category_id', DbType.integer);
+  }
+
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
+  }
+
+  static TableField? _fText;
+  static TableField get text {
+    return _fText = _fText ?? SqlSyntax.setField(_fText, 'text', DbType.text);
+  }
+
+  static TableField? _fIcon_code;
+  static TableField get icon_code {
+    return _fIcon_code = _fIcon_code ??
+        SqlSyntax.setField(_fIcon_code, 'icon_code', DbType.integer);
+  }
+
+  static TableField? _fIcon_color;
+  static TableField get icon_color {
+    return _fIcon_color = _fIcon_color ??
+        SqlSyntax.setField(_fIcon_color, 'icon_color', DbType.integer);
+  }
+
+  static TableField? _fBlock;
+  static TableField get block {
+    return _fBlock =
+        _fBlock ?? SqlSyntax.setField(_fBlock, 'block', DbType.integer);
+  }
+
+  static TableField? _fPosition;
+  static TableField get position {
+    return _fPosition = _fPosition ??
+        SqlSyntax.setField(_fPosition, 'position', DbType.integer);
+  }
+
+  static TableField? _fType;
+  static TableField get type {
+    return _fType =
+        _fType ?? SqlSyntax.setField(_fType, 'type', DbType.integer);
+  }
+}
+// endregion CategoryFields
+
+//region CategoryManager
+class CategoryManager extends SqfEntityProvider {
+  CategoryManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'category';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion CategoryManager
+// region Operation
+class Operation extends TableBase {
+  Operation(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.user_id,
+      this.type,
+      this.operation_id,
+      this.category_id,
+      this.date,
+      this.description,
+      this.value}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  Operation.withFields(
+      this.status,
+      this.date_modify,
+      this.user_id,
+      this.type,
+      this.operation_id,
+      this.category_id,
+      this.date,
+      this.description,
+      this.value) {
+    _setDefaultValues();
+  }
+  Operation.withId(
+      this.id,
+      this.status,
+      this.date_modify,
+      this.user_id,
+      this.type,
+      this.operation_id,
+      this.category_id,
+      this.date,
+      this.description,
+      this.value) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  Operation.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
+    }
+    if (o['type'] != null) {
+      type = int.tryParse(o['type'].toString());
+    }
+    if (o['operation_id'] != null) {
+      operation_id = int.tryParse(o['operation_id'].toString());
+    }
+    if (o['category_id'] != null) {
+      category_id = int.tryParse(o['category_id'].toString());
+    }
+    if (o['date'] != null) {
+      date = int.tryParse(o['date'].toString());
+    }
+    if (o['description'] != null) {
+      description = o['description'].toString();
+    }
+    if (o['value'] != null) {
+      value = double.tryParse(o['value'].toString());
+    }
+  }
+  // FIELDS (Operation)
+  int? id;
+  int? status;
+  int? date_modify;
+  int? user_id;
+  int? type;
+  int? operation_id;
+  int? category_id;
+  int? date;
+  String? description;
+  double? value;
+
+  // end FIELDS (Operation)
+
+  static const bool _softDeleteActivated = false;
+  OperationManager? __mnOperation;
+
+  OperationManager get _mnOperation {
+    return __mnOperation = __mnOperation ?? OperationManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (type != null || !forView) {
+      map['type'] = type;
+    }
+    if (operation_id != null || !forView) {
+      map['operation_id'] = operation_id;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
+    }
+    if (date != null || !forView) {
+      map['date'] = date;
+    }
+    if (description != null || !forView) {
+      map['description'] = description;
+    }
+    if (value != null || !forView) {
+      map['value'] = value;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (type != null || !forView) {
+      map['type'] = type;
+    }
+    if (operation_id != null || !forView) {
+      map['operation_id'] = operation_id;
+    }
+    if (category_id != null || !forView) {
+      map['category_id'] = category_id;
+    }
+    if (date != null || !forView) {
+      map['date'] = date;
+    }
+    if (description != null || !forView) {
+      map['description'] = description;
+    }
+    if (value != null || !forView) {
+      map['value'] = value;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [Operation]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [Operation]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [
+      status,
+      date_modify,
+      user_id,
+      type,
+      operation_id,
+      category_id,
+      date,
+      description,
+      value
+    ];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [
+      id,
+      status,
+      date_modify,
+      user_id,
+      type,
+      operation_id,
+      category_id,
+      date,
+      description,
+      value
+    ];
+  }
+
+  static Future<List<Operation>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Operation.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<Operation>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <Operation>[];
+    try {
+      objList = list
+          .map((operation) =>
+              Operation.fromMap(operation as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Operation.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<Operation>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<Operation> objList = <Operation>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = Operation.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns Operation by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [Operation] if exist, otherwise returns null
+  Future<Operation?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    Operation? obj;
+    final data = await _mnOperation.getById([id]);
+    if (data.length != 0) {
+      obj = Operation.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (Operation) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnOperation.insert(this, ignoreBatch);
+    } else {
+      await _mnOperation.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (Operation) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnOperation.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnOperation.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs Operation. Returns a new Primary Key value of Operation
+
+  /// <returns>Returns a new Primary Key value of Operation
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<Operation> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<Operation> operations,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in operations) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < operations.length; i++) {
+        if (operations[i].id == null) {
+          operations[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnOperation.rawInsert(
+          'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, operation_id, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            user_id,
+            type,
+            operation_id,
+            category_id,
+            date,
+            description,
+            value
+          ],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true,
+            successMessage: 'Operation id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'Operation id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'Operation Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<Operation>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<Operation> operations,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnOperation.rawInsertAll(
+        'INSERT OR REPLACE INTO operation (id, status, date_modify, user_id, type, operation_id, category_id, date, description, value)  VALUES (?,?,?,?,?,?,?,?,?,?)',
+        operations,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes Operation
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete Operation invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnOperation
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnOperation.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [Operation] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  OperationFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return OperationFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  OperationFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return OperationFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion operation
+
+// region OperationField
+class OperationField extends FilterBase {
+  OperationField(OperationFilterBuilder operationFB) : super(operationFB);
+
+  @override
+  OperationFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder isNull() {
+    return super.isNull() as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as OperationFilterBuilder;
+  }
+
+  @override
+  OperationField get not {
+    return super.not as OperationField;
+  }
+}
+// endregion OperationField
+
+// region OperationFilterBuilder
+class OperationFilterBuilder extends ConjunctionBase {
+  OperationFilterBuilder(Operation obj, bool? getIsDeleted)
+      : super(obj, getIsDeleted) {
+    _mnOperation = obj._mnOperation;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  OperationManager? _mnOperation;
+
+  /// put the sql keyword 'AND'
+  @override
+  OperationFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  OperationFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  OperationFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  OperationFilterBuilder where(String? whereCriteria,
+      {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  OperationFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  OperationFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  OperationFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  OperationFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  OperationFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  OperationFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  OperationFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  OperationField _setField(
+      OperationField? field, String colName, DbType dbtype) {
+    return OperationField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  OperationField? _id;
+  OperationField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  OperationField? _status;
+  OperationField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  OperationField? _date_modify;
+  OperationField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  OperationField? _user_id;
+  OperationField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
+  }
+
+  OperationField? _type;
+  OperationField get type {
+    return _type = _setField(_type, 'type', DbType.integer);
+  }
+
+  OperationField? _operation_id;
+  OperationField get operation_id {
+    return _operation_id =
+        _setField(_operation_id, 'operation_id', DbType.integer);
+  }
+
+  OperationField? _category_id;
+  OperationField get category_id {
+    return _category_id =
+        _setField(_category_id, 'category_id', DbType.integer);
+  }
+
+  OperationField? _date;
+  OperationField get date {
+    return _date = _setField(_date, 'date', DbType.integer);
+  }
+
+  OperationField? _description;
+  OperationField get description {
+    return _description = _setField(_description, 'description', DbType.text);
+  }
+
+  OperationField? _value;
+  OperationField get value {
+    return _value = _setField(_value, 'value', DbType.real);
+  }
+
+  /// Deletes List<Operation> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnOperation!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnOperation!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from operation ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnOperation!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [Operation] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Operation?
+  @override
+  Future<Operation?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnOperation!.toList(qparams);
+    final data = await objFuture;
+    Operation? obj;
+    if (data.isNotEmpty) {
+      obj = Operation.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [Operation]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Operation?
+  @override
+  Future<Operation> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        Operation();
+  }
+
+  /// This method returns int. [Operation]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? operationCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final operationsFuture = await _mnOperation!.toList(qparams);
+    final int count = operationsFuture[0]['CNT'] as int;
+    if (operationCount != null) {
+      operationCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<Operation> [Operation]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<Operation>
+  @override
+  Future<List<Operation>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<Operation> operationsData = await Operation.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return operationsData;
+  }
+
+  /// This method returns Json String [Operation]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [Operation]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [Operation]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnOperation!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [Operation]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] = 'SELECT `id` FROM operation WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnOperation!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [Operation]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnOperation!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await Operation.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnOperation!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion OperationFilterBuilder
+
+// region OperationFields
+class OperationFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
+  }
+
+  static TableField? _fType;
+  static TableField get type {
+    return _fType =
+        _fType ?? SqlSyntax.setField(_fType, 'type', DbType.integer);
+  }
+
+  static TableField? _fOperation_id;
+  static TableField get operation_id {
+    return _fOperation_id = _fOperation_id ??
+        SqlSyntax.setField(_fOperation_id, 'operation_id', DbType.integer);
+  }
+
+  static TableField? _fCategory_id;
+  static TableField get category_id {
+    return _fCategory_id = _fCategory_id ??
+        SqlSyntax.setField(_fCategory_id, 'category_id', DbType.integer);
+  }
+
+  static TableField? _fDate;
+  static TableField get date {
+    return _fDate =
+        _fDate ?? SqlSyntax.setField(_fDate, 'date', DbType.integer);
+  }
+
+  static TableField? _fDescription;
+  static TableField get description {
+    return _fDescription = _fDescription ??
+        SqlSyntax.setField(_fDescription, 'description', DbType.text);
+  }
+
+  static TableField? _fValue;
+  static TableField get value {
+    return _fValue =
+        _fValue ?? SqlSyntax.setField(_fValue, 'value', DbType.real);
+  }
+}
+// endregion OperationFields
+
+//region OperationManager
+class OperationManager extends SqfEntityProvider {
+  OperationManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'operation';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion OperationManager
+// region Setting
+class Setting extends TableBase {
+  Setting({this.id, this.status, this.date_modify}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  Setting.withFields(this.status, this.date_modify) {
+    _setDefaultValues();
+  }
+  Setting.withId(this.id, this.status, this.date_modify) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  Setting.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+  }
+  // FIELDS (Setting)
+  int? id;
+  int? status;
+  int? date_modify;
+
+  // end FIELDS (Setting)
+
+  static const bool _softDeleteActivated = false;
+  SettingManager? __mnSetting;
+
+  SettingManager get _mnSetting {
+    return __mnSetting = __mnSetting ?? SettingManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [Setting]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [Setting]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [status, date_modify];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [id, status, date_modify];
+  }
+
+  static Future<List<Setting>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Setting.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<Setting>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <Setting>[];
+    try {
+      objList = list
+          .map((setting) => Setting.fromMap(setting as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Setting.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<Setting>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<Setting> objList = <Setting>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = Setting.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns Setting by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [Setting] if exist, otherwise returns null
+  Future<Setting?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    Setting? obj;
+    final data = await _mnSetting.getById([id]);
+    if (data.length != 0) {
+      obj = Setting.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (Setting) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnSetting.insert(this, ignoreBatch);
+    } else {
+      await _mnSetting.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (Setting) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnSetting.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnSetting.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs Setting. Returns a new Primary Key value of Setting
+
+  /// <returns>Returns a new Primary Key value of Setting
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<Setting> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<Setting> settings,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in settings) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < settings.length; i++) {
+        if (settings[i].id == null) {
+          settings[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnSetting.rawInsert(
+          'INSERT OR REPLACE INTO settings (id, status, date_modify)  VALUES (?,?,?)',
+          [id, status, date_modify],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true,
+            successMessage: 'Setting id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'Setting id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'Setting Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<Setting>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<Setting> settings,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnSetting.rawInsertAll(
+        'INSERT OR REPLACE INTO settings (id, status, date_modify)  VALUES (?,?,?)',
+        settings,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes Setting
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete Setting invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnSetting
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnSetting.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [Setting] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  SettingFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return SettingFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  SettingFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return SettingFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion setting
+
+// region SettingField
+class SettingField extends FilterBase {
+  SettingField(SettingFilterBuilder settingFB) : super(settingFB);
+
+  @override
+  SettingFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder isNull() {
+    return super.isNull() as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as SettingFilterBuilder;
+  }
+
+  @override
+  SettingField get not {
+    return super.not as SettingField;
+  }
+}
+// endregion SettingField
+
+// region SettingFilterBuilder
+class SettingFilterBuilder extends ConjunctionBase {
+  SettingFilterBuilder(Setting obj, bool? getIsDeleted)
+      : super(obj, getIsDeleted) {
+    _mnSetting = obj._mnSetting;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  SettingManager? _mnSetting;
+
+  /// put the sql keyword 'AND'
+  @override
+  SettingFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  SettingFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  SettingFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  SettingFilterBuilder where(String? whereCriteria, {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  SettingFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  SettingFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  SettingFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  SettingFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  SettingFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  SettingFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  SettingFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  SettingField _setField(SettingField? field, String colName, DbType dbtype) {
+    return SettingField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  SettingField? _id;
+  SettingField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  SettingField? _status;
+  SettingField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  SettingField? _date_modify;
+  SettingField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  /// Deletes List<Setting> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnSetting!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnSetting!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from settings ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnSetting!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [Setting] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Setting?
+  @override
+  Future<Setting?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnSetting!.toList(qparams);
+    final data = await objFuture;
+    Setting? obj;
+    if (data.isNotEmpty) {
+      obj = Setting.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [Setting]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Setting?
+  @override
+  Future<Setting> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        Setting();
+  }
+
+  /// This method returns int. [Setting]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? settingCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final settingsFuture = await _mnSetting!.toList(qparams);
+    final int count = settingsFuture[0]['CNT'] as int;
+    if (settingCount != null) {
+      settingCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<Setting> [Setting]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<Setting>
+  @override
+  Future<List<Setting>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<Setting> settingsData = await Setting.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return settingsData;
+  }
+
+  /// This method returns Json String [Setting]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [Setting]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [Setting]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnSetting!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [Setting]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] = 'SELECT `id` FROM settings WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnSetting!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [Setting]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnSetting!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await Setting.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnSetting!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion SettingFilterBuilder
+
+// region SettingFields
+class SettingFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+}
+// endregion SettingFields
+
+//region SettingManager
+class SettingManager extends SqfEntityProvider {
+  SettingManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'settings';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion SettingManager
+// region Chat
+class Chat extends TableBase {
+  Chat(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.message,
+      this.date,
+      this.message_status}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  Chat.withFields(this.status, this.date_modify, this.room_id, this.user_id,
+      this.message, this.date, this.message_status) {
+    _setDefaultValues();
+  }
+  Chat.withId(this.id, this.status, this.date_modify, this.room_id,
+      this.user_id, this.message, this.date, this.message_status) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  Chat.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
+    }
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
+    }
+    if (o['message'] != null) {
+      message = o['message'].toString();
+    }
+    if (o['date'] != null) {
+      date = int.tryParse(o['date'].toString());
+    }
+    if (o['message_status'] != null) {
+      message_status = int.tryParse(o['message_status'].toString());
+    }
+  }
+  // FIELDS (Chat)
+  int? id;
+  int? status;
+  int? date_modify;
+  int? room_id;
+  int? user_id;
+  String? message;
+  int? date;
+  int? message_status;
+
+  // end FIELDS (Chat)
+
+  static const bool _softDeleteActivated = false;
+  ChatManager? __mnChat;
+
+  ChatManager get _mnChat {
+    return __mnChat = __mnChat ?? ChatManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (message != null || !forView) {
+      map['message'] = message;
+    }
+    if (date != null || !forView) {
+      map['date'] = date;
+    }
+    if (message_status != null || !forView) {
+      map['message_status'] = message_status;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (message != null || !forView) {
+      map['message'] = message;
+    }
+    if (date != null || !forView) {
+      map['date'] = date;
+    }
+    if (message_status != null || !forView) {
+      map['message_status'] = message_status;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [Chat]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [Chat]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      message,
+      date,
+      message_status
+    ];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [
+      id,
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      message,
+      date,
+      message_status
+    ];
+  }
+
+  static Future<List<Chat>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Chat.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<Chat>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <Chat>[];
+    try {
+      objList = list
+          .map((chat) => Chat.fromMap(chat as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR Chat.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<Chat>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<Chat> objList = <Chat>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = Chat.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns Chat by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [Chat] if exist, otherwise returns null
+  Future<Chat?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    Chat? obj;
+    final data = await _mnChat.getById([id]);
+    if (data.length != 0) {
+      obj = Chat.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (Chat) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnChat.insert(this, ignoreBatch);
+    } else {
+      await _mnChat.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (Chat) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnChat.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnChat.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs Chat. Returns a new Primary Key value of Chat
+
+  /// <returns>Returns a new Primary Key value of Chat
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<Chat> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<Chat> chats,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in chats) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < chats.length; i++) {
+        if (chats[i].id == null) {
+          chats[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnChat.rawInsert(
+          'INSERT OR REPLACE INTO chat (id, status, date_modify, room_id, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            room_id,
+            user_id,
+            message,
+            date,
+            message_status
+          ],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true, successMessage: 'Chat id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'Chat id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'Chat Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<Chat>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<Chat> chats,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnChat.rawInsertAll(
+        'INSERT OR REPLACE INTO chat (id, status, date_modify, room_id, user_id, message, date, message_status)  VALUES (?,?,?,?,?,?,?,?)',
+        chats,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes Chat
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete Chat invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnChat
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnChat.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [Chat] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  ChatFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return ChatFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  ChatFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return ChatFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+    message_status = message_status ?? 2;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion chat
+
+// region ChatField
+class ChatField extends FilterBase {
+  ChatField(ChatFilterBuilder chatFB) : super(chatFB);
+
+  @override
+  ChatFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder isNull() {
+    return super.isNull() as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as ChatFilterBuilder;
+  }
+
+  @override
+  ChatField get not {
+    return super.not as ChatField;
+  }
+}
+// endregion ChatField
+
+// region ChatFilterBuilder
+class ChatFilterBuilder extends ConjunctionBase {
+  ChatFilterBuilder(Chat obj, bool? getIsDeleted) : super(obj, getIsDeleted) {
+    _mnChat = obj._mnChat;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  ChatManager? _mnChat;
+
+  /// put the sql keyword 'AND'
+  @override
+  ChatFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  ChatFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  ChatFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  ChatFilterBuilder where(String? whereCriteria, {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  ChatFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  ChatFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  ChatFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  ChatFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  ChatFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  ChatFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  ChatFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  ChatField _setField(ChatField? field, String colName, DbType dbtype) {
+    return ChatField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  ChatField? _id;
+  ChatField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  ChatField? _status;
+  ChatField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  ChatField? _date_modify;
+  ChatField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  ChatField? _room_id;
+  ChatField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
+  ChatField? _user_id;
+  ChatField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
+  }
+
+  ChatField? _message;
+  ChatField get message {
+    return _message = _setField(_message, 'message', DbType.text);
+  }
+
+  ChatField? _date;
+  ChatField get date {
+    return _date = _setField(_date, 'date', DbType.integer);
+  }
+
+  ChatField? _message_status;
+  ChatField get message_status {
+    return _message_status =
+        _setField(_message_status, 'message_status', DbType.integer);
+  }
+
+  /// Deletes List<Chat> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnChat!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnChat!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from chat ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnChat!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [Chat] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Chat?
+  @override
+  Future<Chat?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnChat!.toList(qparams);
+    final data = await objFuture;
+    Chat? obj;
+    if (data.isNotEmpty) {
+      obj = Chat.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [Chat]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> Chat?
+  @override
+  Future<Chat> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        Chat();
+  }
+
+  /// This method returns int. [Chat]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? chatCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final chatsFuture = await _mnChat!.toList(qparams);
+    final int count = chatsFuture[0]['CNT'] as int;
+    if (chatCount != null) {
+      chatCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<Chat> [Chat]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<Chat>
+  @override
+  Future<List<Chat>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<Chat> chatsData = await Chat.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return chatsData;
+  }
+
+  /// This method returns Json String [Chat]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [Chat]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [Chat]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnChat!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [Chat]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] = 'SELECT `id` FROM chat WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnChat!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [Chat]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnChat!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await Chat.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnChat!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion ChatFilterBuilder
+
+// region ChatFields
+class ChatFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
+  }
+
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
+  }
+
+  static TableField? _fMessage;
+  static TableField get message {
+    return _fMessage =
+        _fMessage ?? SqlSyntax.setField(_fMessage, 'message', DbType.text);
+  }
+
+  static TableField? _fDate;
+  static TableField get date {
+    return _fDate =
+        _fDate ?? SqlSyntax.setField(_fDate, 'date', DbType.integer);
+  }
+
+  static TableField? _fMessage_status;
+  static TableField get message_status {
+    return _fMessage_status = _fMessage_status ??
+        SqlSyntax.setField(_fMessage_status, 'message_status', DbType.integer);
+  }
+}
+// endregion ChatFields
+
+//region ChatManager
+class ChatManager extends SqfEntityProvider {
+  ChatManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'chat';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion ChatManager
+// region RoomMember
+class RoomMember extends TableBase {
+  RoomMember(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.user_name,
+      this.user_avatar,
+      this.user_color,
+      this.user_role}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  RoomMember.withFields(
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.user_name,
+      this.user_avatar,
+      this.user_color,
+      this.user_role) {
+    _setDefaultValues();
+  }
+  RoomMember.withId(
+      this.id,
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.user_id,
+      this.user_name,
+      this.user_avatar,
+      this.user_color,
+      this.user_role) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  RoomMember.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
+    }
+    if (o['user_id'] != null) {
+      user_id = int.tryParse(o['user_id'].toString());
+    }
+    if (o['user_name'] != null) {
+      user_name = o['user_name'].toString();
+    }
+    if (o['user_avatar'] != null) {
+      user_avatar = o['user_avatar'] as Uint8List;
+    }
+    if (o['user_color'] != null) {
+      user_color = int.tryParse(o['user_color'].toString());
+    }
+    if (o['user_role'] != null) {
+      user_role = int.tryParse(o['user_role'].toString());
+    }
+  }
+  // FIELDS (RoomMember)
+  int? id;
+  int? status;
+  int? date_modify;
+  int? room_id;
+  int? user_id;
+  String? user_name;
+  Uint8List? user_avatar;
+  int? user_color;
+  int? user_role;
+
+  // end FIELDS (RoomMember)
+
+  static const bool _softDeleteActivated = false;
+  RoomMemberManager? __mnRoomMember;
+
+  RoomMemberManager get _mnRoomMember {
+    return __mnRoomMember = __mnRoomMember ?? RoomMemberManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (user_name != null || !forView) {
+      map['user_name'] = user_name;
+    }
+    if (user_avatar != null || !forView) {
+      map['user_avatar'] = user_avatar;
+    }
+    if (user_color != null || !forView) {
+      map['user_color'] = user_color;
+    }
+    if (user_role != null || !forView) {
+      map['user_role'] = user_role;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (user_id != null || !forView) {
+      map['user_id'] = user_id;
+    }
+    if (user_name != null || !forView) {
+      map['user_name'] = user_name;
+    }
+    if (user_avatar != null || !forView) {
+      map['user_avatar'] = user_avatar;
+    }
+    if (user_color != null || !forView) {
+      map['user_color'] = user_color;
+    }
+    if (user_role != null || !forView) {
+      map['user_role'] = user_role;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [RoomMember]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [RoomMember]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      user_name,
+      user_avatar,
+      user_color,
+      user_role
+    ];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [
+      id,
+      status,
+      date_modify,
+      room_id,
+      user_id,
+      user_name,
+      user_avatar,
+      user_color,
+      user_role
+    ];
+  }
+
+  static Future<List<RoomMember>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR RoomMember.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<RoomMember>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <RoomMember>[];
+    try {
+      objList = list
+          .map((roommember) =>
+              RoomMember.fromMap(roommember as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR RoomMember.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<RoomMember>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<RoomMember> objList = <RoomMember>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = RoomMember.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns RoomMember by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [RoomMember] if exist, otherwise returns null
+  Future<RoomMember?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    RoomMember? obj;
+    final data = await _mnRoomMember.getById([id]);
+    if (data.length != 0) {
+      obj = RoomMember.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (RoomMember) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnRoomMember.insert(this, ignoreBatch);
+    } else {
+      await _mnRoomMember.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (RoomMember) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnRoomMember.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnRoomMember.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs RoomMember. Returns a new Primary Key value of RoomMember
+
+  /// <returns>Returns a new Primary Key value of RoomMember
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<RoomMember> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<RoomMember> roommembers,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in roommembers) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < roommembers.length; i++) {
+        if (roommembers[i].id == null) {
+          roommembers[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnRoomMember.rawInsert(
+          'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color, user_role)  VALUES (?,?,?,?,?,?,?,?,?)',
+          [
+            id,
+            status,
+            date_modify,
+            room_id,
+            user_id,
+            user_name,
+            user_avatar,
+            user_color,
+            user_role
+          ],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true,
+            successMessage: 'RoomMember id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'RoomMember id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'RoomMember Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<RoomMember>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<RoomMember> roommembers,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnRoomMember.rawInsertAll(
+        'INSERT OR REPLACE INTO roomMembers (id, status, date_modify, room_id, user_id, user_name, user_avatar, user_color, user_role)  VALUES (?,?,?,?,?,?,?,?,?)',
+        roommembers,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes RoomMember
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete RoomMember invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnRoomMember
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnRoomMember.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [RoomMember] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  RoomMemberFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return RoomMemberFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  RoomMemberFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return RoomMemberFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion roommember
+
+// region RoomMemberField
+class RoomMemberField extends FilterBase {
+  RoomMemberField(RoomMemberFilterBuilder roommemberFB) : super(roommemberFB);
+
+  @override
+  RoomMemberFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder isNull() {
+    return super.isNull() as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as RoomMemberFilterBuilder;
+  }
+
+  @override
+  RoomMemberField get not {
+    return super.not as RoomMemberField;
+  }
+}
+// endregion RoomMemberField
+
+// region RoomMemberFilterBuilder
+class RoomMemberFilterBuilder extends ConjunctionBase {
+  RoomMemberFilterBuilder(RoomMember obj, bool? getIsDeleted)
+      : super(obj, getIsDeleted) {
+    _mnRoomMember = obj._mnRoomMember;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  RoomMemberManager? _mnRoomMember;
+
+  /// put the sql keyword 'AND'
+  @override
+  RoomMemberFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  RoomMemberFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  RoomMemberFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  RoomMemberFilterBuilder where(String? whereCriteria,
+      {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  RoomMemberFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  RoomMemberFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  RoomMemberFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  RoomMemberFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  RoomMemberFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  RoomMemberFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  RoomMemberFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  RoomMemberField _setField(
+      RoomMemberField? field, String colName, DbType dbtype) {
+    return RoomMemberField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  RoomMemberField? _id;
+  RoomMemberField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  RoomMemberField? _status;
+  RoomMemberField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  RoomMemberField? _date_modify;
+  RoomMemberField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  RoomMemberField? _room_id;
+  RoomMemberField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
+  RoomMemberField? _user_id;
+  RoomMemberField get user_id {
+    return _user_id = _setField(_user_id, 'user_id', DbType.integer);
+  }
+
+  RoomMemberField? _user_name;
+  RoomMemberField get user_name {
+    return _user_name = _setField(_user_name, 'user_name', DbType.text);
+  }
+
+  RoomMemberField? _user_avatar;
+  RoomMemberField get user_avatar {
+    return _user_avatar = _setField(_user_avatar, 'user_avatar', DbType.blob);
+  }
+
+  RoomMemberField? _user_color;
+  RoomMemberField get user_color {
+    return _user_color = _setField(_user_color, 'user_color', DbType.integer);
+  }
+
+  RoomMemberField? _user_role;
+  RoomMemberField get user_role {
+    return _user_role = _setField(_user_role, 'user_role', DbType.integer);
+  }
+
+  /// Deletes List<RoomMember> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnRoomMember!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnRoomMember!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from roomMembers ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnRoomMember!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [RoomMember] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> RoomMember?
+  @override
+  Future<RoomMember?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnRoomMember!.toList(qparams);
+    final data = await objFuture;
+    RoomMember? obj;
+    if (data.isNotEmpty) {
+      obj = RoomMember.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [RoomMember]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> RoomMember?
+  @override
+  Future<RoomMember> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        RoomMember();
+  }
+
+  /// This method returns int. [RoomMember]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? roommemberCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final roommembersFuture = await _mnRoomMember!.toList(qparams);
+    final int count = roommembersFuture[0]['CNT'] as int;
+    if (roommemberCount != null) {
+      roommemberCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<RoomMember> [RoomMember]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<RoomMember>
+  @override
+  Future<List<RoomMember>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<RoomMember> roommembersData = await RoomMember.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return roommembersData;
+  }
+
+  /// This method returns Json String [RoomMember]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [RoomMember]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [RoomMember]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnRoomMember!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [RoomMember]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] =
+        'SELECT `id` FROM roomMembers WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnRoomMember!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [RoomMember]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnRoomMember!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await RoomMember.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnRoomMember!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion RoomMemberFilterBuilder
+
+// region RoomMemberFields
+class RoomMemberFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
+  }
+
+  static TableField? _fUser_id;
+  static TableField get user_id {
+    return _fUser_id =
+        _fUser_id ?? SqlSyntax.setField(_fUser_id, 'user_id', DbType.integer);
+  }
+
+  static TableField? _fUser_name;
+  static TableField get user_name {
+    return _fUser_name = _fUser_name ??
+        SqlSyntax.setField(_fUser_name, 'user_name', DbType.text);
+  }
+
+  static TableField? _fUser_avatar;
+  static TableField get user_avatar {
+    return _fUser_avatar = _fUser_avatar ??
+        SqlSyntax.setField(_fUser_avatar, 'user_avatar', DbType.blob);
+  }
+
+  static TableField? _fUser_color;
+  static TableField get user_color {
+    return _fUser_color = _fUser_color ??
+        SqlSyntax.setField(_fUser_color, 'user_color', DbType.integer);
+  }
+
+  static TableField? _fUser_role;
+  static TableField get user_role {
+    return _fUser_role = _fUser_role ??
+        SqlSyntax.setField(_fUser_role, 'user_role', DbType.integer);
+  }
+}
+// endregion RoomMemberFields
+
+//region RoomMemberManager
+class RoomMemberManager extends SqfEntityProvider {
+  RoomMemberManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'roomMembers';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion RoomMemberManager
+// region RoomParam
+class RoomParam extends TableBase {
+  RoomParam(
+      {this.id,
+      this.status,
+      this.date_modify,
+      this.room_id,
+      this.name,
+      this.avatar,
+      this.invite_code}) {
+    _setDefaultValues();
+    softDeleteActivated = false;
+  }
+  RoomParam.withFields(this.status, this.date_modify, this.room_id, this.name,
+      this.avatar, this.invite_code) {
+    _setDefaultValues();
+  }
+  RoomParam.withId(this.id, this.status, this.date_modify, this.room_id,
+      this.name, this.avatar, this.invite_code) {
+    _setDefaultValues();
+  }
+  // fromMap v2.0
+  RoomParam.fromMap(Map<String, dynamic> o, {bool setDefaultValues = true}) {
+    if (setDefaultValues) {
+      _setDefaultValues();
+    }
+    id = int.tryParse(o['id'].toString());
+    if (o['status'] != null) {
+      status = int.tryParse(o['status'].toString());
+    }
+    if (o['date_modify'] != null) {
+      date_modify = int.tryParse(o['date_modify'].toString());
+    }
+    if (o['room_id'] != null) {
+      room_id = int.tryParse(o['room_id'].toString());
+    }
+    if (o['name'] != null) {
+      name = o['name'].toString();
+    }
+    if (o['avatar'] != null) {
+      avatar = o['avatar'] as Uint8List;
+    }
+    if (o['invite_code'] != null) {
+      invite_code = o['invite_code'].toString();
+    }
+  }
+  // FIELDS (RoomParam)
+  int? id;
+  int? status;
+  int? date_modify;
+  int? room_id;
+  String? name;
+  Uint8List? avatar;
+  String? invite_code;
+
+  // end FIELDS (RoomParam)
+
+  static const bool _softDeleteActivated = false;
+  RoomParamManager? __mnRoomParam;
+
+  RoomParamManager get _mnRoomParam {
+    return __mnRoomParam = __mnRoomParam ?? RoomParamManager();
+  }
+
+  // METHODS
+  @override
+  Map<String, dynamic> toMap(
+      {bool forQuery = false, bool forJson = false, bool forView = false}) {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (name != null || !forView) {
+      map['name'] = name;
+    }
+    if (avatar != null || !forView) {
+      map['avatar'] = avatar;
+    }
+    if (invite_code != null || !forView) {
+      map['invite_code'] = invite_code;
+    }
+
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> toMapWithChildren(
+      [bool forQuery = false,
+      bool forJson = false,
+      bool forView = false]) async {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    if (status != null || !forView) {
+      map['status'] = status;
+    }
+    if (date_modify != null || !forView) {
+      map['date_modify'] = date_modify;
+    }
+    if (room_id != null || !forView) {
+      map['room_id'] = room_id;
+    }
+    if (name != null || !forView) {
+      map['name'] = name;
+    }
+    if (avatar != null || !forView) {
+      map['avatar'] = avatar;
+    }
+    if (invite_code != null || !forView) {
+      map['invite_code'] = invite_code;
+    }
+
+    return map;
+  }
+
+  /// This method returns Json String [RoomParam]
+  @override
+  String toJson() {
+    return json.encode(toMap(forJson: true));
+  }
+
+  /// This method returns Json String [RoomParam]
+  @override
+  Future<String> toJsonWithChilds() async {
+    return json.encode(await toMapWithChildren(false, true));
+  }
+
+  @override
+  List<dynamic> toArgs() {
+    return [status, date_modify, room_id, name, avatar, invite_code];
+  }
+
+  @override
+  List<dynamic> toArgsWithIds() {
+    return [id, status, date_modify, room_id, name, avatar, invite_code];
+  }
+
+  static Future<List<RoomParam>?> fromWebUrl(Uri uri,
+      {Map<String, String>? headers}) async {
+    try {
+      final response = await http.get(uri, headers: headers);
+      return await fromJson(response.body);
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR RoomParam.fromWebUrl: ErrorMessage: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<http.Response> postUrl(Uri uri, {Map<String, String>? headers}) {
+    return http.post(uri, headers: headers, body: toJson());
+  }
+
+  static Future<List<RoomParam>> fromJson(String jsonBody) async {
+    final Iterable list = await json.decode(jsonBody) as Iterable;
+    var objList = <RoomParam>[];
+    try {
+      objList = list
+          .map((roomparam) =>
+              RoomParam.fromMap(roomparam as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint(
+          'SQFENTITY ERROR RoomParam.fromJson: ErrorMessage: ${e.toString()}');
+    }
+    return objList;
+  }
+
+  static Future<List<RoomParam>> fromMapList(List<dynamic> data,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields,
+      bool setDefaultValues = true}) async {
+    final List<RoomParam> objList = <RoomParam>[];
+    loadedFields = loadedFields ?? [];
+    for (final map in data) {
+      final obj = RoomParam.fromMap(map as Map<String, dynamic>,
+          setDefaultValues: setDefaultValues);
+
+      objList.add(obj);
+    }
+    return objList;
+  }
+
+  /// returns RoomParam by ID if exist, otherwise returns null
+  /// Primary Keys: int? id
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: getById(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: getById(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>returns [RoomParam] if exist, otherwise returns null
+  Future<RoomParam?> getById(int? id,
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    if (id == null) {
+      return null;
+    }
+    RoomParam? obj;
+    final data = await _mnRoomParam.getById([id]);
+    if (data.length != 0) {
+      obj = RoomParam.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// Saves the (RoomParam) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> save({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnRoomParam.insert(this, ignoreBatch);
+    } else {
+      await _mnRoomParam.update(this);
+    }
+
+    return id;
+  }
+
+  /// Saves the (RoomParam) object. If the id field is null, saves as a new record and returns new id, if id is not null then updates record
+  /// ignoreBatch = true as a default. Set ignoreBatch to false if you run more than one save() operation those are between batchStart and batchCommit
+  /// <returns>Returns id
+  @override
+  Future<int?> saveOrThrow({bool ignoreBatch = true}) async {
+    if (id == null || id == 0) {
+      id = await _mnRoomParam.insertOrThrow(this, ignoreBatch);
+
+      isInsert = true;
+    } else {
+      // id= await _upsert(); // removed in sqfentity_gen 1.3.0+6
+      await _mnRoomParam.updateOrThrow(this);
+    }
+
+    return id;
+  }
+
+  /// saveAs RoomParam. Returns a new Primary Key value of RoomParam
+
+  /// <returns>Returns a new Primary Key value of RoomParam
+  @override
+  Future<int?> saveAs({bool ignoreBatch = true}) async {
+    id = null;
+
+    return save(ignoreBatch: ignoreBatch);
+  }
+
+  /// saveAll method saves the sent List<RoomParam> as a bulk in one transaction
+  /// Returns a <List<BoolResult>>
+  static Future<List<dynamic>> saveAll(List<RoomParam> roomparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    List<dynamic>? result = [];
+    // If there is no open transaction, start one
+    final isStartedBatch = await FamilyBudget().batchStart();
+    for (final obj in roomparams) {
+      await obj.save(ignoreBatch: false);
+    }
+    if (!isStartedBatch) {
+      result = await FamilyBudget().batchCommit(
+          exclusive: exclusive,
+          noResult: noResult,
+          continueOnError: continueOnError);
+      for (int i = 0; i < roomparams.length; i++) {
+        if (roomparams[i].id == null) {
+          roomparams[i].id = result![i] as int;
+        }
+      }
+    }
+    return result!;
+  }
+
+  /// Updates if the record exists, otherwise adds a new row
+  /// <returns>Returns id
+  @override
+  Future<int?> upsert({bool ignoreBatch = true}) async {
+    try {
+      final result = await _mnRoomParam.rawInsert(
+          'INSERT OR REPLACE INTO roomParams (id, status, date_modify, room_id, name, avatar, invite_code)  VALUES (?,?,?,?,?,?,?)',
+          [id, status, date_modify, room_id, name, avatar, invite_code],
+          ignoreBatch);
+      if (result! > 0) {
+        saveResult = BoolResult(
+            success: true,
+            successMessage: 'RoomParam id=$id updated successfully');
+      } else {
+        saveResult = BoolResult(
+            success: false, errorMessage: 'RoomParam id=$id did not update');
+      }
+      return id;
+    } catch (e) {
+      saveResult = BoolResult(
+          success: false,
+          errorMessage: 'RoomParam Save failed. Error: ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// inserts or replaces the sent List<<RoomParam>> as a bulk in one transaction.
+  /// upsertAll() method is faster then saveAll() method. upsertAll() should be used when you are sure that the primary key is greater than zero
+  /// Returns a BoolCommitResult
+  @override
+  Future<BoolCommitResult> upsertAll(List<RoomParam> roomparams,
+      {bool? exclusive, bool? noResult, bool? continueOnError}) async {
+    final results = await _mnRoomParam.rawInsertAll(
+        'INSERT OR REPLACE INTO roomParams (id, status, date_modify, room_id, name, avatar, invite_code)  VALUES (?,?,?,?,?,?,?)',
+        roomparams,
+        exclusive: exclusive,
+        noResult: noResult,
+        continueOnError: continueOnError);
+    return results;
+  }
+
+  /// Deletes RoomParam
+
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    debugPrint('SQFENTITIY: delete RoomParam invoked (id=$id)');
+    if (!_softDeleteActivated || hardDelete) {
+      return _mnRoomParam
+          .delete(QueryParams(whereString: 'id=?', whereArguments: [id]));
+    } else {
+      return _mnRoomParam.updateBatch(
+          QueryParams(whereString: 'id=?', whereArguments: [id]),
+          {'isDeleted': 1});
+    }
+  }
+
+  @override
+  Future<BoolResult> recover([bool recoverChilds = true]) {
+    // not implemented because:
+    final msg =
+        'set useSoftDeleting:true in the table definition of [RoomParam] to use this feature';
+    throw UnimplementedError(msg);
+  }
+
+  @override
+  RoomParamFilterBuilder select(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return RoomParamFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect;
+  }
+
+  @override
+  RoomParamFilterBuilder distinct(
+      {List<String>? columnsToSelect, bool? getIsDeleted}) {
+    return RoomParamFilterBuilder(this, getIsDeleted)
+      ..qparams.selectColumns = columnsToSelect
+      ..qparams.distinct = true;
+  }
+
+  void _setDefaultValues() {
+    status = status ?? 1;
+  }
+
+  @override
+  void rollbackPk() {
+    if (isInsert == true) {
+      id = null;
+    }
+  }
+
+  // END METHODS
+  // BEGIN CUSTOM CODE
+  /*
+      you can define customCode property of your SqfEntityTable constant. For example:
+      const tablePerson = SqfEntityTable(
+      tableName: 'person',
+      primaryKeyName: 'id',
+      primaryKeyType: PrimaryKeyType.integer_auto_incremental,
+      fields: [
+        SqfEntityField('firstName', DbType.text),
+        SqfEntityField('lastName', DbType.text),
+      ],
+      customCode: '''
+       String fullName()
+       { 
+         return '$firstName $lastName';
+       }
+      ''');
+     */
+  // END CUSTOM CODE
+}
+// endregion roomparam
+
+// region RoomParamField
+class RoomParamField extends FilterBase {
+  RoomParamField(RoomParamFilterBuilder roomparamFB) : super(roomparamFB);
+
+  @override
+  RoomParamFilterBuilder equals(dynamic pValue) {
+    return super.equals(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder equalsOrNull(dynamic pValue) {
+    return super.equalsOrNull(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder isNull() {
+    return super.isNull() as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder contains(dynamic pValue) {
+    return super.contains(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder startsWith(dynamic pValue) {
+    return super.startsWith(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder endsWith(dynamic pValue) {
+    return super.endsWith(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder between(dynamic pFirst, dynamic pLast) {
+    return super.between(pFirst, pLast) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder greaterThan(dynamic pValue) {
+    return super.greaterThan(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder lessThan(dynamic pValue) {
+    return super.lessThan(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder greaterThanOrEquals(dynamic pValue) {
+    return super.greaterThanOrEquals(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder lessThanOrEquals(dynamic pValue) {
+    return super.lessThanOrEquals(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamFilterBuilder inValues(dynamic pValue) {
+    return super.inValues(pValue) as RoomParamFilterBuilder;
+  }
+
+  @override
+  RoomParamField get not {
+    return super.not as RoomParamField;
+  }
+}
+// endregion RoomParamField
+
+// region RoomParamFilterBuilder
+class RoomParamFilterBuilder extends ConjunctionBase {
+  RoomParamFilterBuilder(RoomParam obj, bool? getIsDeleted)
+      : super(obj, getIsDeleted) {
+    _mnRoomParam = obj._mnRoomParam;
+    _softDeleteActivated = obj.softDeleteActivated;
+  }
+
+  bool _softDeleteActivated = false;
+  RoomParamManager? _mnRoomParam;
+
+  /// put the sql keyword 'AND'
+  @override
+  RoomParamFilterBuilder get and {
+    super.and;
+    return this;
+  }
+
+  /// put the sql keyword 'OR'
+  @override
+  RoomParamFilterBuilder get or {
+    super.or;
+    return this;
+  }
+
+  /// open parentheses
+  @override
+  RoomParamFilterBuilder get startBlock {
+    super.startBlock;
+    return this;
+  }
+
+  /// String whereCriteria, write raw query without 'where' keyword. Like this: 'field1 like 'test%' and field2 = 3'
+  @override
+  RoomParamFilterBuilder where(String? whereCriteria,
+      {dynamic parameterValue}) {
+    super.where(whereCriteria, parameterValue: parameterValue);
+    return this;
+  }
+
+  /// page = page number,
+  /// pagesize = row(s) per page
+  @override
+  RoomParamFilterBuilder page(int page, int pagesize) {
+    super.page(page, pagesize);
+    return this;
+  }
+
+  /// int count = LIMIT
+  @override
+  RoomParamFilterBuilder top(int count) {
+    super.top(count);
+    return this;
+  }
+
+  /// close parentheses
+  @override
+  RoomParamFilterBuilder get endBlock {
+    super.endBlock;
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  RoomParamFilterBuilder orderBy(dynamic argFields) {
+    super.orderBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  RoomParamFilterBuilder orderByDesc(dynamic argFields) {
+    super.orderByDesc(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='field1, field2'
+  /// Example 2: argFields = ['field1', 'field2']
+  @override
+  RoomParamFilterBuilder groupBy(dynamic argFields) {
+    super.groupBy(argFields);
+    return this;
+  }
+
+  /// argFields might be String or List<String>.
+  /// Example 1: argFields='name, date'
+  /// Example 2: argFields = ['name', 'date']
+  @override
+  RoomParamFilterBuilder having(dynamic argFields) {
+    super.having(argFields);
+    return this;
+  }
+
+  RoomParamField _setField(
+      RoomParamField? field, String colName, DbType dbtype) {
+    return RoomParamField(this)
+      ..param = DbParameter(
+          dbType: dbtype, columnName: colName, wStartBlock: openedBlock);
+  }
+
+  RoomParamField? _id;
+  RoomParamField get id {
+    return _id = _setField(_id, 'id', DbType.integer);
+  }
+
+  RoomParamField? _status;
+  RoomParamField get status {
+    return _status = _setField(_status, 'status', DbType.integer);
+  }
+
+  RoomParamField? _date_modify;
+  RoomParamField get date_modify {
+    return _date_modify =
+        _setField(_date_modify, 'date_modify', DbType.integer);
+  }
+
+  RoomParamField? _room_id;
+  RoomParamField get room_id {
+    return _room_id = _setField(_room_id, 'room_id', DbType.integer);
+  }
+
+  RoomParamField? _name;
+  RoomParamField get name {
+    return _name = _setField(_name, 'name', DbType.text);
+  }
+
+  RoomParamField? _avatar;
+  RoomParamField get avatar {
+    return _avatar = _setField(_avatar, 'avatar', DbType.blob);
+  }
+
+  RoomParamField? _invite_code;
+  RoomParamField get invite_code {
+    return _invite_code = _setField(_invite_code, 'invite_code', DbType.text);
+  }
+
+  /// Deletes List<RoomParam> bulk by query
+  ///
+  /// <returns>BoolResult res.success= true (Deleted), false (Could not be deleted)
+  @override
+  Future<BoolResult> delete([bool hardDelete = false]) async {
+    buildParameters();
+    var r = BoolResult(success: false);
+
+    if (_softDeleteActivated && !hardDelete) {
+      r = await _mnRoomParam!.updateBatch(qparams, {'isDeleted': 1});
+    } else {
+      r = await _mnRoomParam!.delete(qparams);
+    }
+    return r;
+  }
+
+  /// using:
+  /// update({'fieldName': Value})
+  /// fieldName must be String. Value is dynamic, it can be any of the (int, bool, String.. )
+  @override
+  Future<BoolResult> update(Map<String, dynamic> values) {
+    buildParameters();
+    if (qparams.limit! > 0 || qparams.offset! > 0) {
+      qparams.whereString =
+          'id IN (SELECT id from roomParams ${qparams.whereString!.isNotEmpty ? 'WHERE ${qparams.whereString}' : ''}${qparams.limit! > 0 ? ' LIMIT ${qparams.limit}' : ''}${qparams.offset! > 0 ? ' OFFSET ${qparams.offset}' : ''})';
+    }
+    return _mnRoomParam!.updateBatch(qparams, values);
+  }
+
+  /// This method always returns [RoomParam] Obj if exist, otherwise returns null
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> RoomParam?
+  @override
+  Future<RoomParam?> toSingle(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    buildParameters(pSize: 1);
+    final objFuture = _mnRoomParam!.toList(qparams);
+    final data = await objFuture;
+    RoomParam? obj;
+    if (data.isNotEmpty) {
+      obj = RoomParam.fromMap(data[0] as Map<String, dynamic>);
+    } else {
+      obj = null;
+    }
+    return obj;
+  }
+
+  /// This method always returns [RoomParam]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toSingle(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toSingle(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns> RoomParam?
+  @override
+  Future<RoomParam> toSingleOrDefault(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    return await toSingle(
+            preload: preload,
+            preloadFields: preloadFields,
+            loadParents: loadParents,
+            loadedFields: loadedFields) ??
+        RoomParam();
+  }
+
+  /// This method returns int. [RoomParam]
+  /// <returns>int
+  @override
+  Future<int> toCount([VoidCallback Function(int c)? roomparamCount]) async {
+    buildParameters();
+    qparams.selectColumns = ['COUNT(1) AS CNT'];
+    final roomparamsFuture = await _mnRoomParam!.toList(qparams);
+    final int count = roomparamsFuture[0]['CNT'] as int;
+    if (roomparamCount != null) {
+      roomparamCount(count);
+    }
+    return count;
+  }
+
+  /// This method returns List<RoomParam> [RoomParam]
+  /// bool preload: if true, loads all related child objects (Set preload to true if you want to load all fields related to child or parent)
+  /// ex: toList(preload:true) -> Loads all related objects
+  /// List<String> preloadFields: specify the fields you want to preload (preload parameter's value should also be "true")
+  /// ex: toList(preload:true, preloadFields:['plField1','plField2'... etc])  -> Loads only certain fields what you specified
+  /// bool loadParents: if true, loads all parent objects until the object has no parent
+
+  /// <returns>List<RoomParam>
+  @override
+  Future<List<RoomParam>> toList(
+      {bool preload = false,
+      List<String>? preloadFields,
+      bool loadParents = false,
+      List<String>? loadedFields}) async {
+    final data = await toMapList();
+    final List<RoomParam> roomparamsData = await RoomParam.fromMapList(data,
+        preload: preload,
+        preloadFields: preloadFields,
+        loadParents: loadParents,
+        loadedFields: loadedFields,
+        setDefaultValues: qparams.selectColumns == null);
+    return roomparamsData;
+  }
+
+  /// This method returns Json String [RoomParam]
+  @override
+  Future<String> toJson() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(o.toMap(forJson: true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns Json String. [RoomParam]
+  @override
+  Future<String> toJsonWithChilds() async {
+    final list = <dynamic>[];
+    final data = await toList();
+    for (var o in data) {
+      list.add(await o.toMapWithChildren(false, true));
+    }
+    return json.encode(list);
+  }
+
+  /// This method returns List<dynamic>. [RoomParam]
+  /// <returns>List<dynamic>
+  @override
+  Future<List<dynamic>> toMapList() async {
+    buildParameters();
+    return await _mnRoomParam!.toList(qparams);
+  }
+
+  /// This method returns Primary Key List SQL and Parameters retVal = Map<String,dynamic>. [RoomParam]
+  /// retVal['sql'] = SQL statement string, retVal['args'] = whereArguments List<dynamic>;
+  /// <returns>List<String>
+  @override
+  Map<String, dynamic> toListPrimaryKeySQL([bool buildParams = true]) {
+    final Map<String, dynamic> _retVal = <String, dynamic>{};
+    if (buildParams) {
+      buildParameters();
+    }
+    _retVal['sql'] = 'SELECT `id` FROM roomParams WHERE ${qparams.whereString}';
+    _retVal['args'] = qparams.whereArguments;
+    return _retVal;
+  }
+
+  /// This method returns Primary Key List<int>.
+  /// <returns>List<int>
+  @override
+  Future<List<int>> toListPrimaryKey([bool buildParams = true]) async {
+    if (buildParams) {
+      buildParameters();
+    }
+    final List<int> idData = <int>[];
+    qparams.selectColumns = ['id'];
+    final idFuture = await _mnRoomParam!.toList(qparams);
+
+    final int count = idFuture.length;
+    for (int i = 0; i < count; i++) {
+      idData.add(idFuture[i]['id'] as int);
+    }
+    return idData;
+  }
+
+  /// Returns List<dynamic> for selected columns. Use this method for 'groupBy' with min,max,avg..  [RoomParam]
+  /// Sample usage: (see EXAMPLE 4.2 at https://github.com/hhtokpinar/sqfEntity#group-by)
+  @override
+  Future<List<dynamic>> toListObject() async {
+    buildParameters();
+
+    final objectFuture = _mnRoomParam!.toList(qparams);
+
+    final List<dynamic> objectsData = <dynamic>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i]);
+    }
+    return objectsData;
+  }
+
+  /// Returns List<String> for selected first column
+  /// Sample usage: await RoomParam.select(columnsToSelect: ['columnName']).toListString()
+  @override
+  Future<List<String>> toListString(
+      [VoidCallback Function(List<String> o)? listString]) async {
+    buildParameters();
+
+    final objectFuture = _mnRoomParam!.toList(qparams);
+
+    final List<String> objectsData = <String>[];
+    final data = await objectFuture;
+    final int count = data.length;
+    for (int i = 0; i < count; i++) {
+      objectsData.add(data[i][qparams.selectColumns![0]].toString());
+    }
+    if (listString != null) {
+      listString(objectsData);
+    }
+    return objectsData;
+  }
+}
+// endregion RoomParamFilterBuilder
+
+// region RoomParamFields
+class RoomParamFields {
+  static TableField? _fId;
+  static TableField get id {
+    return _fId = _fId ?? SqlSyntax.setField(_fId, 'id', DbType.integer);
+  }
+
+  static TableField? _fStatus;
+  static TableField get status {
+    return _fStatus =
+        _fStatus ?? SqlSyntax.setField(_fStatus, 'status', DbType.integer);
+  }
+
+  static TableField? _fDate_modify;
+  static TableField get date_modify {
+    return _fDate_modify = _fDate_modify ??
+        SqlSyntax.setField(_fDate_modify, 'date_modify', DbType.integer);
+  }
+
+  static TableField? _fRoom_id;
+  static TableField get room_id {
+    return _fRoom_id =
+        _fRoom_id ?? SqlSyntax.setField(_fRoom_id, 'room_id', DbType.integer);
+  }
+
+  static TableField? _fName;
+  static TableField get name {
+    return _fName = _fName ?? SqlSyntax.setField(_fName, 'name', DbType.text);
+  }
+
+  static TableField? _fAvatar;
+  static TableField get avatar {
+    return _fAvatar =
+        _fAvatar ?? SqlSyntax.setField(_fAvatar, 'avatar', DbType.blob);
+  }
+
+  static TableField? _fInvite_code;
+  static TableField get invite_code {
+    return _fInvite_code = _fInvite_code ??
+        SqlSyntax.setField(_fInvite_code, 'invite_code', DbType.text);
+  }
+}
+// endregion RoomParamFields
+
+//region RoomParamManager
+class RoomParamManager extends SqfEntityProvider {
+  RoomParamManager()
+      : super(FamilyBudget(),
+            tableName: _tableName,
+            primaryKeyList: _primaryKeyList,
+            whereStr: _whereStr);
+  static const String _tableName = 'roomParams';
+  static const List<String> _primaryKeyList = ['id'];
+  static const String _whereStr = 'id=?';
+}
+
+//endregion RoomParamManager
+class FamilyBudgetSequenceManager extends SqfEntityProvider {
+  FamilyBudgetSequenceManager() : super(FamilyBudget());
 }
 // END OF ENTITIES
